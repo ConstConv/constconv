@@ -1,112 +1,94 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TXNFJLZZ');</script>
-<!-- End Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TXNFJLZZ');</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+      emailjs.init('3Aaing7IC5U8ZAIuQ'); // Sua chave foi mantida
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript"
-  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <title>ConstConv | Transformamos Cliques em Clientes</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-<script type="text/javascript">
-  emailjs.init('3Aaing7IC5U8ZAIuQ')
-</script>
-    <title>Consultoria Especializada em Conversões - Google Ads & Analytics</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
     <style>
-        /* Reset e Estilos Globais */
+        /* --- Reset e Variáveis de Cor --- */
         :root {
-            --cor-primaria: #0A2463;
-            /* Azul escuro corporativo */
-            --cor-secundaria: #3E92CC;
-            /* Azul mais claro */
-            --cor-destaque: #FFCA3A;
-            /* Amarelo para destaque/CTA */
-            --cor-texto: #333;
-            --cor-texto-claro: #f8f9fa;
-            --cor-fundo: #FFFFFF;
-            --cor-fundo-secao: #f8f9fa;
-            --sombra-padrao: 0 4px 15px rgba(0, 0, 0, 0.1);
-            --sombra-profunda: 0 8px 25px rgba(0, 0, 0, 0.15);
+            --preto-principal: #101010;
+            --branco-fundo: #FFFFFF;
+            --amarelo-dourado: #FFC700;
+            --roxo-moderno: #7C3AED;
+            --cinza-texto: #A1A1AA;
+            --cinza-borda: #27272A;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', 'Arial', sans-serif;
-            /* Poppins é uma boa fonte corporativa, mas depende do sistema do usuário se não for importada */
             scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Poppins', Arial, sans-serif;
-            color: var(--cor-texto);
-            background-color: var(--cor-fundo);
-            line-height: 1.6;
+            background-color: var(--preto-principal);
+            font-family: 'Inter', sans-serif;
+            color: var(--branco-fundo);
             overflow-x: hidden;
-            /* Evitar scroll horizontal indesejado */
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 2rem;
         }
 
-        h1,
-        h2,
-        h3 {
-            color: var(--cor-primaria);
-            margin-bottom: 1rem;
+        /* --- Animações --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        p {
-            margin-bottom: 1rem;
-            color: #555;
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes animated-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        a {
-            text-decoration: none;
-            color: var(--cor-secundaria);
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* Efeito de Fade-in para seções */
         .fade-in-section {
             opacity: 0;
-            transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
         .fade-in-section.is-visible {
             opacity: 1;
-            transform: translateY(0);
         }
 
-
-        /* Barra de Navegação */
+        /* --- Barra de Navegação --- */
         .navbar {
-            background-color: var(--cor-primaria);
-            color: var(--cor-texto-claro);
-            padding: 1rem 0;
             position: fixed;
-            width: 100%;
             top: 0;
             left: 0;
+            width: 100%;
+            padding: 1rem 0;
             z-index: 1000;
-            box-shadow: var(--sombra-padrao);
-            transition: background-color 0.3s ease;
+            background: rgba(16, 16, 16, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--cinza-borda);
+            animation: fadeIn 1s ease-out;
         }
 
         .navbar .container {
@@ -115,557 +97,695 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             align-items: center;
         }
 
-        .nav-logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--cor-texto-claro);
-        }
-
-        .nav-logo span {
-            color: var(--cor-destaque);
+        .nav-logo img {
+            height: 40px;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
-        }
-
-        .nav-links li {
-            margin-left: 25px;
+            gap: 2rem;
         }
 
         .nav-links a {
-            color: var(--cor-texto-claro);
+            color: var(--cinza-texto);
+            text-decoration: none;
             font-weight: 500;
-            padding: 0.5rem 0.8rem;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
         }
 
-        .nav-links a:hover,
-        .nav-links a.active {
-            background-color: var(--cor-destaque);
-            color: var(--cor-primaria);
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--amarelo-dourado);
         }
 
-        .nav-toggler {
-            display: none;
-            /* Oculto em telas maiores */
-            cursor: pointer;
-            font-size: 1.8rem;
-            color: var(--cor-texto-claro);
+        .nav-toggler { display: none; }
+
+        /* --- Botão CTA Genérico --- */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--amarelo-dourado);
+            color: #000;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Banner Principal (Hero) */
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 199, 0, 0.5);
+        }
+        
+        .cta-button.purple {
+            background-color: var(--roxo-moderno);
+            color: var(--branco-fundo);
+        }
+        
+        .cta-button.purple:hover {
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
+        }
+
+        /* --- Seção Home (Hero) --- */
         .hero {
-            margin-top: 70px;
-            /* Altura da navbar */
-            height: 90vh;
-            background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
-            color: var(--cor-texto-claro);
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            /* Para efeitos de background */
-            padding: 0 20px;
+            padding-top: 80px; /* Espaço para navbar */
         }
 
         .hero-content {
-            z-index: 2;
             max-width: 800px;
-            animation: fadeInHeroContent 1.5s ease-out;
-        }
-
-        @keyframes fadeInHeroContent {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            margin: 0 auto;
+            animation: slideUp 1s ease-out 0.3s backwards;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
+            font-weight: 900;
             margin-bottom: 1rem;
-            color: var(--cor-texto-claro);
-            font-weight: 700;
-            /* Efeito "3D" no texto */
-            text-shadow:
-                1px 1px 0px #081c4f,
-                /* Sombra mais próxima */
-                2px 2px 0px #071845,
-                3px 3px 0px #06143b,
-                4px 4px 0px #051031,
-                5px 5px 8px rgba(0, 0, 0, 0.5);
-            /* Sombra de desfoque para profundidade */
+            background: linear-gradient(90deg, var(--amarelo-dourado), var(--roxo-moderno), var(--amarelo-dourado));
+            background-size: 200% auto;
+            color: #fff;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: animated-gradient 5s linear infinite;
         }
 
         .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            color: #e0e0e0;
-            /* Um pouco menos brilhante que o branco puro */
+            font-size: 1.25rem;
+            color: var(--cinza-texto);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* --- Seções Padrão --- */
+        section {
+            padding: 100px 0;
         }
 
-        .hero .cta-button {
-            background-color: var(--cor-destaque);
-            color: var(--cor-primaria);
-            padding: 15px 35px;
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--cinza-texto);
+            max-width: 600px;
+            margin: 0 auto 4rem auto;
             font-size: 1.1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: var(--sombra-padrao);
         }
 
-        .hero .cta-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: var(--sombra-profunda);
+        /* --- Seção de Serviços --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
         }
 
-        /* Efeito de partículas no fundo do Hero (simples) */
-        .hero::before {
+        .service-card {
+            background-color: #18181B;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--cinza-borda);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image:
-                radial-gradient(circle at 15% 85%, rgba(255, 255, 255, 0.1) 0%, transparent 2%),
-                radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.08) 0%, transparent 3%),
-                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 2%);
-            background-size: 50px 50px, 70px 70px, 60px 60px;
-            animation: animateParticles 20s linear infinite;
+            background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(124, 58, 237, 0.15), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
             z-index: 1;
         }
 
-        @keyframes animateParticles {
-            from {
-                background-position: 0 0, 0 0, 0 0;
-            }
-
-            to {
-                background-position: 100px 200px, -140px 140px, 60px -120px;
-            }
+        .service-card:hover::before {
+            opacity: 1;
+        }
+        
+        .service-card-content {
+            position: relative;
+            z-index: 2;
         }
 
-
-        /* Seções de Conteúdo */
-        section {
-            padding: 80px 0;
+        .service-card .icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1.5rem;
+            color: var(--roxo-moderno);
         }
 
-        section:nth-child(even) {
-            /* Alternar cor de fundo */
-            background-color: var(--cor-fundo-secao);
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--branco-fundo);
         }
 
-        .section-title {
+        .service-card p {
+            color: var(--cinza-texto);
+            line-height: 1.6;
+        }
+
+        .guarantee-box {
+            background: linear-gradient(90deg, rgba(124, 58, 237, 0.1), rgba(255, 199, 0, 0.1));
+            border: 1px solid var(--roxo-moderno);
+            padding: 2.5rem;
+            border-radius: 12px;
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            position: relative;
         }
 
-        .section-title::after {
-            /* Linha decorativa abaixo do título */
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background-color: var(--cor-destaque);
-            margin: 10px auto 0;
-            border-radius: 2px;
+        .guarantee-box h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--branco-fundo);
         }
 
-        /* Estilos para cards (Sobre Nós, Curso) */
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            justify-content: center;
-        }
-
-        .card {
-            background-color: var(--cor-fundo);
-            border-radius: 10px;
-            box-shadow: var(--sombra-padrao);
-            padding: 30px;
-            flex-basis: calc(50% - 15px);
-            /* Duas colunas em telas maiores */
-            max-width: 500px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--sombra-profunda);
-        }
-
-        .card h3 {
-            color: var(--cor-secundaria);
-            margin-bottom: 15px;
-        }
-
-        /* Seção Sobre Nós */
-        #sobre-nos .emphasis {
-            color: var(--cor-primaria);
-            font-weight: bold;
-        }
-
-        /* Seção Curso */
-        #curso .course-details li {
-            margin-bottom: 10px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        #curso .course-details li::before {
-            content: '✔';
-            color: var(--cor-destaque);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
-
-        /* Seção Contato */
-        #contato form {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 30px;
-            background-color: var(--cor-fundo);
-            border-radius: 10px;
-            box-shadow: var(--sombra-padrao);
-        }
-
-        #contato label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--cor-primaria);
-        }
-
-        #contato input[type="text"],
-        #contato input[type="email"],
-        #contato textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        #contato input[type="text"]:focus,
-        #contato input[type="email"]:focus,
-        #contato textarea:focus {
-            border-color: var(--cor-secundaria);
-            outline: none;
-        }
-
-        #contato textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        #contato button[type="submit"] {
-            background-color: var(--cor-destaque);
-            color: var(--cor-primaria);
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            display: block;
+        .guarantee-box p {
+            color: var(--cinza-texto);
+            max-width: 700px;
             margin: 0 auto;
         }
 
-        #contato button[type="submit"]:hover {
-            background-color: #e6b42c;
-            /* Amarelo um pouco mais escuro */
-            transform: scale(1.05);
+        /* --- Seção Landing Page --- */
+        #landing-page {
+            background-color: var(--branco-fundo);
         }
 
-        /* Footer */
-        footer {
-            background-color: var(--cor-primaria);
-            color: var(--cor-texto-claro);
+        #landing-page .section-title, #landing-page h3 {
+            color: var(--preto-principal);
+        }
+
+        #landing-page .section-subtitle, #landing-page p {
+            color: #52525B;
+        }
+
+        .landing-page-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .landing-page-text {
+            flex: 1;
+        }
+
+        .landing-page-text h3 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+        }
+        
+        .landing-page-text p {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .landing-page-image {
+            flex: 1;
             text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
+        }
+
+        .landing-page-image img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* --- Seção Contato --- */
+        #contato form {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        #contato input, #contato textarea {
+            width: 100%;
+            background-color: #18181B;
+            border: 1px solid var(--cinza-borda);
+            padding: 1rem;
+            border-radius: 8px;
+            color: var(--branco-fundo);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        #contato input:focus, #contato textarea:focus {
+            outline: none;
+            border-color: var(--roxo-moderno);
+            box-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
+        }
+
+        #contato textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        #contato button {
+            align-self: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--cinza-borda);
+            margin-top: 80px;
         }
 
         footer p {
-            margin-bottom: 0;
-            color: #ccc;
-        }
-
-        /* Botão WhatsApp e Popup */
-        .whatsapp-button {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #25D366;
-            /* Cor oficial do WhatsApp */
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            /* Tamanho do ícone */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            z-index: 1000;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        .whatsapp-button:hover {
-            transform: scale(1.1);
-            background-color: #1EBE57;
-        }
-
-        .whatsapp-popup {
-            display: none;
-            /* Começa oculto */
-            position: fixed;
-            bottom: 100px;
-            /* Acima do botão */
-            right: 30px;
-            width: 300px;
-            background-color: var(--cor-fundo);
-            border: 1px solid #eee;
-            border-radius: 10px;
-            box-shadow: var(--sombra-profunda);
-            padding: 20px;
-            z-index: 999;
-            animation: slideUpPopup 0.5s ease-out;
-        }
-
-        @keyframes slideUpPopup {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .whatsapp-popup-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .whatsapp-popup-header h4 {
-            margin: 0;
-            color: var(--cor-primaria);
-            font-size: 1.1rem;
-        }
-
-        .whatsapp-popup-close {
-            font-size: 1.5rem;
-            color: #aaa;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        .whatsapp-popup-close:hover {
-            color: var(--cor-texto);
-        }
-
-        .whatsapp-popup p {
+            color: var(--cinza-texto);
             font-size: 0.9rem;
-            margin-bottom: 15px;
         }
 
-        .whatsapp-popup a.whatsapp-direct-link {
-            display: inline-block;
-            background-color: #25D366;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 20px;
-            text-align: center;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-
-        .whatsapp-popup a.whatsapp-direct-link:hover {
-            background-color: #1EBE57;
-        }
-
-
-        /* Responsividade */
+        /* --- Responsividade --- */
         @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .card {
-                flex-basis: calc(100% - 0px);
-                /* Uma coluna em telas menores */
-            }
+            .hero h1 { font-size: 3rem; }
+            .section-title { font-size: 2.2rem; }
+            .landing-page-content { flex-direction: column; }
         }
 
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
-                /* Esconder links */
                 flex-direction: column;
-                width: 100%;
                 position: absolute;
                 top: 70px;
-                /* Altura da navbar */
                 left: 0;
-                background-color: var(--cor-primaria);
-                padding: 10px 0;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                width: 100%;
+                background: rgba(16, 16, 16, 0.9);
+                backdrop-filter: blur(10px);
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--cinza-borda);
             }
-
-            .nav-links.active {
-                display: flex;
-                /* Mostrar quando ativo */
-            }
-
-            .nav-links li {
-                margin: 10px 0;
-                text-align: center;
-            }
-
-            .nav-links a {
-                display: block;
-                padding: 10px;
-            }
-
+            .nav-links.active { display: flex; text-align: center; }
+            .nav-links li { width: 100%; }
+            .nav-links a { display: block; padding: 1rem; }
+            
             .nav-toggler {
                 display: block;
-                /* Mostrar hamburguer */
+                cursor: pointer;
+                font-size: 1.8rem;
+                color: var(--branco-fundo);
+                background: none;
+                border: none;
             }
 
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .hero .cta-button {
-                padding: 12px 28px;
-                font-size: 1rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .whatsapp-popup {
-                width: calc(100% - 40px);
-                /* Popup mais largo em telas pequenas */
-                right: 20px;
-                bottom: 90px;
-            }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1rem; }
         }
+
+        /* --- Estilos do WhatsApp Popup --- */
+
+/* Botão Flutuante (FAB) */
+.whatsapp-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(45deg, var(--roxo-moderno), #9333ea);
+    color: var(--branco-fundo);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.whatsapp-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 30px rgba(124, 58, 237, 0.6);
+    animation: none;
+}
+
+.whatsapp-fab .icon-whatsapp {
+    width: 32px;
+    height: 32px;
+}
+
+/* Bolha de Status (Para Opção 2) */
+.whatsapp-fab .fab-status-bubble {
+    position: absolute;
+    top: -10px;
+    right: 45px;
+    background-color: var(--amarelo-dourado);
+    color: #000;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+.whatsapp-fab:hover .fab-status-bubble {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* Estilos Gerais do Popup */
+.whatsapp-popup {
+    position: fixed;
+    bottom: 110px;
+    right: 30px;
+    width: 350px;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+}
+
+.whatsapp-popup.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: var(--cinza-texto);
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    z-index: 10;
+}
+.popup-close:hover {
+    color: var(--branco-fundo);
+    transform: rotate(90deg);
+}
+
+
+/* --- OPÇÃO 1: Popup Futurista --- */
+.popup-futuristic {
+    background: rgba(24, 24, 27, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 16px;
+    overflow: hidden;
+    padding: 20px;
+    border: 1px solid rgba(161, 161, 170, 0.3);
+    position: relative;
+}
+
+.popup-futuristic::before { /* Borda animada */
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--roxo-moderno), var(--amarelo-dourado));
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: -1;
+    animation: animated-gradient 4s linear infinite;
+}
+
+.popup-futuristic .popup-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.popup-futuristic .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--roxo-moderno);
+}
+.popup-futuristic .header-text h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--branco-fundo);
+}
+.popup-futuristic .header-text p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--cinza-texto);
+}
+.popup-futuristic .popup-body p {
+    font-size: 1rem;
+    color: #E4E4E7;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+.popup-futuristic .popup-cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: var(--roxo-moderno);
+    color: var(--branco-fundo);
+    padding: 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.popup-futuristic .popup-cta:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
+}
+
+
+/* --- OPÇÃO 2: Popup Conversa Dinâmica --- */
+.popup-chat-bubble {
+    background-color: #1E1E1E;
+    border-radius: 20px;
+    padding: 20px 25px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    border: 1px solid var(--cinza-borda);
+}
+.popup-chat-bubble::after { /* Cauda do balão */
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left-color: #1E1E1E;
+    border-bottom-color: #1E1E1E;
+    transform: rotate(45deg);
+    filter: drop-shadow(5px 5px 2px rgba(0,0,0,0.1));
+}
+
+.popup-chat-bubble .chat-header {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--cinza-borda);
+}
+.popup-chat-bubble .chat-header h5 {
+    font-size: 1.1rem;
+    color: var(--branco-fundo);
+    margin: 0;
+}
+.popup-chat-bubble .chat-header p {
+    font-size: 0.8rem;
+    color: #22C55E; /* Verde "online" */
+    margin: 0;
+    font-weight: 500;
+}
+.popup-chat-bubble .status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #22C55E;
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: pulse 1.5s infinite;
+}
+
+.popup-chat-bubble .chat-message {
+    background-color: var(--roxo-moderno);
+    color: var(--branco-fundo);
+    padding: 12px 18px;
+    border-radius: 18px 18px 18px 4px; /* Formato de balão */
+    max-width: 90%;
+    line-height: 1.5;
+    opacity: 0;
+    animation: show-message 0.5s ease 1.5s forwards; /* Atraso para aparecer */
+}
+.popup-chat-bubble .chat-message p { margin: 0; }
+
+.popup-chat-bubble .chat-cta {
+    display: block;
+    text-align: center;
+    background-color: var(--amarelo-dourado);
+    color: #000;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-weight: 600;
+    transition: transform 0.2s ease;
+}
+.popup-chat-bubble .chat-cta:hover {
+    transform: scale(1.05);
+}
+
+/* Animação de "digitando..." */
+.typing-indicator {
+    margin-bottom: 10px;
+    opacity: 1;
+    animation: hide-typing 0.3s ease 1.5s forwards; /* Atraso para sumir */
+}
+.typing-indicator span {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: var(--cinza-texto);
+    display: inline-block;
+    margin: 0 2px;
+    animation: bounce 1.2s infinite ease-in-out;
+}
+.typing-indicator span:nth-of-type(2) { animation-delay: -0.2s; }
+.typing-indicator span:nth-of-type(3) { animation-delay: -0.4s; }
+
+/* Animações Keyframes */
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.8; }
+}
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1.0); }
+}
+@keyframes show-message {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes hide-typing {
+    to { opacity: 0; height: 0; margin: 0; }
+}
+
+/* Responsividade */
+@media(max-width: 480px) {
+    .whatsapp-popup {
+        width: calc(100% - 40px);
+        right: 20px;
+        bottom: 90px;
+    }
+    .whatsapp-fab {
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
     </style>
 </head>
-
 <body>
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXNFJLZZ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXNFJLZZ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <nav class="navbar">
         <div class="container">
-            <a href="#home" class="nav-logo">Const<span>Conv</span></a>
-            <ul class="nav-links">
-                <li><a href="#home" class="active">HOME</a></li>
-                <li><a href="#sobre-nos">SERVIÇOS</a></li>
-                <li><a href="#curso">CURSO</a></li>
-                <li><a href="#contato">CONTATO</a></li>
+            <a href="#home" class="nav-logo">
+                <img src="./constConvLog.svg" alt="ConstConv Logo">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#landing-page">Crie sua Landing Page</a></li>
+                <li><a href="#contato">Contato</a></li>
             </ul>
-            <div class="nav-toggler" id="navToggler">&#9776;</div>
+            <button class="nav-toggler" id="navToggler">&#9776;</button>
         </div>
     </nav>
 
     <header class="hero" id="home">
-        <div class="hero-content">
-            <h1>Maximize Suas Conversões de Site com Google Ads & Analytics</h1>
-            <p>Somos especializados em configurar o Google Ads e o Google Analytics para rastrear e melhorar as conversões do seu site. Nosso trabalho é focado em resultados claros, sempre com origem no seu site.</p>
-            <a href="#contato" class="cta-button">Quero Aumentar Minhas Conversões!</a>
+        <div class="hero-content container">
+            <h1>Transforme Cliques em Clientes</h1>
+            <p>Especialistas em campanhas de alta performance no Google Ads e Meta Ads. Configuramos, otimizamos e garantimos seus resultados com rastreamento de conversões impecável.</p>
+            <a href="#servicos" class="cta-button">Descubra Como</a>
         </div>
     </header>
 
     <main>
-        <section id="sobre-nos" class="fade-in-section">
+        <section id="servicos" class="fade-in-section">
             <div class="container">
-                <h2 class="section-title">Nossos Serviços de Consultoria</h2>
-                <div class="card-container">
-                    <div class="card">
-                        <h3>Consultoria de 2 Horas:</h3>
-                        <ul>Uma sessão prática de 2 horas onde configuramos juntos as conversões do seu site, tirando todas as suas dúvidas em tempo real para garantir total entendimento.</ul><br>
-                        <ul class="emphasis">Valor:</ul><p>A partir de R$ 250,00</p>
+                <h2 class="section-title">Nossos Serviços de Performance</h2>
+                <p class="section-subtitle">Foco total no que importa: resultados mensuráveis para o seu negócio. Deixe a complexidade técnica conosco e concentre-se em vender mais.</p>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                         <div class="service-card-content">
+                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" /></svg>
+                            <h3>Gestão de Google Ads</h3>
+                            <p>Criamos e otimizamos campanhas que colocam sua marca na frente dos clientes certos, na hora certa. Maximizamos seu ROI com estratégias baseadas em dados.</p>
+                        </div>
                     </div>
-                    <div class="card">
-                        <h3>Configuração Completa:</h3>
-                        <ul>Você nos fornece os acessos necessários, e nós realizamos todas as configurações de conversão no seu site. Em até 48 horas, entregamos um relatório detalhado com o feedback completo das ações realizadas.</ul><br>
-                        <ul class="emphasis">Valor:</ul><p>A partir de R$ 100,00</p>
+                    <div class="service-card">
+                        <div class="service-card-content">
+                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg>
+                            <h3>Conversão e Analytics</h3>
+                            <p>Configuração completa de conversões no GA4 e Google Ads. Rastreie cada venda, lead e clique, entendendo de verdade o caminho do seu cliente até a compra.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-card-content">
+                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 9v.906a2.25 2.25 0 0 1-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 0 0 1.183 1.981l6.478 3.488m8.86-1.12-6.478-3.488m0 0-6.478-3.488m6.478 3.488L21.75 9M12 21.75 2.25 16.5m19.5 0L12 21.75m0 0V2.25" /></svg>
+                            <h3>Campanhas para Meta</h3>
+                            <p>Alcance seu público no Facebook e Instagram com anúncios criativos e segmentação precisa. Criamos campanhas que geram engajamento e, mais importante, vendas.</p>
+                        </div>
                     </div>
                 </div>
-                <div style="text-align: center; margin-top: 30px;">
-                    <p>Configuramos as conversões do seu site de forma extremamente robusta, desde cliques simples em botões como o WhatsApp até e-commerces complexos. Nosso trabalho é preciso, com garantia de 30 dias, para garantir que cada ação no seu site seja rastreada com eficiência e confiabilidade.</p>
+
+                <div class="guarantee-box fade-in-section">
+                    <h3>Garantia Blindada de 30 Dias</h3>
+                    <p>Confiamos tanto no nosso trabalho que oferecemos uma garantia completa. Se as configurações de conversão não funcionarem como o prometido, nós corrigimos sem custo algum. Seu sucesso é o nosso sucesso.</p>
                 </div>
             </div>
         </section>
 
-        <section id="curso" class="fade-in-section">
+        <section id="landing-page" class="fade-in-section">
             <div class="container">
-                <h2 class="section-title">Capacite Sua Equipe: Curso de Conversão</h2>
-                <div class="card-container">
-                    <div class="card" style="flex-basis: 100%; max-width: 800px;">
-                        <h3>Aprenda a Configurar Conversões no Seu Site</h3>
-                        <p>Oferecemos um curso intensivo e prático para você e sua equipe dominarem as estratégias de
-                            otimização de conversão com foco em Google Ads e Google Analytics, aplicadas ao seu site.
-                            Capacite-se para tomar decisões baseadas em dados.</p>
-                        <h4>O que você vai aprender:</h4>
-                        <ul class="course-details">
-                            <li>O básico de JavaScript para utilizá-lo em suas conversões</li>
-                            <li>Como configurar conversões robustas para o Google Analytics 4 (Desde um simples clique a um e-commerce).</li>
-                            <li>Como configurar conversões robustas para o Google ADS (Desde um simples clique a um e-commerce).</li>
-                            <li>Focar nas conversões que acontecem diretamente <span
-                                    class="emphasis">no seu site. </span>.</li>
-                        </ul>
-                        <div style="text-align:center; margin-top:20px;">
-                            <a href="#contato" class="cta-button"
-                                style="background-color: var(--cor-secundaria); color: var(--cor-texto-claro); padding: 10px 25px; font-size: 1rem;">Quero
-                                Saber Mais Sobre o Curso</a>
-                        </div>
+                <div class="landing-page-content">
+                    <div class="landing-page-text">
+                        <h3>Sua campanha merece uma Landing Page que vende.</h3>
+                        <p>De nada adianta atrair milhares de visitantes se a sua página de destino não for otimizada para convertê-los em clientes. Nós criamos Landing Pages de alta conversão, com design atraente, textos persuasivos e totalmente integradas às suas campanhas de tráfego.</p>
+                        <a href="#contato" class="cta-button purple">Quero uma Landing Page que Vende</a>
+                    </div>
+                    <div class="landing-page-image">
+                        <img src="./example.png" alt="Exemplo de Landing Page moderna">
                     </div>
                 </div>
             </div>
@@ -673,26 +793,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <section id="contato" class="fade-in-section">
             <div class="container">
-                <h2 class="section-title">Fale Conosco</h2>
-                <p style="text-align:center; max-width:700px; margin: 0 auto 30px auto;">Configuramos as conversões do seu site de forma precisa e confiável, desde cliques simples, como em um botão do WhatsApp, até e-commerces. Nosso serviço inclui garantia de 30 dias, assegurando que tudo funcione perfeitamente.</p>
+                <h2 class="section-title">Vamos Construir seu Sucesso?</h2>
+                <p class="section-subtitle">Envie sua mensagem e vamos agendar uma conversa sem compromisso para entender suas metas. O próximo grande resultado da sua empresa começa aqui.</p>
+                
                 <form id="contactForm">
-                    <div>
-                        <label for="nome">Nome:</label>
-                        <input type="text" id="nome" name="nome" required>
-                    </div>
-                    <div>
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div>
-                        <label for="assunto">Assunto:</label>
-                        <input type="text" id="assunto" name="assunto" required>
-                    </div>
-                    <div>
-                        <label for="mensagem">Mensagem:</label>
-                        <textarea id="mensagem" name="mensagem" required></textarea>
-                    </div>
-                    <button type="submit">Enviar Mensagem</button>
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+                    <input type="email" id="email" name="email" placeholder="Seu melhor e-mail" required>
+                    <input type="text" id="assunto" name="assunto" placeholder="Assunto da mensagem" required>
+                    <textarea id="mensagem" name="mensagem" placeholder="Digite sua mensagem..." required></textarea>
+                    <button type="submit" class="cta-button">Enviar Mensagem</button>
                 </form>
             </div>
         </section>
@@ -701,59 +810,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <footer>
         <div class="container">
             <p>&copy; <span id="currentYear"></span> ConstConv. Todos os direitos reservados.</p>
-            <p>Especialistas em Conversões de Site com Google Ads & Analytics.</p>
         </div>
     </footer>
 
-    <div class="whatsapp-button" id="whatsappBtn" title="Fale Conosco pelo WhatsApp">
-        <svg viewBox="0 0 32 32" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#25D366;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#128C7E;stop-opacity:1" />
-                </linearGradient>
-            </defs>
-            <path fill="url(#gradient)"
-                d="M16 2C8.268 2 2 8.268 2 16c0 2.65.754 5.12 2.057 7.24L2 30l6.76-1.773A13.95 13.95 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm4.893 20.073c-.28.426-.806.745-1.35.852-.225.044-.455.067-.688.067-.45 0-.898-.135-1.283-.404-1.013-.705-2.427-1.717-3.973-2.947-1.546-1.23-2.813-2.627-3.26-3.973-.067-.202-.067-.404 0-.606.202-.404.94-1.09 1.143-1.416.202-.325.247-.52.067-.808-.202-.337-.853-1.04-1.216-1.89-.36-.85-.54-1.416-.606-2.022-.022-.135-.022-.27 0-.404.101-.202.247-.337.404-.472.157-.135.315-.202.472-.202.157 0 .27-.022.405-.022.247 0 .45.045.607.112.157.067.27.157.337.27.112.135.202.315.27.517.067.202.135.472.202.742.022.27-.022.54-.27.742-.135.112-.27.225-.404.337-.157.135-.202.27-.202.404 0 .045.045.135.09.202.135.202.337.45.607.742.27.292.517.562.808.808.292.247.562.472.808.607.247.112.404.202.517.27.112.067.225.112.27.157.045.067.09.112.135.157.067.067.112.112.157.112.045 0 .09-.045.135-.09.135-.112.225-.27.27-.404.045-.135.067-.27.112-.404.045-.112.09-.157.157-.202.067-.045.112-.067.202-.067.112 0 .225.045.337.157.112.135.157.27.202.472.045.202.045.337.045.472-.022.135-.067.27-.157.404-.09.135-.202.27-.27.404-.067.112-.135.202-.202.27-.067.067-.112.112-.157.157-.022.022-.045.067-.09.112-.067.09-.112.157-.157.202z" />
-        </svg>
-    </div>
+       <div class="whatsapp-fab" id="whatsappFab">
+    <img src="./whatsapp.png" alt="WhatsApp Icon" class="icon-whatsapp">
+    <div class="fab-status-bubble">Online!</div>
+</div>
 
-    <div class="whatsapp-popup" id="whatsappPopup">
-        <div class="whatsapp-popup-header">
-            <h4>Fale Conosco via WhatsApp</h4>
-            <button class="whatsapp-popup-close" id="whatsappPopupClose">&times;</button>
+<div class="whatsapp-popup popup-chat-bubble" id="whatsappPopup">
+    <button class="popup-close" id="whatsappClose">&times;</button>
+    <div class="chat-header">
+        <h5>ConstConv</h5>
+        <p><span class="status-dot"></span>Online</p>
+    </div>
+    <div class="chat-body">
+        <div class="typing-indicator">
+            <span></span><span></span><span></span>
         </div>
-        <p>Olá! Tem alguma dúvida ou quer um orçamento? Clique abaixo para iniciar uma conversa.</p>
-        <a href="https://wa.me/5511955203133?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20consultoria%20de%20conversões."
-            target="_blank" class="whatsapp-direct-link" onclick="dataLayerWhatsApp()">Iniciar Conversa</a>
+        <div class="chat-message">
+            <p>Olá! Pronto para transformar seus anúncios em resultados? Me chame aqui! 🚀</p>
+        </div>
     </div>
-
-<!-- Dados pro dataLayer WHATSAPP -->
-    <script>
-        function dataLayerWhatsApp() {
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-                "event": 'whatsappClicked',
-                "action": 'click',
-                "label": 'WhatsApp Button'
-            });
-        }
-    </script>
+    <a href="https://wa.me/5511955203133?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços." target="_blank" class="chat-cta">
+        Iniciar Conversa
+    </a>
+</div>
 
     <script>
-        // Ano Atual no Footer
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Ano Atual no Footer ---
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Menu Hamburguer Responsivo
+        // --- Menu Hamburguer Responsivo ---
         const navToggler = document.getElementById('navToggler');
-        const navLinks = document.querySelector('.nav-links');
-
+        const navLinks = document.getElementById('navLinks');
         navToggler.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            navToggler.textContent = navLinks.classList.contains('active') ? '\u2715' : '\u2630'; // Alterna ícone X e Hamburguer
+            navToggler.textContent = navLinks.classList.contains('active') ? '\u2715' : '\u2630';
         });
-
-        // Fechar menu ao clicar em um link (para mobile)
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 if (navLinks.classList.contains('active')) {
@@ -763,118 +858,113 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             });
         });
 
-
-        // Botão e Popup WhatsApp
-        const whatsappBtn = document.getElementById('whatsappBtn');
-        const whatsappPopup = document.getElementById('whatsappPopup');
-        const whatsappPopupClose = document.getElementById('whatsappPopupClose');
-
-        whatsappBtn.addEventListener('click', () => {
-            whatsappPopup.style.display = whatsappPopup.style.display === 'block' ? 'none' : 'block';
+        // --- Efeito "Glow" no Card de Serviço ---
+        const cards = document.querySelectorAll('.service-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
         });
 
-        whatsappPopupClose.addEventListener('click', () => {
-            whatsappPopup.style.display = 'none';
-        });
-
-        // Fechar popup se clicar fora dele
-        document.addEventListener('click', function (event) {
-            if (!whatsappPopup.contains(event.target) && !whatsappBtn.contains(event.target) && whatsappPopup.style.display === 'block') {
-                whatsappPopup.style.display = 'none';
-            }
-        });
-
-        // Efeito Fade-in para seções ao rolar
+        // --- Efeito Fade-in para seções ao rolar ---
         const sections = document.querySelectorAll('.fade-in-section');
-        const observerOptions = {
-            root: null, // Relativo ao viewport
-            rootMargin: '0px',
-            threshold: 0.15 // 15% da seção visível
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target); // Para animar apenas uma vez
+                    entry.target.style.animation = `slideUp 1s ease-out forwards`;
+                    observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
+        sections.forEach(section => observer.observe(section));
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-
-        // Marcar link ativo na navbar
+        // --- Marcar link ativo na navbar ---
         const navItems = document.querySelectorAll('.nav-links a');
-        const pageSections = document.querySelectorAll('header, section[id]'); // Inclui o header como #home
-
+        const pageSections = document.querySelectorAll('header, section[id]');
         window.addEventListener('scroll', () => {
             let currentSectionId = '';
             pageSections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                // Ajuste para considerar a altura da navbar e um pequeno offset
-                if (pageYOffset >= (sectionTop - (document.querySelector('.navbar').offsetHeight + 50))) {
+                if (pageYOffset >= (sectionTop - 80)) { // 80 é a altura da navbar
                     currentSectionId = section.getAttribute('id');
                 }
             });
             navItems.forEach(link => {
                 link.classList.remove('active');
-                // O href do link pode ser só '#id' ou 'pagina.html#id'
-                const linkHrefId = link.getAttribute('href').substring(link.getAttribute('href').lastIndexOf('#') + 1);
-                if (linkHrefId === currentSectionId) {
+                if (link.getAttribute('href').substring(1) === currentSectionId) {
                     link.classList.add('active');
                 }
             });
         });
-        // Validação de E-mail e Envio de Formulário
+        
+        // --- Lógica do Formulário com EmailJS (Mantida e Adaptada) ---
         const contactForm = document.getElementById('contactForm');
-        const emailInput = document.getElementById('email');
-        const assuntoInput = document.getElementById('assunto');
-        const nomeInput = document.getElementById('nome');
-        const mensagemInput = document.getElementById('mensagem');
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        emailInput.addEventListener('input', function () {
-            if (!emailRegex.test(emailInput.value)) {
-                emailInput.setCustomValidity('Por favor, insira um endereço de e-mail válido.');
-            } else {
-                emailInput.setCustomValidity('');
-            }
-        });
-        if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
-        e.preventDefault();
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const submitButton = this.querySelector('button[type="submit"]');
+            submitButton.textContent = 'Enviando...';
+            submitButton.disabled = true;
 
-        // Coleta os dados do formulário
-        const formData = {
-            nome: nomeInput.value || 'Sem nome',
-            email: emailInput.value,
-            mensagem: mensagemInput.value || 'Sem mensagem',
-            assunto: assuntoInput.value || 'Sem mensagem'
-        };
+            const formData = {
+                nome: this.querySelector('#nome').value,
+                email: this.querySelector('#email').value,
+                assunto: this.querySelector('#assunto').value,
+                mensagem: this.querySelector('#mensagem').value
+            };
 
-        // Envia o e-mail com o EmailJS
-        emailjs.send("default_service", "template_nwqgt6c", formData)
-            .then(function () {
-                //Enviando dados para o dataLayer (Formulário enviado)
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({
-                    "event": 'formSubmited',
-                    "label": 'Formulário de Contato',
-                    "action": 'submit',
-                    "email": emailInput.value,
+            emailjs.send("default_service", "template_nwqgt6c", formData)
+                .then(function () {
+                    // Envio para o dataLayer (se necessário)
+                    window.dataLayer = window.dataLayer || [];
+                    window.dataLayer.push({
+                        "event": 'formSubmited',
+                        "label": 'Formulário de Contato',
+                        "action": 'submit',
+                        "email": formData.email,
+                    });
+                    alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+                    contactForm.reset();
+                    submitButton.textContent = 'Enviar Mensagem';
+                    submitButton.disabled = false;
+                }, function (error) {
+                    console.error('Erro ao enviar o e-mail:', error);
+                    alert('Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente.');
+                    submitButton.textContent = 'Enviar Mensagem';
+                    submitButton.disabled = false;
                 });
-                alert('Mensagem enviada com sucesso! Obrigado pelo contato.');
-                contactForm.reset();
-            }, function (error) {
-                console.error('Erro ao enviar:', error);
-                alert('Erro ao enviar a mensagem. Tente novamente.');
-            });
+        });
+    });
+
+    // --- Lógica do Popup de WhatsApp ---
+const whatsappFab = document.getElementById('whatsappFab');
+const whatsappPopup = document.getElementById('whatsappPopup');
+const whatsappClose = document.getElementById('whatsappClose');
+
+if (whatsappFab && whatsappPopup && whatsappClose) {
+    // Abrir o popup
+    whatsappFab.addEventListener('click', () => {
+        whatsappPopup.classList.toggle('active');
+    });
+
+    // Fechar no botão X
+    whatsappClose.addEventListener('click', () => {
+        whatsappPopup.classList.remove('active');
+    });
+
+    // Fechar se clicar fora do popup
+    document.addEventListener('click', (event) => {
+        if (!whatsappPopup.contains(event.target) && !whatsappFab.contains(event.target)) {
+            whatsappPopup.classList.remove('active');
+        }
     });
 }
-
     </script>
-</body>
 
+ 
+</body>
 </html>
