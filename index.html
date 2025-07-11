@@ -330,6 +330,107 @@
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
+        
+        /* --- NOVA SEÇÃO: Planos e Preços --- */
+        .pricing-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .plan-card {
+            background-color: #18181B;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--cinza-borda);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .plan-card.featured {
+            border-color: var(--roxo-moderno);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
+        }
+        
+        .plan-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, var(--roxo-moderno), var(--amarelo-dourado));
+            color: var(--preto-principal);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .plan-card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--branco-fundo);
+        }
+
+        .plan-card .price {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--amarelo-dourado);
+            margin-bottom: 0.5rem;
+        }
+        
+        .plan-card .price span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--cinza-texto);
+        }
+
+        .plan-card .description {
+            color: var(--cinza-texto);
+            margin-bottom: 2rem;
+            min-height: 40px;
+        }
+        
+        .plan-card .features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 2.5rem;
+            color: var(--cinza-texto);
+        }
+        
+        .plan-card .features li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .plan-card .features li::before {
+            content: '✔';
+            color: var(--amarelo-dourado);
+            font-size: 1.2rem;
+            margin-right: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .plan-card .cta-button {
+            width: 100%;
+        }
+        
+        .disclaimer {
+            text-align: center;
+            color: var(--cinza-texto);
+            font-size: 0.9rem;
+            margin-top: 2.5rem;
+        }
+
 
         /* --- Seção Contato --- */
         #contato form {
@@ -387,6 +488,9 @@
             .hero h1 { font-size: 3rem; }
             .section-title { font-size: 2.2rem; }
             .landing-page-content { flex-direction: column; }
+            .plan-card.featured {
+                transform: scale(1); /* Remove o destaque de escala em telas menores para melhor layout */
+            }
         }
 
         @media (max-width: 768px) {
@@ -421,295 +525,136 @@
 
         /* --- Estilos do WhatsApp Popup --- */
 
-/* Botão Flutuante (FAB) */
-.whatsapp-fab {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 65px;
-    height: 65px;
-    background: linear-gradient(45deg, var(--roxo-moderno), #9333ea);
-    color: var(--branco-fundo);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 1001;
-    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: pulse 2s infinite ease-in-out;
-}
+        .whatsapp-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(45deg, var(--roxo-moderno), #9333ea);
+            color: var(--branco-fundo);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite ease-in-out;
+        }
 
-.whatsapp-fab:hover {
-    transform: scale(1.1);
-    box-shadow: 0 12px 30px rgba(124, 58, 237, 0.6);
-    animation: none;
-}
+        .whatsapp-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(124, 58, 237, 0.6);
+            animation: none;
+        }
 
-.whatsapp-fab .icon-whatsapp {
-    width: 32px;
-    height: 32px;
-}
+        .whatsapp-fab .icon-whatsapp {
+            width: 32px;
+            height: 32px;
+        }
 
-/* Bolha de Status (Para Opção 2) */
-.whatsapp-fab .fab-status-bubble {
-    position: absolute;
-    top: -10px;
-    right: 45px;
-    background-color: var(--amarelo-dourado);
-    color: #000;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    pointer-events: none;
-}
-.whatsapp-fab:hover .fab-status-bubble {
-    opacity: 1;
-    transform: translateY(0);
-}
+        .fab-status-bubble {
+            position: absolute;
+            top: -10px;
+            right: 45px;
+            background-color: var(--amarelo-dourado);
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .whatsapp-fab:hover .fab-status-bubble {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
+        .whatsapp-popup {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 350px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
 
-/* Estilos Gerais do Popup */
-.whatsapp-popup {
-    position: fixed;
-    bottom: 110px;
-    right: 30px;
-    width: 350px;
-    z-index: 1000;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    pointer-events: none;
-}
+        .whatsapp-popup.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
 
-.whatsapp-popup.active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--cinza-texto);
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+            z-index: 10;
+        }
+        .popup-close:hover {
+            color: var(--branco-fundo);
+            transform: rotate(90deg);
+        }
 
-.popup-close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    color: var(--cinza-texto);
-    cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease;
-    z-index: 10;
-}
-.popup-close:hover {
-    color: var(--branco-fundo);
-    transform: rotate(90deg);
-}
+        .popup-chat-bubble {
+            background-color: #1E1E1E;
+            border-radius: 20px;
+            padding: 20px 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            border: 1px solid var(--cinza-borda);
+        }
+        .popup-chat-bubble::after { /* Cauda do balão */
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            width: 20px;
+            height: 20px;
+            background-color: #1E1E1E;
+            border: 1px solid var(--cinza-borda);
+            border-top-color: transparent;
+            border-right-color: transparent;
+            transform: rotate(-45deg);
+        }
 
+        .chat-header { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--cinza-borda); }
+        .chat-header h5 { font-size: 1.1rem; color: var(--branco-fundo); margin: 0; }
+        .chat-header p { font-size: 0.8rem; color: #22C55E; margin: 0; font-weight: 500; }
+        .status-dot { display: inline-block; width: 8px; height: 8px; background-color: #22C55E; border-radius: 50%; margin-right: 5px; animation: pulse 1.5s infinite; }
 
-/* --- OPÇÃO 1: Popup Futurista --- */
-.popup-futuristic {
-    background: rgba(24, 24, 27, 0.7);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-radius: 16px;
-    overflow: hidden;
-    padding: 20px;
-    border: 1px solid rgba(161, 161, 170, 0.3);
-    position: relative;
-}
+        .chat-message { background-color: var(--roxo-moderno); color: var(--branco-fundo); padding: 12px 18px; border-radius: 18px 18px 18px 4px; max-width: 90%; line-height: 1.5; opacity: 0; animation: show-message 0.5s ease 1.5s forwards; }
+        .chat-message p { margin: 0; }
+        .chat-cta { display: block; text-align: center; background-color: var(--amarelo-dourado); color: #000; text-decoration: none; padding: 12px; border-radius: 10px; margin-top: 20px; font-weight: 600; transition: transform 0.2s ease; }
+        .chat-cta:hover { transform: scale(1.05); }
 
-.popup-futuristic::before { /* Borda animada */
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    border-radius: 16px;
-    padding: 1px;
-    background: linear-gradient(135deg, var(--roxo-moderno), var(--amarelo-dourado));
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
-    z-index: -1;
-    animation: animated-gradient 4s linear infinite;
-}
+        .typing-indicator { margin-bottom: 10px; opacity: 1; animation: hide-typing 0.3s ease 1.5s forwards; }
+        .typing-indicator span { height: 10px; width: 10px; border-radius: 50%; background-color: var(--cinza-texto); display: inline-block; margin: 0 2px; animation: bounce 1.2s infinite ease-in-out; }
+        .typing-indicator span:nth-of-type(2) { animation-delay: -0.2s; }
+        .typing-indicator span:nth-of-type(3) { animation-delay: -0.4s; }
 
-.popup-futuristic .popup-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-.popup-futuristic .avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid var(--roxo-moderno);
-}
-.popup-futuristic .header-text h4 {
-    margin: 0;
-    font-size: 1.1rem;
-    color: var(--branco-fundo);
-}
-.popup-futuristic .header-text p {
-    margin: 0;
-    font-size: 0.85rem;
-    color: var(--cinza-texto);
-}
-.popup-futuristic .popup-body p {
-    font-size: 1rem;
-    color: #E4E4E7;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-.popup-futuristic .popup-cta {
-    display: block;
-    width: 100%;
-    text-align: center;
-    background-color: var(--roxo-moderno);
-    color: var(--branco-fundo);
-    padding: 12px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.popup-futuristic .popup-cta:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
-}
+        @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.8; } 50% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.8; } }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
+        @keyframes show-message { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes hide-typing { to { opacity: 0; height: 0; margin: 0; } }
 
-
-/* --- OPÇÃO 2: Popup Conversa Dinâmica --- */
-.popup-chat-bubble {
-    background-color: #1E1E1E;
-    border-radius: 20px;
-    padding: 20px 25px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-    border: 1px solid var(--cinza-borda);
-}
-.popup-chat-bubble::after { /* Cauda do balão */
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    right: 20px;
-    width: 0;
-    height: 0;
-    border-left-color: #1E1E1E;
-    border-bottom-color: #1E1E1E;
-    transform: rotate(45deg);
-    filter: drop-shadow(5px 5px 2px rgba(0,0,0,0.1));
-}
-
-.popup-chat-bubble .chat-header {
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--cinza-borda);
-}
-.popup-chat-bubble .chat-header h5 {
-    font-size: 1.1rem;
-    color: var(--branco-fundo);
-    margin: 0;
-}
-.popup-chat-bubble .chat-header p {
-    font-size: 0.8rem;
-    color: #22C55E; /* Verde "online" */
-    margin: 0;
-    font-weight: 500;
-}
-.popup-chat-bubble .status-dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background-color: #22C55E;
-    border-radius: 50%;
-    margin-right: 5px;
-    animation: pulse 1.5s infinite;
-}
-
-.popup-chat-bubble .chat-message {
-    background-color: var(--roxo-moderno);
-    color: var(--branco-fundo);
-    padding: 12px 18px;
-    border-radius: 18px 18px 18px 4px; /* Formato de balão */
-    max-width: 90%;
-    line-height: 1.5;
-    opacity: 0;
-    animation: show-message 0.5s ease 1.5s forwards; /* Atraso para aparecer */
-}
-.popup-chat-bubble .chat-message p { margin: 0; }
-
-.popup-chat-bubble .chat-cta {
-    display: block;
-    text-align: center;
-    background-color: var(--amarelo-dourado);
-    color: #000;
-    text-decoration: none;
-    padding: 12px;
-    border-radius: 10px;
-    margin-top: 20px;
-    font-weight: 600;
-    transition: transform 0.2s ease;
-}
-.popup-chat-bubble .chat-cta:hover {
-    transform: scale(1.05);
-}
-
-/* Animação de "digitando..." */
-.typing-indicator {
-    margin-bottom: 10px;
-    opacity: 1;
-    animation: hide-typing 0.3s ease 1.5s forwards; /* Atraso para sumir */
-}
-.typing-indicator span {
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    background-color: var(--cinza-texto);
-    display: inline-block;
-    margin: 0 2px;
-    animation: bounce 1.2s infinite ease-in-out;
-}
-.typing-indicator span:nth-of-type(2) { animation-delay: -0.2s; }
-.typing-indicator span:nth-of-type(3) { animation-delay: -0.4s; }
-
-/* Animações Keyframes */
-@keyframes pulse {
-    0% { transform: scale(0.95); opacity: 0.8; }
-    50% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(0.95); opacity: 0.8; }
-}
-@keyframes bounce {
-    0%, 80%, 100% { transform: scale(0); }
-    40% { transform: scale(1.0); }
-}
-@keyframes show-message {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-@keyframes hide-typing {
-    to { opacity: 0; height: 0; margin: 0; }
-}
-
-/* Responsividade */
-@media(max-width: 480px) {
-    .whatsapp-popup {
-        width: calc(100% - 40px);
-        right: 20px;
-        bottom: 90px;
-    }
-    .whatsapp-fab {
-        width: 60px;
-        height: 60px;
-        bottom: 20px;
-        right: 20px;
-    }
-}
+        @media(max-width: 480px) {
+            .whatsapp-popup { width: calc(100% - 40px); right: 20px; bottom: 90px; }
+            .whatsapp-fab { width: 60px; height: 60px; bottom: 20px; right: 20px; }
+        }
 
     </style>
 </head>
@@ -725,7 +670,7 @@
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#servicos">Serviços</a></li>
                 <li><a href="#landing-page">Crie sua Landing Page</a></li>
-                <li><a href="#contato">Contato</a></li>
+                <li><a href="#planos">Planos</a></li> <li><a href="#contato">Contato</a></li>
             </ul>
             <button class="nav-toggler" id="navToggler">&#9776;</button>
         </div>
@@ -790,6 +735,59 @@
                 </div>
             </div>
         </section>
+        
+        <section id="planos" class="fade-in-section">
+            <div class="container">
+                <h2 class="section-title">Planos Transparentes, Resultados Reais</h2>
+                <p class="section-subtitle">Escolha o plano ideal para decolar seu negócio. Sem surpresas, sem letras miúdas. Apenas performance e clareza.</p>
+                
+                <div class="pricing-container">
+                    <div class="plan-card">
+                        <h3>Gestão de Performance</h3>
+                        <p class="description">Ideal para quem já tem um site e quer otimizar os anúncios.</p>
+                        <div class="price">R$ 500<span>/mês</span></div>
+                        <ul class="features">
+                            <li>Gestão de Google Ads</li>
+                            <li>Gestão de Meta Ads</li>
+                            <li>Otimização Semanal</li>
+                            <li>Relatórios Mensais</li>
+                        </ul>
+                        <a href="#contato" class="cta-button purple">Solicitar Contato</a>
+                    </div>
+                    
+                    <div class="plan-card featured">
+                        <div class="plan-badge">Mais Popular</div>
+                        <h3>Lançamento Acelerado</h3>
+                        <p class="description">A solução completa para lançar sua presença online com força total.</p>
+                        <div class="price">R$ 2000<span>+ R$ 200/mês</span></div>
+                        <ul class="features">
+                            <li><strong>Landing Page de Alta Conversão</strong></li>
+                            <li>Domínio e Hospedagem (1º ano)</li>
+                            <li>Trackeamento Completo (GA4)</li>
+                            <li>Config. de Conversão (Form, Zap, Social)</li>
+                            <li>Manutenção Mensal do Site</li>
+                        </ul>
+                        <a href="#contato" class="cta-button">Quero este plano!</a>
+                    </div>
+                    
+                    <div class="plan-card">
+                        <h3>Consultoria Estratégica</h3>
+                        <p class="description">Uma dose de clareza e um plano de ação para você mesmo executar.</p>
+                        <div class="price">R$ 500<span>pagamento único</span></div>
+                        <ul class="features">
+                            <li>Sessão de 2h (Online)</li>
+                            <li>Análise da Conta de Anúncios</li>
+                            <li>Auditoria de Trackeamento</li>
+                            <li>Plano de Ação Detalhado</li>
+                        </ul>
+                        <a href="#contato" class="cta-button purple">Agendar Sessão</a>
+                    </div>
+                </div>
+                
+                <p class="disclaimer">*O investimento em anúncios (tráfego pago) é definido pelo cliente e pago diretamente às plataformas (Google/Meta).</p>
+            </div>
+        </section>
+
 
         <section id="contato" class="fade-in-section">
             <div class="container">
