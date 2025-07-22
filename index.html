@@ -539,20 +539,23 @@
         });
         
         // --- Lógica do Formulário com EmailJS ---
-        const contactForm = document.getElementById('contactForm');
+         const contactForm = document.getElementById('contactForm');
         contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
             const submitButton = this.querySelector('button[type="submit"]');
             submitButton.textContent = 'Enviando...';
             submitButton.disabled = true;
+
             const formData = {
                 nome: this.querySelector('#nome').value,
                 email: this.querySelector('#email').value,
                 assunto: this.querySelector('#assunto').value,
                 mensagem: this.querySelector('#mensagem').value
             };
+
             emailjs.send("default_service", "template_nwqgt6c", formData)
                 .then(function () {
+                    // Envio para o dataLayer (se necessário)
                     window.dataLayer = window.dataLayer || [];
                     window.dataLayer.push({
                         "event": 'formSubmited',
