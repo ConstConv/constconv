@@ -8,7 +8,7 @@
     })(window,document,'script','dataLayer','GTM-TXNFJLZZ');</script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
-      emailjs.init('3Aaing7IC5U8ZAIuQ'); // Sua chave foi mantida
+      emailjs.init('3Aaing7IC5U8ZAIuQ');
     </script>
 
     <meta charset="UTF-8">
@@ -29,6 +29,7 @@
             --roxo-moderno: #7C3AED;
             --cinza-texto: #A1A1AA;
             --cinza-borda: #27272A;
+            --preto-secundario: #18181B;
         }
 
         * {
@@ -52,35 +53,43 @@
         }
 
         /* --- Animações --- */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes animated-gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .fade-in-section { opacity: 0; transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in-section.is-visible { opacity: 1; }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* --- BARRA DE ESCASSEZ --- */
+        .scarcity-bar {
+            background: linear-gradient(90deg, var(--amarelo-dourado), var(--roxo-moderno));
+            color: var(--preto-principal);
+            text-align: center;
+            padding: 0.8rem 1rem;
+            font-weight: 700;
+            font-size: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        
-        @keyframes animated-gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .fade-in-section {
-            opacity: 0;
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .fade-in-section.is-visible {
-            opacity: 1;
+        .scarcity-bar .close-btn {
+            background: none;
+            border: none;
+            color: var(--preto-principal);
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: 1rem;
+            line-height: 1;
         }
 
         /* --- Barra de Navegação --- */
         .navbar {
             position: fixed;
-            top: 0;
+            top: 50px; /* Ajustado para a barra de escassez */
             left: 0;
             width: 100%;
             padding: 1rem 0;
@@ -89,588 +98,241 @@
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--cinza-borda);
             animation: fadeIn 1s ease-out;
+            transition: top 0.3s ease;
+        }
+        .navbar.scrolled {
+            top: 0;
         }
 
-        .navbar .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo img {
-            height: 40px;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--cinza-texto);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--amarelo-dourado);
-        }
-
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo img { height: 40px; }
+        .nav-links { list-style: none; display: flex; gap: 2rem; }
+        .nav-links a { color: var(--cinza-texto); text-decoration: none; font-weight: 500; padding: 0.5rem; transition: color 0.3s ease; }
+        .nav-links a:hover, .nav-links a.active { color: var(--amarelo-dourado); }
         .nav-toggler { display: none; }
 
         /* --- Botão CTA Genérico --- */
-        .cta-button {
-            display: inline-block;
-            background-color: var(--amarelo-dourado);
-            color: #000;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 199, 0, 0.5);
-        }
-        
-        .cta-button.purple {
-            background-color: var(--roxo-moderno);
-            color: var(--branco-fundo);
-        }
-        
-        .cta-button.purple:hover {
-            box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
-        }
+        .cta-button { display: inline-block; background-color: var(--amarelo-dourado); color: #000; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .cta-button:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 199, 0, 0.5); }
+        .cta-button.purple { background-color: var(--roxo-moderno); color: var(--branco-fundo); }
+        .cta-button.purple:hover { box-shadow: 0 0 20px rgba(124, 58, 237, 0.5); }
 
         /* --- Seção Home (Hero) --- */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            padding-top: 80px; /* Espaço para navbar */
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            animation: slideUp 1s ease-out 0.3s backwards;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, var(--amarelo-dourado), var(--roxo-moderno), var(--amarelo-dourado));
-            background-size: 200% auto;
-            color: #fff;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: animated-gradient 5s linear infinite;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--cinza-texto);
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        .hero { padding-top: 130px; /* Ajustado para navbar + barra de escassez */ min-height: 100vh; display: flex; align-items: center; text-align: center; }
+        .hero-content { max-width: 800px; margin: 0 auto; animation: slideUp 1s ease-out 0.3s backwards; }
+        .hero h1 { font-size: 4rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(90deg, var(--amarelo-dourado), var(--roxo-moderno), var(--amarelo-dourado)); background-size: 200% auto; color: #fff; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: animated-gradient 5s linear infinite; }
+        .hero p { font-size: 1.25rem; color: var(--cinza-texto); margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
         
-        /* --- Seções Padrão --- */
-        section {
-            padding: 100px 0;
+        /* --- SEÇÃO DE PROVA SOCIAL --- */
+        #depoimentos {
+            background-color: var(--preto-secundario);
         }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.8rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-        }
-        
-        .section-subtitle {
-            text-align: center;
-            color: var(--cinza-texto);
-            max-width: 600px;
-            margin: 0 auto 4rem auto;
-            font-size: 1.1rem;
-        }
-
-        /* --- Seção de Serviços --- */
-        .services-grid {
+        .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin-bottom: 5rem;
         }
-
-        .service-card {
-            background-color: #18181B;
+        .testimonial-card {
+            background-color: var(--preto-principal);
             padding: 2rem;
             border-radius: 12px;
             border: 1px solid var(--cinza-borda);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
         }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(124, 58, 237, 0.15), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: 1;
-        }
-
-        .service-card:hover::before {
-            opacity: 1;
-        }
-        
-        .service-card-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .service-card .icon {
-            width: 48px;
-            height: 48px;
+        .testimonial-card .quote {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--cinza-texto);
             margin-bottom: 1.5rem;
-            color: var(--roxo-moderno);
+            position: relative;
+            padding-left: 2.5rem;
         }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .testimonial-card .quote::before {
+            content: '“';
+            font-size: 5rem;
+            position: absolute;
+            left: -0.5rem;
+            top: -1.5rem;
+            color: var(--roxo-moderno);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .author-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--roxo-moderno);
+        }
+        .author-info .name {
+            font-weight: 700;
             color: var(--branco-fundo);
         }
-
-        .service-card p {
+        .author-info .company {
+            font-size: 0.9rem;
             color: var(--cinza-texto);
-            line-height: 1.6;
+        }
+        .stars {
+            color: var(--amarelo-dourado);
+            margin-top: 0.2rem;
         }
 
-        .guarantee-box {
-            background: linear-gradient(90deg, rgba(124, 58, 237, 0.1), rgba(255, 199, 0, 0.1));
-            border: 1px solid var(--roxo-moderno);
-            padding: 2.5rem;
-            border-radius: 12px;
+        .client-logos {
+            margin-top: 5rem;
             text-align: center;
         }
-
-        .guarantee-box h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--branco-fundo);
-        }
-
-        .guarantee-box p {
+        .client-logos h3 {
             color: var(--cinza-texto);
-            max-width: 700px;
-            margin: 0 auto;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1rem;
         }
-
-        /* --- Seção Landing Page --- */
-        #landing-page {
-            background-color: var(--branco-fundo);
-        }
-
-        #landing-page .section-title, #landing-page h3 {
-            color: var(--preto-principal);
-        }
-
-        #landing-page .section-subtitle, #landing-page p {
-            color: #52525B;
-        }
-
-        .landing-page-content {
+        .logos-container {
             display: flex;
+            justify-content: center;
             align-items: center;
             gap: 4rem;
+            flex-wrap: wrap;
+        }
+        .logos-container img {
+            height: 40px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        .logos-container img:hover {
+            opacity: 1;
         }
 
-        .landing-page-text {
-            flex: 1;
-        }
+        /* --- Seções Padrão --- */
+        section { padding: 100px 0; }
+        .section-title { text-align: center; font-size: 2.8rem; font-weight: 900; margin-bottom: 1rem; }
+        .section-subtitle { text-align: center; color: var(--cinza-texto); max-width: 600px; margin: 0 auto 4rem auto; font-size: 1.1rem; }
 
-        .landing-page-text h3 {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-        }
+        /* --- Seção de Serviços --- */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 5rem; }
+        .service-card { background-color: var(--preto-secundario); padding: 2rem; border-radius: 12px; border: 1px solid var(--cinza-borda); position: relative; overflow: hidden; transition: transform 0.3s ease; }
+        .service-card:hover { transform: translateY(-10px); }
+        .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(124, 58, 237, 0.15), transparent 40%); opacity: 0; transition: opacity 0.4s ease; z-index: 1; }
+        .service-card:hover::before { opacity: 1; }
+        .service-card-content { position: relative; z-index: 2; }
+        .service-card .icon { width: 48px; height: 48px; margin-bottom: 1.5rem; color: var(--roxo-moderno); }
+        .service-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--branco-fundo); }
+        .service-card p { color: var(--cinza-texto); line-height: 1.6; }
+        .guarantee-box { background: linear-gradient(90deg, rgba(124, 58, 237, 0.1), rgba(255, 199, 0, 0.1)); border: 1px solid var(--roxo-moderno); padding: 2.5rem; border-radius: 12px; text-align: center; }
+        .guarantee-box h3 { font-size: 2rem; margin-bottom: 1rem; color: var(--branco-fundo); }
+        .guarantee-box p { color: var(--cinza-texto); max-width: 700px; margin: 0 auto; }
+
+        /* --- Seção Landing Page --- */
+        #landing-page { background-color: var(--branco-fundo); }
+        #landing-page .section-title, #landing-page h3 { color: var(--preto-principal); }
+        #landing-page .section-subtitle, #landing-page p { color: #52525B; }
+        .landing-page-content { display: flex; align-items: center; gap: 4rem; }
+        .landing-page-text { flex: 1; }
+        .landing-page-text h3 { font-size: 2.5rem; font-weight: 900; margin-bottom: 1.5rem; }
+        .landing-page-text p { margin-bottom: 2rem; line-height: 1.7; }
+        .landing-page-image { flex: 1; text-align: center; }
+        .landing-page-image img { max-width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         
-        .landing-page-text p {
-            margin-bottom: 2rem;
-            line-height: 1.7;
-        }
-
-        .landing-page-image {
-            flex: 1;
-            text-align: center;
-        }
-
-        .landing-page-image img {
-            max-width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        /* --- NOVA SEÇÃO: Planos e Preços --- */
-        .pricing-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .plan-card {
-            background-color: #18181B;
-            padding: 2.5rem 2rem;
-            border-radius: 16px;
-            border: 1px solid var(--cinza-borda);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-        }
-        
-        .plan-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
-        .plan-card.featured {
-            border-color: var(--roxo-moderno);
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
-        }
-        
-        .plan-badge {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(90deg, var(--roxo-moderno), var(--amarelo-dourado));
-            color: var(--preto-principal);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-
-        .plan-card h3 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--branco-fundo);
-        }
-
-        .plan-card .price {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--amarelo-dourado);
-            margin-bottom: 0.5rem;
-        }
-        
-        .plan-card .price span {
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--cinza-texto);
-        }
-
-        .plan-card .description {
-            color: var(--cinza-texto);
-            margin-bottom: 2rem;
-            min-height: 40px;
-        }
-        
-        .plan-card .features {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 2.5rem;
-            color: var(--cinza-texto);
-        }
-        
-        .plan-card .features li {
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .plan-card .features li::before {
-            content: '✔';
-            color: var(--amarelo-dourado);
-            font-size: 1.2rem;
-            margin-right: 0.8rem;
-            font-weight: bold;
-        }
-        
-        .plan-card .cta-button {
-            width: 100%;
-        }
-        
-        .disclaimer {
-            text-align: center;
-            color: var(--cinza-texto);
-            font-size: 0.9rem;
-            margin-top: 2.5rem;
-        }
-
+        /* --- Seção Planos e Preços --- */
+        .pricing-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; align-items: center; }
+        .plan-card { background-color: var(--preto-secundario); padding: 2.5rem 2rem; border-radius: 16px; border: 1px solid var(--cinza-borda); text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; }
+        .plan-card:hover { transform: translateY(-15px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .plan-card.featured { border-color: var(--roxo-moderno); transform: scale(1.05); box-shadow: 0 0 30px rgba(124, 58, 237, 0.3); }
+        .plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, var(--roxo-moderno), var(--amarelo-dourado)); color: var(--preto-principal); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 700; }
+        .plan-card h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; color: var(--branco-fundo); }
+        .plan-card .price { font-size: 3.5rem; font-weight: 900; color: var(--amarelo-dourado); margin-bottom: 0.5rem; }
+        .plan-card .price span { font-size: 1rem; font-weight: 500; color: var(--cinza-texto); }
+        .plan-card .description { color: var(--cinza-texto); margin-bottom: 1rem; min-height: 40px; }
+        .plan-card .scarcity-note { color: var(--amarelo-dourado); font-weight: 700; font-size: 0.9rem; margin-bottom: 2rem; }
+        .plan-card .features { list-style: none; text-align: left; margin-bottom: 2.5rem; color: var(--cinza-texto); }
+        .plan-card .features li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .plan-card .features li::before { content: '✔'; color: var(--amarelo-dourado); font-size: 1.2rem; margin-right: 0.8rem; font-weight: bold; }
+        .plan-card .cta-button { width: 100%; }
+        .disclaimer { text-align: center; color: var(--cinza-texto); font-size: 0.9rem; margin-top: 2.5rem; }
 
         /* --- Seção Contato --- */
-        #contato form {
-            max-width: 700px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        #contato input, #contato textarea {
-            width: 100%;
-            background-color: #18181B;
-            border: 1px solid var(--cinza-borda);
-            padding: 1rem;
-            border-radius: 8px;
-            color: var(--branco-fundo);
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        #contato input:focus, #contato textarea:focus {
-            outline: none;
-            border-color: var(--roxo-moderno);
-            box-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
-        }
-
-        #contato textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        #contato button {
-            align-self: center;
-            border: none;
-            cursor: pointer;
-        }
+        #contato form { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
+        #contato input, #contato textarea { width: 100%; background-color: var(--preto-secundario); border: 1px solid var(--cinza-borda); padding: 1rem; border-radius: 8px; color: var(--branco-fundo); font-family: 'Inter', sans-serif; font-size: 1rem; transition: border-color 0.3s, box-shadow 0.3s; }
+        #contato input:focus, #contato textarea:focus { outline: none; border-color: var(--roxo-moderno); box-shadow: 0 0 10px rgba(124, 58, 237, 0.5); }
+        #contato textarea { min-height: 150px; resize: vertical; }
+        #contato button { align-self: center; border: none; cursor: pointer; }
 
         /* --- Footer --- */
-        footer {
-            padding: 2rem 0;
-            text-align: center;
-            border-top: 1px solid var(--cinza-borda);
-            margin-top: 80px;
-        }
-
-        footer p {
-            color: var(--cinza-texto);
-            font-size: 0.9rem;
-        }
+        footer { padding: 2rem 0; text-align: center; border-top: 1px solid var(--cinza-borda); margin-top: 80px; }
+        footer p { color: var(--cinza-texto); font-size: 0.9rem; }
 
         /* --- Responsividade --- */
         @media (max-width: 992px) {
-            .hero h1 { font-size: 3rem; }
-            .section-title { font-size: 2.2rem; }
-            .landing-page-content { flex-direction: column; }
-            .plan-card.featured {
-                transform: scale(1); /* Remove o destaque de escala em telas menores para melhor layout */
-            }
+            .hero h1 { font-size: 3rem; } .section-title { font-size: 2.2rem; } .landing-page-content { flex-direction: column; }
+            .plan-card.featured { transform: scale(1); }
         }
-
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: rgba(16, 16, 16, 0.9);
-                backdrop-filter: blur(10px);
-                padding: 1rem 0;
-                border-bottom: 1px solid var(--cinza-borda);
-            }
-            .nav-links.active { display: flex; text-align: center; }
-            .nav-links li { width: 100%; }
-            .nav-links a { display: block; padding: 1rem; }
-            
-            .nav-toggler {
-                display: block;
-                cursor: pointer;
-                font-size: 1.8rem;
-                color: var(--branco-fundo);
-                background: none;
-                border: none;
-            }
-
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1rem; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: rgba(16, 16, 16, 0.9); backdrop-filter: blur(10px); padding: 1rem 0; border-bottom: 1px solid var(--cinza-borda); }
+            .nav-links.active { display: flex; text-align: center; } .nav-links li { width: 100%; } .nav-links a { display: block; padding: 1rem; }
+            .nav-toggler { display: block; cursor: pointer; font-size: 1.8rem; color: var(--branco-fundo); background: none; border: none; }
+            .hero h1 { font-size: 2.5rem; } .hero p { font-size: 1rem; }
         }
 
         /* --- Estilos do WhatsApp Popup --- */
-
-        .whatsapp-fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 65px;
-            height: 65px;
-            background: linear-gradient(45deg, var(--roxo-moderno), #9333ea);
-            color: var(--branco-fundo);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1001;
-            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: pulse 2s infinite ease-in-out;
-        }
-
-        .whatsapp-fab:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 30px rgba(124, 58, 237, 0.6);
-            animation: none;
-        }
-
-        .whatsapp-fab .icon-whatsapp {
-            width: 32px;
-            height: 32px;
-        }
-
-        .fab-status-bubble {
-            position: absolute;
-            top: -10px;
-            right: 45px;
-            background-color: var(--amarelo-dourado);
-            color: #000;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
-        .whatsapp-fab:hover .fab-status-bubble {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .whatsapp-popup {
-            position: fixed;
-            bottom: 110px;
-            right: 30px;
-            width: 350px;
-            z-index: 1000;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            pointer-events: none;
-        }
-
-        .whatsapp-popup.active {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        .popup-close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            color: var(--cinza-texto);
-            cursor: pointer;
-            transition: color 0.3s ease, transform 0.3s ease;
-            z-index: 10;
-        }
-        .popup-close:hover {
-            color: var(--branco-fundo);
-            transform: rotate(90deg);
-        }
-
-        .popup-chat-bubble {
-            background-color: #1E1E1E;
-            border-radius: 20px;
-            padding: 20px 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-            border: 1px solid var(--cinza-borda);
-        }
-        .popup-chat-bubble::after { /* Cauda do balão */
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            right: 20px;
-            width: 20px;
-            height: 20px;
-            background-color: #1E1E1E;
-            border: 1px solid var(--cinza-borda);
-            border-top-color: transparent;
-            border-right-color: transparent;
-            transform: rotate(-45deg);
-        }
-
+        .whatsapp-fab { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background: linear-gradient(45deg, var(--roxo-moderno), #9333ea); color: var(--branco-fundo); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1001; box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4); transition: transform 0.3s ease, box-shadow 0.3s ease; animation: pulse 2s infinite ease-in-out; }
+        .whatsapp-fab:hover { transform: scale(1.1); box-shadow: 0 12px 30px rgba(124, 58, 237, 0.6); animation: none; }
+        .whatsapp-fab .icon-whatsapp { width: 32px; height: 32px; }
+        .fab-status-bubble { position: absolute; top: -10px; right: 45px; background-color: var(--amarelo-dourado); color: #000; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; pointer-events: none; }
+        .whatsapp-fab:hover .fab-status-bubble { opacity: 1; transform: translateY(0); }
+        .whatsapp-popup { position: fixed; bottom: 110px; right: 30px; width: 350px; z-index: 1000; opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; }
+        .whatsapp-popup.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .popup-close { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.8rem; color: var(--cinza-texto); cursor: pointer; transition: color 0.3s ease, transform 0.3s ease; z-index: 10; }
+        .popup-close:hover { color: var(--branco-fundo); transform: rotate(90deg); }
+        .popup-chat-bubble { background-color: var(--preto-secundario); border-radius: 20px; padding: 20px 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.4); border: 1px solid var(--cinza-borda); }
+        .popup-chat-bubble::after { content: ''; position: absolute; bottom: -10px; right: 20px; width: 20px; height: 20px; background-color: var(--preto-secundario); border: 1px solid var(--cinza-borda); border-top-color: transparent; border-right-color: transparent; transform: rotate(-45deg); }
         .chat-header { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--cinza-borda); }
         .chat-header h5 { font-size: 1.1rem; color: var(--branco-fundo); margin: 0; }
         .chat-header p { font-size: 0.8rem; color: #22C55E; margin: 0; font-weight: 500; }
         .status-dot { display: inline-block; width: 8px; height: 8px; background-color: #22C55E; border-radius: 50%; margin-right: 5px; animation: pulse 1.5s infinite; }
-
         .chat-message { background-color: var(--roxo-moderno); color: var(--branco-fundo); padding: 12px 18px; border-radius: 18px 18px 18px 4px; max-width: 90%; line-height: 1.5; opacity: 0; animation: show-message 0.5s ease 1.5s forwards; }
         .chat-message p { margin: 0; }
         .chat-cta { display: block; text-align: center; background-color: var(--amarelo-dourado); color: #000; text-decoration: none; padding: 12px; border-radius: 10px; margin-top: 20px; font-weight: 600; transition: transform 0.2s ease; }
         .chat-cta:hover { transform: scale(1.05); }
-
         .typing-indicator { margin-bottom: 10px; opacity: 1; animation: hide-typing 0.3s ease 1.5s forwards; }
         .typing-indicator span { height: 10px; width: 10px; border-radius: 50%; background-color: var(--cinza-texto); display: inline-block; margin: 0 2px; animation: bounce 1.2s infinite ease-in-out; }
         .typing-indicator span:nth-of-type(2) { animation-delay: -0.2s; }
         .typing-indicator span:nth-of-type(3) { animation-delay: -0.4s; }
-
-        @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.8; } 50% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.8; } }
+        @keyframes pulse { 0% { opacity: 0.7; } 50% { opacity: 1; } 100% { opacity: 0.7; } }
         @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
         @keyframes show-message { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes hide-typing { to { opacity: 0; height: 0; margin: 0; } }
-
         @media(max-width: 480px) {
             .whatsapp-popup { width: calc(100% - 40px); right: 20px; bottom: 90px; }
             .whatsapp-fab { width: 60px; height: 60px; bottom: 20px; right: 20px; }
         }
-
     </style>
 </head>
 <body>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXNFJLZZ"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <nav class="navbar">
+
+    <div class="scarcity-bar" id="scarcityBar">
+        <span>🔥 Agenda para Agosto aberta! Restam apenas <strong>2 vagas</strong> para novos clientes.</span>
+        <button class="close-btn" id="closeScarcityBar">&times;</button>
+    </div>
+
+    <nav class="navbar" id="navbar">
         <div class="container">
             <a href="#home" class="nav-logo">
                 <img src="./constConvLog.svg" alt="ConstConv Logo">
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#depoimentos">Depoimentos</a></li>
                 <li><a href="#servicos">Serviços</a></li>
-                <li><a href="#landing-page">Crie sua Landing Page</a></li>
-                <li><a href="#planos">Planos</a></li> <li><a href="#contato">Contato</a></li>
+                <li><a href="#landing-page">Landing Page</a></li>
+                <li><a href="#planos">Planos</a></li> 
+                <li><a href="#contato">Contato</a></li>
             </ul>
             <button class="nav-toggler" id="navToggler">&#9776;</button>
         </div>
@@ -680,60 +342,76 @@
         <div class="hero-content container">
             <h1>Transforme Cliques em Clientes</h1>
             <p>Especialistas em campanhas de alta performance no Google Ads e Meta Ads. Configuramos, otimizamos e garantimos seus resultados com rastreamento de conversões impecável.</p>
-            <a href="#servicos" class="cta-button">Descubra Como</a>
+            <a href="#planos" class="cta-button">Ver Planos e Preços</a>
         </div>
     </header>
 
     <main>
+        <section id="depoimentos" class="fade-in-section">
+            <div class="container">
+                <h2 class="section-title">Quem Confia, Comprova</h2>
+                <p class="section-subtitle">Não acreditamos em promessas vazias. Acreditamos em resultados e na satisfação de quem trabalha conosco.</p>
+                
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p class="quote">Finalmente entendi para onde meu dinheiro de anúncios estava indo! A clareza que eles trouxeram para meus relatórios foi um divisor de águas.</p>
+                        <div class="author-info">
+                            <img src="https://i.pravatar.cc/150?u=a" alt="Foto do Cliente">
+                            <div>
+                                <div class="name">Juliano S.</div>
+                                <div class="company">CEO, E-commerce de Moda</div>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="quote">A implementação do tracking de conversão foi impecável. Em 48 horas, tudo estava funcionando perfeitamente, algo que minha equipe antiga levou meses e não conseguiu.</p>
+                        <div class="author-info">
+                            <img src="https://i.pravatar.cc/150?u=b" alt="Foto do Cliente">
+                            <div>
+                                <div class="name">Marcos P.</div>
+                                <div class="company">Diretor, Imobiliária</div>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="client-logos">
+                    <h3>Especialistas nas Plataformas Que Geram Resultados</h3>
+                    <div class="logos-container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google Logo" style="height: 35px;">
+    <img src="./logo_meta.png" alt="Meta Logo" style="height: 100px;">
+    <img src="https://www.gstatic.com/analytics-suite/header/suite/v2/ic_analytics.svg" alt="Google Analytics Logo" style="height: 38px;">
+</div>
+                </div>
+            </div>
+        </section>
+
         <section id="servicos" class="fade-in-section">
             <div class="container">
                 <h2 class="section-title">Nossos Serviços de Performance</h2>
                 <p class="section-subtitle">Foco total no que importa: resultados mensuráveis para o seu negócio. Deixe a complexidade técnica conosco e concentre-se em vender mais.</p>
                 
                 <div class="services-grid">
+                    <div class="service-card"><div class="service-card-content"><svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" /></svg><h3>Gestão de Google Ads</h3><p>Criamos e otimizamos campanhas que colocam sua marca na frente dos clientes certos, na hora certa. Maximizamos seu ROI com estratégias baseadas em dados.</p></div></div>
+                    <div class="service-card"><div class="service-card-content"><svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg><h3>Conversão e Analytics</h3><p>Configuração completa de conversões no GA4 e Google Ads. Rastreie cada venda, lead e clique, entendendo de verdade o caminho do seu cliente até a compra.</p></div></div>
                     <div class="service-card">
-                         <div class="service-card-content">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" /></svg>
-                            <h3>Gestão de Google Ads</h3>
-                            <p>Criamos e otimizamos campanhas que colocam sua marca na frente dos clientes certos, na hora certa. Maximizamos seu ROI com estratégias baseadas em dados.</p>
-                        </div>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-card-content">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg>
-                            <h3>Conversão e Analytics</h3>
-                            <p>Configuração completa de conversões no GA4 e Google Ads. Rastreie cada venda, lead e clique, entendendo de verdade o caminho do seu cliente até a compra.</p>
-                        </div>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-card-content">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 9v.906a2.25 2.25 0 0 1-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 0 0 1.183 1.981l6.478 3.488m8.86-1.12-6.478-3.488m0 0-6.478-3.488m6.478 3.488L21.75 9M12 21.75 2.25 16.5m19.5 0L12 21.75m0 0V2.25" /></svg>
-                            <h3>Campanhas para Meta</h3>
-                            <p>Alcance seu público no Facebook e Instagram com anúncios criativos e segmentação precisa. Criamos campanhas que geram engajamento e, mais importante, vendas.</p>
-                        </div>
-                    </div>
+    <div class="service-card-content">
+        <svg class="icon" xmlns="http://www.w.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h9a1.5 1.5 0 001.5-1.5V5.25a1.5 1.5 0 00-1.5-1.5h-9zm4.5 1.5a.75.75 0 01.75.75v.008a.75.75 0 01-1.5 0V6a.75.75 0 01.75-.75z" clip-rule="evenodd" />
+        </svg>
+        <h3>Campanhas para Meta</h3>
+        <p>Alcance seu público no Facebook e Instagram com anúncios criativos e segmentação precisa. Criamos campanhas que geram engajamento e, mais importante, vendas.</p>
+    </div>
+</div>
                 </div>
-
-                <div class="guarantee-box fade-in-section">
-                    <h3>Garantia Blindada de 30 Dias</h3>
-                    <p>Confiamos tanto no nosso trabalho que oferecemos uma garantia completa. Se as configurações de conversão não funcionarem como o prometido, nós corrigimos sem custo algum. Seu sucesso é o nosso sucesso.</p>
-                </div>
+                <div class="guarantee-box fade-in-section"><h3>Garantia Blindada de 30 Dias</h3><p>Confiamos tanto no nosso trabalho que oferecemos uma garantia completa. Se as configurações de conversão não funcionarem como o prometido, nós corrigimos sem custo algum. Seu sucesso é o nosso sucesso.</p></div>
             </div>
         </section>
 
         <section id="landing-page" class="fade-in-section">
-            <div class="container">
-                <div class="landing-page-content">
-                    <div class="landing-page-text">
-                        <h3>Sua campanha merece uma Landing Page que vende.</h3>
-                        <p>De nada adianta atrair milhares de visitantes se a sua página de destino não for otimizada para convertê-los em clientes. Nós criamos Landing Pages de alta conversão, com design atraente, textos persuasivos e totalmente integradas às suas campanhas de tráfego.</p>
-                        <a href="#contato" class="cta-button purple">Quero uma Landing Page que Vende</a>
-                    </div>
-                    <div class="landing-page-image">
-                        <img src="./example.png" alt="Exemplo de Landing Page moderna">
-                    </div>
-                </div>
-            </div>
+            <div class="container"><div class="landing-page-content"><div class="landing-page-text"><h3>Sua campanha merece uma Landing Page que vende.</h3><p>De nada adianta atrair milhares de visitantes se a sua página de destino não for otimizada para convertê-los em clientes. Nós criamos Landing Pages de alta conversão, com design atraente, textos persuasivos e totalmente integradas às suas campanhas de tráfego.</p><a href="#contato" class="cta-button purple">Quero uma Landing Page que Vende</a></div><div class="landing-page-image"><img src="./example.png" alt="Exemplo de Landing Page moderna"></div></div></div>
         </section>
         
         <section id="planos" class="fade-in-section">
@@ -742,65 +420,21 @@
                 <p class="section-subtitle">Escolha o plano ideal para decolar seu negócio. Sem surpresas, sem letras miúdas. Apenas performance e clareza.</p>
                 
                 <div class="pricing-container">
-                    <div class="plan-card">
-                        <h3>Gestão de Performance</h3>
-                        <p class="description">Ideal para quem já tem um site e quer otimizar os anúncios.</p>
-                        <div class="price">R$ 500<span>/mês</span></div>
-                        <ul class="features">
-                            <li>Gestão de Google Ads</li>
-                            <li>Gestão de Meta Ads</li>
-                            <li>Otimização Semanal</li>
-                            <li>Relatórios Mensais</li>
-                        </ul>
-                        <a href="#contato" class="cta-button purple">Solicitar Contato</a>
-                    </div>
-                    
-                    <div class="plan-card featured">
-                        <div class="plan-badge">Mais Popular</div>
-                        <h3>Lançamento Acelerado</h3>
-                        <p class="description">A solução completa para lançar sua presença online com força total.</p>
-                        <div class="price">R$ 2000<span>+ R$ 200/mês</span></div>
-                        <ul class="features">
-                            <li><strong>Landing Page de Alta Conversão</strong></li>
-                            <li>Domínio e Hospedagem (1º ano)</li>
-                            <li>Trackeamento Completo (GA4)</li>
-                            <li>Config. de Conversão (Form, Zap, Social)</li>
-                            <li>Manutenção Mensal do Site</li>
-                        </ul>
-                        <a href="#contato" class="cta-button">Quero este plano!</a>
-                    </div>
-                    
-                    <div class="plan-card">
-                        <h3>Consultoria Estratégica</h3>
-                        <p class="description">Uma dose de clareza e um plano de ação para você mesmo executar.</p>
-                        <div class="price">R$ 500<span>/único</span></div>
-                        <ul class="features">
-                            <li>Sessão de 2h (Online)</li>
-                            <li>Análise da Conta de Anúncios</li>
-                            <li>Auditoria de Trackeamento</li>
-                            <li>Plano de Ação Detalhado</li>
-                        </ul>
-                        <a href="#contato" class="cta-button purple">Agendar Sessão</a>
-                    </div>
+                    <div class="plan-card"><h3>Gestão de Performance</h3><p class="description">Ideal para quem já tem um site e quer otimizar os anúncios.</p><p class="scarcity-note">Vagas limitadas!</p><div class="price">R$ 500<span>/mês</span></div><ul class="features"><li>Gestão de Google Ads</li><li>Gestão de Meta Ads</li><li>Otimização Semanal</li><li>Relatórios Mensais</li></ul><a href="#contato" class="cta-button purple">Solicitar Contato</a></div>
+                    <div class="plan-card featured"><div class="plan-badge">Mais Popular</div><h3>Lançamento Acelerado</h3><p class="description">A solução completa para lançar sua presença online com força total.</p><p class="scarcity-note">Vagas limitadas!</p><div class="price">R$ 2000<span>+ R$ 200/mês</span></div><ul class="features"><li><strong>Landing Page de Alta Conversão</strong></li><li>Domínio e Hospedagem (1º ano)</li><li>Trackeamento Completo (GA4)</li><li>Config. de Conversão (Form, Zap, Social)</li><li>Manutenção Mensal do Site</li></ul><a href="#contato" class="cta-button">Quero este plano!</a></div>
+                    <div class="plan-card"><h3>Consultoria Estratégica</h3><p class="description">Uma dose de clareza e um plano de ação para você mesmo executar.</p><p class="scarcity-note">Vagas limitadas!</p><div class="price">R$ 500<span>pagamento único</span></div><ul class="features"><li>Sessão de 2h (Online)</li><li>Análise da Conta de Anúncios</li><li>Auditoria de Trackeamento</li><li>Plano de Ação Detalhado</li></ul><a href="#contato" class="cta-button purple">Agendar Sessão</a></div>
                 </div>
                 
                 <p class="disclaimer">*O investimento em anúncios (tráfego pago) é definido pelo cliente e pago diretamente às plataformas (Google/Meta).</p>
             </div>
         </section>
 
-
         <section id="contato" class="fade-in-section">
             <div class="container">
                 <h2 class="section-title">Vamos Construir seu Sucesso?</h2>
                 <p class="section-subtitle">Envie sua mensagem e vamos agendar uma conversa sem compromisso para entender suas metas. O próximo grande resultado da sua empresa começa aqui.</p>
                 
-                <form id="contactForm">
-                    <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
-                    <input type="email" id="email" name="email" placeholder="Seu melhor e-mail" required>
-                    <input type="text" id="assunto" name="assunto" placeholder="Assunto da mensagem" required>
-                    <textarea id="mensagem" name="mensagem" placeholder="Digite sua mensagem..." required></textarea>
-                    <button type="submit" class="cta-button">Enviar Mensagem</button>
-                </form>
+                <form id="contactForm"><input type="text" id="nome" name="nome" placeholder="Seu nome completo" required><input type="email" id="email" name="email" placeholder="Seu melhor e-mail" required><input type="text" id="assunto" name="assunto" placeholder="Assunto da mensagem" required><textarea id="mensagem" name="mensagem" placeholder="Digite sua mensagem..." required></textarea><button type="submit" class="cta-button">Enviar Mensagem</button></form>
             </div>
         </section>
     </main>
@@ -811,32 +445,30 @@
         </div>
     </footer>
 
-       <div class="whatsapp-fab" id="whatsappFab">
-    <img src="./whatsapp.png" alt="WhatsApp Icon" class="icon-whatsapp">
-    <div class="fab-status-bubble">Online!</div>
-</div>
+    <div class="whatsapp-fab" id="whatsappFab">
+        <img src="./whatsapp.png" alt="WhatsApp Icon" class="icon-whatsapp">
+        <div class="fab-status-bubble">Online!</div>
+    </div>
 
-<div class="whatsapp-popup popup-chat-bubble" id="whatsappPopup">
-    <button class="popup-close" id="whatsappClose">&times;</button>
-    <div class="chat-header">
-        <h5>ConstConv</h5>
-        <p><span class="status-dot"></span>Online</p>
+    <div class="whatsapp-popup popup-chat-bubble" id="whatsappPopup">
+        <button class="popup-close" id="whatsappClose">&times;</button>
+        <div class="chat-header"><h5>ConstConv</h5><p><span class="status-dot"></span>Online</p></div>
+        <div class="chat-body"><div class="typing-indicator"><span></span><span></span><span></span></div><div class="chat-message"><p>Olá! Pronto para transformar seus anúncios em resultados? Me chame aqui! 🚀</p></div></div>
+        <a href="https://wa.me/5511955203133?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços." target="_blank" class="chat-cta">Iniciar Conversa</a>
     </div>
-    <div class="chat-body">
-        <div class="typing-indicator">
-            <span></span><span></span><span></span>
-        </div>
-        <div class="chat-message">
-            <p>Olá! Pronto para transformar seus anúncios em resultados? Me chame aqui! 🚀</p>
-        </div>
-    </div>
-    <a href="https://wa.me/5511955203133?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços." target="_blank" class="chat-cta">
-        Iniciar Conversa
-    </a>
-</div>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // --- Barra de Escassez ---
+        const scarcityBar = document.getElementById('scarcityBar');
+        const closeScarcityBar = document.getElementById('closeScarcityBar');
+        const navbar = document.getElementById('navbar');
+
+        closeScarcityBar.addEventListener('click', () => {
+            scarcityBar.style.display = 'none';
+            navbar.classList.add('scrolled');
+        });
+        
         // --- Ano Atual no Footer ---
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
@@ -888,7 +520,7 @@
             let currentSectionId = '';
             pageSections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (pageYOffset >= (sectionTop - 80)) { // 80 é a altura da navbar
+                if (pageYOffset >= (sectionTop - navbar.offsetHeight - 5)) {
                     currentSectionId = section.getAttribute('id');
                 }
             });
@@ -898,26 +530,29 @@
                     link.classList.add('active');
                 }
             });
+             // --- Lógica da Barra de Escassez e Navbar ---
+            if (window.scrollY > scarcityBar.offsetHeight && scarcityBar.style.display !== 'none') {
+                navbar.classList.add('scrolled');
+            } else if (scarcityBar.style.display !== 'none') {
+                navbar.classList.remove('scrolled');
+            }
         });
         
-        // --- Lógica do Formulário com EmailJS (Mantida e Adaptada) ---
+        // --- Lógica do Formulário com EmailJS ---
         const contactForm = document.getElementById('contactForm');
         contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
             const submitButton = this.querySelector('button[type="submit"]');
             submitButton.textContent = 'Enviando...';
             submitButton.disabled = true;
-
             const formData = {
                 nome: this.querySelector('#nome').value,
                 email: this.querySelector('#email').value,
                 assunto: this.querySelector('#assunto').value,
                 mensagem: this.querySelector('#mensagem').value
             };
-
             emailjs.send("default_service", "template_nwqgt6c", formData)
                 .then(function () {
-                    // Envio para o dataLayer (se necessário)
                     window.dataLayer = window.dataLayer || [];
                     window.dataLayer.push({
                         "event": 'formSubmited',
@@ -936,33 +571,26 @@
                     submitButton.disabled = false;
                 });
         });
-    });
 
-    // --- Lógica do Popup de WhatsApp ---
-const whatsappFab = document.getElementById('whatsappFab');
-const whatsappPopup = document.getElementById('whatsappPopup');
-const whatsappClose = document.getElementById('whatsappClose');
+        // --- Lógica do Popup de WhatsApp ---
+        const whatsappFab = document.getElementById('whatsappFab');
+        const whatsappPopup = document.getElementById('whatsappPopup');
+        const whatsappClose = document.getElementById('whatsappClose');
 
-if (whatsappFab && whatsappPopup && whatsappClose) {
-    // Abrir o popup
-    whatsappFab.addEventListener('click', () => {
-        whatsappPopup.classList.toggle('active');
-    });
-
-    // Fechar no botão X
-    whatsappClose.addEventListener('click', () => {
-        whatsappPopup.classList.remove('active');
-    });
-
-    // Fechar se clicar fora do popup
-    document.addEventListener('click', (event) => {
-        if (!whatsappPopup.contains(event.target) && !whatsappFab.contains(event.target)) {
-            whatsappPopup.classList.remove('active');
+        if (whatsappFab && whatsappPopup && whatsappClose) {
+            whatsappFab.addEventListener('click', () => {
+                whatsappPopup.classList.toggle('active');
+            });
+            whatsappClose.addEventListener('click', () => {
+                whatsappPopup.classList.remove('active');
+            });
+            document.addEventListener('click', (event) => {
+                if (!whatsappPopup.contains(event.target) && !whatsappFab.contains(event.target)) {
+                    whatsappPopup.classList.remove('active');
+                }
+            });
         }
     });
-}
     </script>
-
- 
 </body>
 </html>
