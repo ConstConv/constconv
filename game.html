@@ -514,20 +514,23 @@
     startButton.addEventListener('click', startGame);
     restartButton.addEventListener('click', startGame);
 
-    window.addEventListener('keydown', (e) => gameState.keys && (gameState.keys
-) {
-        gameState.keys['ArrowUp'] = e.code === 'ArrowUp';
-        gameState.keys['ArrowDown'] = e.code === 'ArrowDown';
-        gameState.keys['ArrowLeft'] = e.code === 'ArrowLeft';
-        gameState.keys['ArrowRight'] = e.code === 'ArrowRight';
+    // --- CÓDIGO CORRIGIDO AQUI ---
+    window.addEventListener('keydown', (e) => {
+        // Checa se o objeto 'keys' existe para evitar erros
+        if (gameState.keys) { 
+            // Define a tecla específica que foi pressionada como 'true'
+            gameState.keys[e.code] = true; 
+        }
     });
-    window.addEventListener('keyup', (e) => gameState.keys && (gameState.keys
-   ) {
-        gameState.keys['ArrowUp'] = false;
-        gameState.keys['ArrowDown'] = false;
-        gameState.keys['ArrowLeft'] = false;
-        gameState.keys['ArrowRight'] = false;
+
+    window.addEventListener('keyup', (e) => {
+        // Checa se o objeto 'keys' existe
+        if (gameState.keys) {
+            // Define a tecla específica que foi solta como 'false'
+            gameState.keys[e.code] = false;
+        }
     });
+    // --- FIM DA CORREÇÃO ---
 
     // Mobile controls
     let touchStartX = null;
