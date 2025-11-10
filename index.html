@@ -60,37 +60,9 @@
         .fade-in-section { opacity: 0; transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .fade-in-section.is-visible { opacity: 1; }
 
-        /* --- BARRA DE ESCASSEZ --- */
-        .scarcity-bar {
-            background: linear-gradient(90deg, var(--amarelo-dourado), var(--roxo-moderno));
-            color: var(--preto-principal);
-            text-align: center;
-            padding: 0.8rem 1rem;
-            font-weight: 700;
-            font-size: 1rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1001;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .scarcity-bar .close-btn {
-            background: none;
-            border: none;
-            color: var(--preto-principal);
-            font-size: 1.5rem;
-            cursor: pointer;
-            margin-left: 1rem;
-            line-height: 1;
-        }
-
         /* --- Barra de Navegação --- */
         .navbar {
             position: fixed;
-            top: 50px; /* Ajustado para a barra de escassez */
             left: 0;
             width: 100%;
             padding: 1rem 0;
@@ -327,10 +299,6 @@
 <body>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXNFJLZZ"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <div class="scarcity-bar" id="scarcityBar">
-        <span>🔥 Agende <strong>agora</strong>.</span>
-        <button class="close-btn" id="closeScarcityBar">&times;</button>
-    </div>
     
     <nav class="navbar" id="navbar">
         <div class="container">
@@ -439,7 +407,7 @@
                         <a href="#planos" class="cta-button purple">Ver Pacotes de Criação</a>
                     </div>
                     <div class="landing-page-image">
-                        <img src="./example.png" alt="Exemplo de Landing Page moderna">
+                         <img src="./example.png" alt="Exemplo de Landing Page moderna">
                     </div>
                 </div>
             </div>
@@ -538,13 +506,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         // --- Barra de Escassez ---
         const scarcityBar = document.getElementById('scarcityBar');
-        const closeScarcityBar = document.getElementById('closeScarcityBar');
         const navbar = document.getElementById('navbar');
 
-        closeScarcityBar.addEventListener('click', () => {
-            scarcityBar.style.display = 'none';
-            navbar.classList.add('scrolled');
-        });
         
         // --- Ano Atual no Footer ---
         document.getElementById('currentYear').textContent = new Date().getFullYear();
