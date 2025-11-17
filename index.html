@@ -13,8 +13,8 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ConstConv | Landing Pages de Alta Conversão</title>
-    <meta name="description" content="Desenvolvemos sua Landing Page e configuramos Google Ads e Google Analytics para rastrear cada conversão.">
+    <title>ConstConv | Especialista em Landing Pages e Tracking</title>
+    <meta name="description" content="Eu crio Landing Pages de alta performance e configuro o Google Ads e GA4 para rastrear cada conversão. Sem achismos.">
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -120,18 +120,14 @@
             transform: translateY(0);
         }
         
-        /* [NOVO] Atrasos escalonados para grids */
-        .testimonials-grid .animate-on-scroll:nth-child(2) { transition-delay: 0.15s; }
-
         .services-grid .animate-on-scroll:nth-child(2) { transition-delay: 0.15s; }
-        .services-grid .animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
-        .services-grid .animate-on-scroll:nth-child(4) { transition-delay: 0.45s; }
 
         .process-timeline .animate-on-scroll:nth-child(2) { transition-delay: 0.15s; }
         .process-timeline .animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
         .process-timeline .animate-on-scroll:nth-child(4) { transition-delay: 0.45s; }
         
         .pricing-container .animate-on-scroll:nth-child(2) { transition-delay: 0.15s; }
+        .pricing-container .animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
         /* --- FIM Animações --- */
 
 
@@ -182,110 +178,29 @@
         .hero-content p { animation-delay: 0.4s; }
         .hero-content .cta-button { animation-delay: 0.6s; }
         
-        .hero h1 { font-size: 4rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(90deg, var(--amarelo-dourado), var(--roxo-moderno), var(--amarelo-dourado)); background-size: 200% auto; color: #fff; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: animated-gradient 5s linear infinite, slideUp 1s ease-out 0.2s forwards; opacity: 0; }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(90deg, var(--amarelo-dourado), var(--roxo-moderno), var(--amarelo-dourado)); background-size: 200% auto; color: #fff; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: animated-gradient 5s linear infinite, slideUp 1s ease-out 0.2s forwards; opacity: 0; line-height: 1.2; }
         .hero p { font-size: 1.25rem; color: var(--cinza-texto); margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
         
-        /* --- SEÇÃO DE PROVA SOCIAL --- */
-        #depoimentos {
-            background-color: var(--preto-secundario);
-        }
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-        .testimonial-card {
-            background-color: var(--preto-principal);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--cinza-borda);
-        }
-        .testimonial-card .quote {
-            font-size: 1.1rem;
-            font-style: italic;
-            color: var(--cinza-texto);
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-left: 2.5rem;
-        }
-        .testimonial-card .quote::before {
-            content: '“';
-            font-size: 5rem;
-            position: absolute;
-            left: -0.5rem;
-            top: -1.5rem;
-            color: var(--roxo-moderno);
-            opacity: 0.3;
-            font-family: Georgia, serif;
-        }
-        .author-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .author-info img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid var(--roxo-moderno);
-            background-color: var(--cinza-borda); 
-        }
-        .author-info .name {
-            font-weight: 700;
-            color: var(--branco-fundo);
-        }
-        .author-info .company {
-            font-size: 0.9rem;
-            color: var(--cinza-texto);
-        }
-        .stars {
-            color: var(--amarelo-dourado);
-            margin-top: 0.2rem;
-        }
-
-        .client-logos {
-            margin-top: 5rem;
-            text-align: center;
-        }
-        .client-logos h3 {
-            color: var(--cinza-texto);
-            font-weight: 500;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 1rem;
-        }
-        .logos-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 4rem;
-            flex-wrap: wrap;
-        }
-        .logos-container img {
-            height: 40px;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-            filter: grayscale(30%); 
-        }
-        .logos-container img:hover {
-            opacity: 1;
-            filter: grayscale(0%);
-        }
-
         /* --- Seções Padrão --- */
         section { padding: 100px 0; }
         .section-title { text-align: center; font-size: 2.8rem; font-weight: 900; margin-bottom: 1rem; }
         .section-subtitle { text-align: center; color: var(--cinza-texto); max-width: 600px; margin: 0 auto 4rem auto; font-size: 1.1rem; }
 
         /* --- Seção de Serviços --- */
+        #servicos {
+             background-color: var(--preto-secundario);
+        }
         .services-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            /* [MELHORIA] Ajustado para 2 colunas, centralizado */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
             gap: 2rem; 
-            margin-bottom: 5rem; 
+            margin-bottom: 5rem;
+            max-width: 800px; /* Limita a largura máxima para 2 cards */
+            margin-left: auto;
+            margin-right: auto;
         }
-        .service-card { background-color: var(--preto-secundario); padding: 2rem; border-radius: 12px; border: 1px solid var(--cinza-borda); position: relative; overflow: hidden; transition: transform 0.3s ease; height: 100%; display: flex; flex-direction: column; }
+        .service-card { background-color: var(--preto-principal); padding: 2rem; border-radius: 12px; border: 1px solid var(--cinza-borda); position: relative; overflow: hidden; transition: transform 0.3s ease; height: 100%; display: flex; flex-direction: column; }
         .service-card:hover { transform: translateY(-10px); }
         .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(124, 58, 237, 0.15), transparent 40%); opacity: 0; transition: opacity 0.4s ease; z-index: 1; }
         .service-card:hover::before { opacity: 1; }
@@ -299,20 +214,34 @@
         .guarantee-box h3 { font-size: 2rem; margin-bottom: 1rem; color: var(--branco-fundo); }
         .guarantee-box p { color: var(--cinza-texto); max-width: 700px; margin: 0 auto; }
 
-        /* --- Seção Por que Landing Page --- */
-        #por-que-lp { background-color: var(--branco-fundo); }
-        #por-que-lp .section-title, #por-que-lp h3 { color: var(--preto-principal); }
-        #por-que-lp .section-subtitle, #por-que-lp p { color: #52525B; }
-        .landing-page-content { display: flex; align-items: center; gap: 4rem; }
-        .landing-page-text { flex: 1; }
-        .landing-page-text h3 { font-size: 2.5rem; font-weight: 900; margin-bottom: 1.5rem; }
-        .landing-page-text p { margin-bottom: 2rem; line-height: 1.7; }
-        .landing-page-image { flex: 1; text-align: center; }
-        .landing-page-image img { 
-            max-width: 100%; 
-            border-radius: 12px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-            background-color: #f0f0f0; 
+        /* --- [NOVA] Seção Abordagem (Substitui "Sobre Mim") --- */
+        #abordagem { background-color: var(--branco-fundo); }
+        #abordagem .section-title { color: var(--preto-principal); }
+        #abordagem .section-subtitle { color: #52525B; }
+        .approach-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .approach-content h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--preto-principal);
+            margin-top: 2.5rem;
+        }
+        .approach-content p {
+            color: #52525B;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        .approach-content p strong {
+            color: var(--roxo-moderno);
+            font-weight: 700;
+        }
+        .approach-content .cta-button {
+            margin-top: 1rem;
         }
         
         /* --- Seção Processo --- */
@@ -356,54 +285,14 @@
             z-index: 2;
         }
 
-        /* --- Seção Sobre Mim --- */
-        #sobre {
-            background-color: var(--preto-secundario);
-        }
-        .about-content {
-            display: flex;
-            align-items: center;
-            gap: 4rem;
-        }
-        .about-image {
-            flex: 1;
-            max-width: 400px;
-            min-width: 250px; 
-        }
-        .about-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            border: 2px solid var(--cinza-borda);
-            background-color: var(--cinza-borda); 
-        }
-        .about-text {
-            flex: 1.5;
-        }
-        .about-text h2 {
-            font-size: 2.8rem;
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-        .about-text .highlight {
-            color: var(--amarelo-dourado);
-            font-weight: 700;
-        }
-        .about-text p {
-            font-size: 1.1rem;
-            color: var(--cinza-texto);
-            line-height: 1.7;
-            margin-bottom: 2rem;
-        }
-
         /* --- Seção Planos e Preços --- */
+        /* [MELHORIA] Ajustado para 3 colunas */
         .pricing-container { 
             display: grid; 
-            grid-template-columns: 1fr 1fr; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
             gap: 2rem; 
-            align-items: center;
-            max-width: 800px; 
+            align-items: stretch; /* Faz os cards terem a mesma altura */
+            max-width: 1100px; 
             margin: 0 auto; 
         }
         .plan-card { background-color: var(--preto-secundario); padding: 2.5rem 2rem; border-radius: 16px; border: 1px solid var(--cinza-borda); text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; display: flex; flex-direction: column; height: 100%; }
@@ -412,11 +301,13 @@
         .plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, var(--roxo-moderno), var(--amarelo-dourado)); color: var(--preto-principal); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 700; }
         .plan-card h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; color: var(--branco-fundo); }
         .plan-card .price { font-size: 3.5rem; font-weight: 900; color: var(--amarelo-dourado); margin-bottom: 0.5rem; }
+        .plan-card .price-sm { font-size: 2.8rem; } /* [NOVO] Classe para preço menor */
         .plan-card .price span { font-size: 1rem; font-weight: 500; color: var(--cinza-texto); }
         .plan-card .description { color: var(--cinza-texto); margin-bottom: 2rem; min-height: 40px; }
         .plan-card .features { list-style: none; text-align: left; margin-bottom: 2.5rem; color: var(--cinza-texto); flex-grow: 1; }
         .plan-card .features li { margin-bottom: 0.8rem; display: flex; align-items: center; }
         .plan-card .features li::before { content: '✔'; color: var(--amarelo-dourado); font-size: 1.2rem; margin-right: 0.8rem; font-weight: bold; }
+        .plan-card .features li.credit::before { content: '⭐'; } /* [NOVO] Estilo para o crédito */
         .plan-card .cta-button { width: 100%; margin-top: auto; }
         
         /* --- Seção Contato --- */
@@ -433,11 +324,8 @@
         /* --- Responsividade --- */
         @media (max-width: 992px) {
             .hero h1 { font-size: 3rem; } .section-title { font-size: 2.2rem; } 
-            .landing-page-content, .about-content { flex-direction: column; }
-            .about-image { max-width: 300px; margin: 0 auto; } 
-            .about-text { text-align: center; }
             .plan-card.featured { transform: scale(1); }
-            .pricing-container { grid-template-columns: 1fr; } 
+            /* [MELHORIA] pricing-container já é responsivo com auto-fit */
         }
         @media (max-width: 768px) {
             .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: rgba(16, 16, 16, 0.9); backdrop-filter: blur(10px); padding: 1rem 0; border-bottom: 1px solid var(--cinza-borda); }
@@ -447,7 +335,7 @@
             .services-grid { grid-template-columns: 1fr; }
         }
 
-        /* --- Estilos do WhatsApp Popup --- */
+        /* --- Estilos do WhatsApp Popup (Sem Alterações) --- */
         .whatsapp-fab { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background: linear-gradient(45deg, var(--roxo-moderno), #9333ea); color: var(--branco-fundo); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1001; box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4); transition: transform 0.3s ease, box-shadow 0.3s ease; animation: pulse 2s infinite ease-in-out; }
         .whatsapp-fab:hover { transform: scale(1.1); box-shadow: 0 12px 30px rgba(124, 58, 237, 0.6); animation: none; }
         .whatsapp-fab .icon-whatsapp { width: 32px; height: 32px; fill: currentColor; }
@@ -494,9 +382,9 @@
             <a href="#home" class="nav-logo">Const<span>Conv</span></a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#servicos">Soluções</a></li>
+                <li><a href="#abordagem">Abordagem</a></li>
                 <li><a href="#processo">Processo</a></li>
-                <li><a href="#sobre">Sobre Mim</a></li>
                 <li><a href="#planos">Planos</a></li>  
                 <li><a href="#contato">Contato</a></li>
             </ul>
@@ -506,172 +394,116 @@
 
     <header class="hero" id="home">
         <div class="hero-content container">
-            <h1>Sua Landing Page Pronta para Vender</h1>
-            <p>Desenvolvemos sua presença online e configuramos Google Ads e Google Analytics para rastrear cada conversão. Do clique ao cliente, sem complicações.</p>
+            <h1>Landing Pages de Alta Performance.<br>Rastreamento de Dados Impecável.</h1>
+            <p>Eu crio sua página de vendas e configuro o Google Ads e Analytics para rastrear cada centavo. Do clique ao cliente, sem achismos.</p>
             <a href="#planos" class="cta-button">Ver Planos e Preços</a>
         </div>
     </header>
 
     <main>
-        <section id="depoimentos">
-            <div class="container">
-                <h2 class="section-title animate-on-scroll">Quem Confia, Comprova</h2>
-                <p class="section-subtitle animate-on-scroll">Como especialista em tracking, já colaborei com diversas agências. Veja o que clientes dizem sobre implementações que realizei.</p>
-                <div class="testimonials-grid">
-                    <div class="testimonial-card animate-on-scroll">
-                        <p class="quote">Finalmente entendi para onde meu dinheiro de anúncios estava indo! A clareza que eles trouxeram para meus relatórios foi um divisor de águas.</p>
-                        <div class="author-info">
-                            <img src="./juliano.png" alt="Foto do Cliente">
-                            <div>
-                                <div class="name">Juliano S.</div>
-                                <div class="company">CEO, E-commerce de Moda</div>
-                                <div class="stars">★★★★★</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-card animate-on-scroll">
-                        <p class="quote">A implementação do tracking de conversão foi impecável. Em 48 horas, tudo estava funcionando perfeitamente, algo que minha equipe antiga levou meses e não conseguiu.</p>
-                        <div class="author-info">
-                            <img src="./marcos.png" alt="Foto do Cliente">
-                            <div>
-                                <div class="name">Marcos P.</div>
-                                <div class="company">Diretor, Imobiliária</div>
-                                <div class="stars">★★★★★</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="client-logos animate-on-scroll">
-                    <h3>Especialistas nas Plataformas Que Geram Resultados</h3>
-                    <div class="logos-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google Logo" style="height: 35px;">
-                        <img src="https://www.gstatic.com/analytics-suite/header/suite/v2/ic_analytics.svg" alt="Google Analytics Logo" style="height: 38px;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Logo" style="height: 38px;">
-                        <img src="./nuvemshoplogo.png" alt="Nuvemshop Logo" style="height: 200px;">
-                    </div>
-                </div>
-            </div>
-        </section>
-
+        
         <section id="servicos">
             <div class="container">
-                <h2 class="section-title animate-on-scroll">Um Arsenal Completo de Soluções</h2>
-                <p class="section-subtitle animate-on-scroll">Do design da sua página à análise de dados, tudo o que você precisa para ter uma presença digital que gera resultados reais.</p>
+                <h2 class="section-title animate-on-scroll">Minhas Soluções Focadas</h2>
+                <p class="section-subtitle animate-on-scroll">Eu não faço tudo. Eu faço o essencial: criar sua página e garantir que ela seja 100% rastreável para você parar de perder dinheiro com anúncios.</p>
                 
                 <div class="services-grid">
                     <div class="service-card animate-on-scroll">
                         <div class="service-card-content">
-                            <img src="./websiteicon.png" style="width: 50px; height: 50px;" alt="">
+                            <img src="./websiteicon.png" style="width: 50px; height: 50px;" alt="Ícone de Website">
                             <h3>Landing Pages e Sites</h3>
-                            <p>Desenvolvemos LPs de alta conversão ou sites institucionais completos, com design responsivo e foco em capturar leads.</p>
+                            <p>Desenvolvo LPs de alta conversão ou sites institucionais, com código limpo, design responsivo e foco total em capturar leads.</p>
                             <a href="#planos" class="cta-button purple">Ver Pacotes</a>
                         </div>
                     </div>
                     <div class="service-card animate-on-scroll">
                         <div class="service-card-content">
-                            <img src="./analyticsicon.png" style="width: 50px; height: 50px;" alt="">
+                            <img src="./analyticsicon.png" style="width: 50px; height: 50px;" alt="Ícone de Analytics">
                             <h3>Setup de Conversão GA4</h3>
-                            <p>O serviço essencial. Configuramos o tracking completo (Google Ads + GA4) para que você saiba exatamente de onde vêm seus resultados.</p>
-                            <a href="#contato" class="cta-button purple">Solicitar Orçamento</a>
+                            <p>O serviço essencial. Configuro o tracking completo (Google Ads + GA4) para que você saiba exatamente de onde vêm seus resultados.</p>
+                            <a href="#planos" class="cta-button purple">Ver Pacotes de Tracking</a>
                         </div>
                     </div>
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-card-content">
-                            <img src="./ecommerceicon.png" style="width: 50px; height: 50px;" alt="">
-                            <h3>E-commerce (NuvemShop)</h3>
-                            <p>Configuramos sua loja virtual completa na NuvemShop, da personalização do layout até a integração com meios de pagamento.</p>
-                            <a href="#contato" class="cta-button purple">Solicitar Orçamento</a>
-                        </div>
-                    </div>
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-card-content">
-                            <img src="./socialmediaicon.png" style="width: 50px; height: 50px;" alt="">
-                            <h3>Gestão de Redes Sociais</h3>
-                            <p>Criação de conteúdo estratégico, design de posts e gerenciamento de comunidade para engajar seu público e fortalecer sua marca.</p>
-                            <a href="#contato" class="cta-button purple">Solicitar Orçamento</a>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="guarantee-box animate-on-scroll">
+                    </div>
+
+                <div class="guarantee-box animate-on-scroll" style="margin-top: 4rem;">
                     <h3>Garantia Blindada de 30 Dias</h3>
-                    <p>Confiamos tanto no nosso trabalho de tracking que oferecemos uma garantia completa. Se as configurações de conversão não funcionarem como o prometido, nós corrigimos sem custo algum. Seu sucesso é o nosso sucesso.</p>
+                    <p>Confiamos tanto no meu trabalho de tracking que ofereço uma garantia completa. Se as configurações de conversão não funcionarem como o prometido, eu corrijo sem custo algum. Seu sucesso é o meu sucesso.</p>
                 </div>
             </div>
         </section>
 
-        <section id="por-que-lp">
+        <section id="abordagem">
             <div class="container">
-                <div class="landing-page-content animate-on-scroll">
-                    <div class="landing-page-text">
-                        <h3>Sua campanha merece uma Landing Page que vende.</h3>
-                        <p>De nada adianta atrair milhares de visitantes se a sua página de destino não for otimizada para convertê-los em clientes. Nós criamos Landing Pages de alta conversão, com design atraente, textos persuasivos e totalmente integradas às suas campanhas de tráfego.</p>
-                        <a href="#planos" class="cta-button purple">Ver Pacotes de Criação</a>
-                    </div>
-                    <div class="landing-page-image">
-                        <img src="./examplelandingpage.png" alt="Exemplo de Landing Page de Alta Conversão">
-                    </div>
+                <h2 class="section-title animate-on-scroll">Minha Abordagem: Dados vs. "Achismos"</h2>
+                <p class="section-subtitle animate-on-scroll">No mercado, existem dois tipos de sites: os "bonitos" e os que "vendem". Meu trabalho é garantir que você tenha os dois.</p>
+                
+                <div class="approach-content animate-on-scroll">
+                    <h3>O Problema Comum:</h3>
+                    <p>Muitos investem rios de dinheiro em anúncios e recebem cliques, mas não veem vendas. O motivo? O site é "bonito", mas lento, confuso ou, pior, <strong>não rastreia os dados corretamente.</strong> Você não sabe o que funciona e o que é desperdício.</p>
+                    
+                    <h3>Minha Solução (Como Especialista):</h3>
+                    <p>Eu não sou apenas um designer. Sou um desenvolvedor focado em conversão. Meu trabalho é garantir que cada centavo do seu investimento em tráfego seja justificado com dados. Crio páginas rápidas, claras e <strong>100% rastreáveis</strong> no Google Ads e GA4.</p>
+                    
+                    <a href="#processo" class="cta-button purple">Veja como eu faço</a>
                 </div>
             </div>
         </section>
 
         <section id="processo">
             <div class="container">
-                <h2 class="section-title animate-on-scroll">Nosso Método Para Resultados</h2>
-                <p class="section-subtitle animate-on-scroll">Profissionalismo é ter um processo. Seguimos 4 etapas claras para garantir que seu projeto seja entregue com excelência, do início ao fim.</p>
+                <h2 class="section-title animate-on-scroll">Meu Método Para Resultados</h2>
+                <p class="section-subtitle animate-on-scroll">Profissionalismo é ter um processo. Sigo 4 etapas claras para garantir que seu projeto seja entregue com excelência, do início ao fim.</p>
                 <div class="process-timeline">
                     <div class="process-step animate-on-scroll">
                         <div class="step-number">01</div>
                         <h3>Imersão e Estratégia</h3>
-                        <p>Entendemos seu público, seus objetivos e seus concorrentes. Aqui, definimos o plano de ação e a estrutura da sua página.</p>
+                        <p>Entendo seu público, seus objetivos e seus concorrentes. Aqui, defino o plano de ação e a estrutura da sua página.</p>
                     </div>
                     <div class="process-step animate-on-scroll">
                         <div class="step-number">02</div>
                         <h3>Design e Construção</h3>
-                        <p>Criamos um design de alta fidelidade e, após aprovação, desenvolvemos o código, garantindo performance e responsividade.</p>
+                        <p>Crio um design de alta fidelidade e, após aprovação, desenvolvo o código, garantindo performance e responsividade.</p>
                     </div>
                     <div class="process-step animate-on-scroll">
                         <div class="step-number">03</div>
                         <h3>Validação e Tracking</h3>
-                        <p>A etapa crucial. Implementamos o Google Analytics (GA4) e as tags do Google Ads, testando cada formulário e botão de conversão.</p>
+                        <p>A etapa crucial. Implemento o Google Analytics (GA4) e as tags do Google Ads, testando cada formulário e botão de conversão.</p>
                     </div>
                     <div class="process-step animate-on-scroll">
                         <div class="step-number">04</div>
                         <h3>Lançamento</h3>
-                        <p>Seu site vai ao ar, otimizado e pronto para receber tráfego. Entregamos os acessos e você está pronto para vender.</p>
+                        <p>Seu site vai ao ar, otimizado e pronto para receber tráfego. Entrego os acessos e você está pronto para vender.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="sobre">
-            <div class="container">
-                <div class="about-content animate-on-scroll">
-                    <div class="about-image">
-                        <img src="./raul.jpg" alt="Foto do fundador da ConstConv">
-                    </div>
-                    <div class="about-text">
-                        <h2>Não é só sobre código, é sobre <span class="highlight">dados</span>.</h2>
-                <p>Olá! Eu sou o Raul Campos, fundador da ConstConv. Em um mercado digital que muda diariamente, o que importa não é o "tempo de casa", mas sim a <span class="highlight">agilidade e a precisão técnica</span>.</p>
-                <p>Minha especialidade é conectar o desenvolvimento de alta performance (sites rápidos e responsivos) com a inteligência de dados (Google Ads e GA4). Cansei de ver agências entregando sites "bonitos" que não rastreiam um único clique corretamente.</p>
-                <p>Não sou apenas um desenvolvedor; sou seu parceiro estratégico focado em <span class="highlight">rastreamento robusto e resultados mensuráveis</span>. Meu trabalho é garantir que cada centavo do seu investimento em tráfego possa ser justificado com dados.</p>
-                <a href="#contato" class="cta-button">Vamos conversar?</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
         <section id="planos">
             <div class="container">
-                <h2 class="section-title animate-on-scroll">Pacotes de Lançamento Rápido</h2>
-                <p class="section-subtitle animate-on-scroll">Foco total no seu produto principal: Landing Pages. Escolha o pacote ideal para começar a converter agora.</p>
+                <h2 class="section-title animate-on-scroll">Comece por onde fizer sentido</h2>
+                <p class="section-subtitle animate-on-scroll">Sem complicação. Escolha a solução exata que você precisa agora e vamos começar a rastrear seus resultados.</p>
                 
                 <div class="pricing-container">
                     
                     <div class="plan-card animate-on-scroll">
-                        <h3>LP Essencial</h3>
-                        <p class="description">Para quem já tem domínio e hospedagem e precisa da página e do tracking.</p>
+                        <h3>Auditoria de Tracking</h3>
+                        <p class="description">Já tem um site, mas não sabe se os dados estão corretos? Eu audito.</p>
+                        <div class="price price-sm">R$ 99</div>
+                        <ul class="features">
+                            <li>Análise de tags (GA4 e Google Ads)</li>
+                            <li>Relatório em vídeo de 15 min</li>
+                            <li>Plano de 3 melhorias práticas</li>
+                            <li class="credit">Valor vira 100% de crédito</li>
+                        </ul>
+                        <a href="#contato" class="cta-button purple">Quero a Auditoria</a>
+                    </div>
+
+                    <div class="plan-card featured animate-on-scroll">
+                        <div class="plan-badge">Mais Popular</div>
+                        <h3>LP Essencial + Tracking</h3>
+                        <p class="description">Para quem já tem domínio/hospedagem e precisa da página e do tracking.</p>
                         <div class="price">R$ 500</div>
                         <ul class="features">
                             <li>Desenvolvimento de Landing Page</li>
@@ -680,14 +512,13 @@
                             <li>Setup de Conversões (Google Ads)</li>
                             <li>Formulário de Contato</li>
                         </ul>
-                        <a href="#contato" class="cta-button purple">Solicitar Contato</a>
+                        <a href="#contato" class="cta-button">Quero este plano!</a>
                     </div>
                     
-                    <div class="plan-card featured animate-on-scroll">
-                        <div class="plan-badge">Mais Popular</div>
-                        <h3>LP Completo</h3>
-                        <p class="description">A solução completa. Saia do zero com tudo pronto em um só lugar.</p>
-                        <div class="price">R$ 619</div>
+                    <div class="plan-card animate-on-scroll">
+                        <h3>LP Completo (Tudo Incluso)</h3>
+                        <p class="description">A solução "chave na mão". Saia do zero com tudo pronto em um só lugar.</p>
+                        <div class="price">R$ 620</div> 
                         <ul class="features">
                             <li><strong>Tudo do plano Essencial</strong></li>
                             <li>Registro de Domínio (1 ano)</li>
@@ -695,8 +526,9 @@
                             <li>Certificado de Segurança SSL</li>
                             <li>E-mail Profissional (Ex: contato@)</li>
                         </ul>
-                        <a href="#contato" class="cta-button">Quero este plano!</a>
+                        <a href="#contato" class="cta-button purple">Solicitar Contato</a>
                     </div>
+                    
                 </div>
             </div>
         </section>
@@ -762,7 +594,6 @@
         });
         
         // --- [CORRIGIDO] Lógica para fechar menu mobile ao clicar no link ---
-        // (Isso não afeta a rolagem suave do desktop)
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 if (navLinks.classList.contains('active')) {
@@ -819,7 +650,7 @@
             if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 100) { 
                  const lastSection = pageSections[pageSections.length - 1];
                  if (lastSection) {
-                     currentSectionId = lastSection.getAttribute('id');
+                       currentSectionId = lastSection.getAttribute('id');
                  }
             }
 
