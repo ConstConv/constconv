@@ -55,7 +55,6 @@
             overflow-x: hidden;
             line-height: 1.6;
             
-            /* Padrão de Grid Tecnológico no Fundo */
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
@@ -94,18 +93,16 @@
             font-size: 1.1rem;
         }
 
-        /* Animações de Entrada */
         .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
         
-        /* Utilitário para Grid Responsivo */
         .grid-3 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
-        /* --- 3. Navbar (Vidro) --- */
+        /* --- 3. Navbar --- */
         .navbar {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             background: rgba(5, 5, 5, 0.7);
@@ -134,7 +131,7 @@
 
         .nav-toggler { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
 
-        /* --- 4. Botões (Glow) --- */
+        /* --- 4. Botões --- */
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
             padding: 0.9rem 2rem; border-radius: 8px;
@@ -143,35 +140,14 @@
             position: relative; overflow: hidden;
             border: 1px solid transparent;
         }
-        
-        .btn-primary {
-            background: var(--amarelo); color: #000;
-            box-shadow: 0 0 15px rgba(255, 199, 0, 0.15);
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(255, 199, 0, 0.4);
-        }
+        .btn-primary { background: var(--amarelo); color: #000; box-shadow: 0 0 15px rgba(255, 199, 0, 0.15); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(255, 199, 0, 0.4); }
+        .btn-secondary { background: rgba(255, 255, 255, 0.05); color: var(--branco); border: 1px solid var(--borda); }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--branco); }
+        .btn-purple { background: var(--roxo-brilho); color: white; box-shadow: 0 0 15px rgba(139, 92, 246, 0.3); }
+        .btn-purple:hover { box-shadow: 0 0 30px rgba(139, 92, 246, 0.6); transform: translateY(-2px); }
 
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05); color: var(--branco);
-            border: 1px solid var(--borda);
-        }
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--branco);
-        }
-        
-        .btn-purple {
-            background: var(--roxo-brilho); color: white;
-            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
-        }
-        .btn-purple:hover {
-            box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
-            transform: translateY(-2px);
-        }
-
-        /* --- 5. Hero Section --- */
+        /* --- 5. Hero --- */
         .hero {
             min-height: 100vh;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -179,147 +155,83 @@
             padding-top: 80px; position: relative;
             background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
         }
-        
-        .hero h1 {
-            font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem;
-            max-width: 900px;
-        }
-        .hero h1 span {
-            color: var(--amarelo);
-            position: relative;
-            display: inline-block;
-        }
-        
+        .hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem; max-width: 900px; }
+        .hero h1 span { color: var(--amarelo); position: relative; display: inline-block; }
         .hero p { font-size: 1.2rem; max-width: 650px; margin-bottom: 2.5rem; }
-        
         .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
 
-        /* --- 6. Cards com Efeito Spotlight (Mouse Tracking) --- */
-        /* Esta classe será usada nos cards de projetos e serviços */
+        /* --- 6. Cards Spotlight --- */
         .spotlight-card {
-            background: var(--bg-card);
-            border: 1px solid var(--borda);
-            border-radius: 12px;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: flex; flex-direction: column;
-            height: 100%;
+            background: var(--bg-card); border: 1px solid var(--borda); border-radius: 12px;
+            padding: 2rem; position: relative; overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; height: 100%;
         }
-        
-        /* O efeito de brilho que segue o mouse */
         .spotlight-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 12px;
-            padding: 1px; /* Espessura da borda brilhante */
-            background: radial-gradient(
-                600px circle at var(--mouse-x) var(--mouse-y),
-                rgba(255, 255, 255, 0.25),
-                transparent 40%
-            );
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 12px; padding: 1px;
+            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.25), transparent 40%);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.4s;
+            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; opacity: 0; transition: opacity 0.4s;
         }
-        
-        /* Brilho interno */
         .spotlight-card::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(
-                500px circle at var(--mouse-x) var(--mouse-y),
-                rgba(255, 255, 255, 0.04),
-                transparent 40%
-            );
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.4s;
-            z-index: 0;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(500px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.04), transparent 40%);
+            pointer-events: none; opacity: 0; transition: opacity 0.4s; z-index: 0;
         }
-
-        .spotlight-card:hover::before,
-        .spotlight-card:hover::after { opacity: 1; }
+        .spotlight-card:hover::before, .spotlight-card:hover::after { opacity: 1; }
         .spotlight-card:hover { transform: translateY(-3px); }
-        
-        /* Conteúdo do card acima do efeito */
         .card-content { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
-
-        /* Estilos específicos de Card */
-        .project-tag {
-            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;
-            color: var(--amarelo); margin-bottom: 1rem; display: block;
-        }
-        .card-title { font-size: 1.4rem; margin-bottom: 0.8rem; font-weight: 700; }
-        .card-text { font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; } /* Empurra o botão para baixo */
         
-        .card-link {
-            font-size: 0.9rem; font-weight: 600; color: var(--branco); text-decoration: none;
-            display: inline-flex; align-items: center; gap: 5px; margin-top: auto;
-        }
+        .project-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; color: var(--amarelo); margin-bottom: 1rem; display: block; }
+        .card-title { font-size: 1.4rem; margin-bottom: 0.8rem; font-weight: 700; }
+        .card-text { font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; }
+        .card-link { font-size: 0.9rem; font-weight: 600; color: var(--branco); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; margin-top: auto; }
         .card-link:hover { color: var(--amarelo); }
 
-        /* --- 7. Pricing Section --- */
-        .pricing-card {
-            background: var(--bg-card); border: 1px solid var(--borda);
-            padding: 2.5rem; border-radius: 16px;
-            display: flex; flex-direction: column;
-            transition: all 0.3s;
-        }
+        /* --- 7. Pricing --- */
+        .pricing-card { background: var(--bg-card); border: 1px solid var(--borda); padding: 2.5rem; border-radius: 16px; display: flex; flex-direction: column; transition: all 0.3s; }
         .pricing-card:hover { border-color: var(--borda-hover); transform: translateY(-5px); }
-        
-        .pricing-card.featured {
-            background: linear-gradient(180deg, rgba(139, 92, 246, 0.08) 0%, var(--bg-card) 100%);
-            border: 1px solid var(--roxo-brilho);
-            box-shadow: 0 0 30px rgba(139, 92, 246, 0.1);
-        }
-
+        .pricing-card.featured { background: linear-gradient(180deg, rgba(139, 92, 246, 0.08) 0%, var(--bg-card) 100%); border: 1px solid var(--roxo-brilho); box-shadow: 0 0 30px rgba(139, 92, 246, 0.1); }
         .price-tag { font-size: 3rem; font-weight: 800; color: var(--branco); margin: 1rem 0; }
         .price-tag span { font-size: 1rem; font-weight: 400; color: var(--cinza-medio); }
-        
         .feature-list { list-style: none; margin: 2rem 0; color: var(--cinza-claro); flex-grow: 1; }
         .feature-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 0.8rem; font-size: 0.95rem; }
         .feature-list li::before { content: "✓"; color: var(--amarelo); font-weight: bold; }
 
-        /* --- 8. Formulário --- */
-        #contato form { max-width: 600px; margin: 0 auto; }
-        
-        .input-group { margin-bottom: 1rem; }
-        .input-field {
-            width: 100%; padding: 1rem;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--borda); border-radius: 8px;
-            color: var(--branco); font-family: var(--fonte); font-size: 1rem;
-            transition: all 0.3s;
+        /* --- 8. Agenda (Novo) --- */
+        .calendar-wrapper {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--borda);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            margin-top: 3rem;
+            height: 700px; /* Altura ideal para o widget do Cal.com */
         }
+        .calendar-wrapper::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--amarelo), transparent);
+            opacity: 0.5;
+        }
+
+        /* --- 9. Formulário --- */
+        #contato form { max-width: 600px; margin: 0 auto; }
+        .input-group { margin-bottom: 1rem; }
+        .input-field { width: 100%; padding: 1rem; background: rgba(255,255,255,0.03); border: 1px solid var(--borda); border-radius: 8px; color: var(--branco); font-family: var(--fonte); font-size: 1rem; transition: all 0.3s; }
         .input-field:focus { outline: none; border-color: var(--roxo-brilho); background: rgba(255,255,255,0.05); }
         textarea.input-field { resize: vertical; min-height: 120px; }
 
-        /* --- 9. Footer --- */
-        footer {
-            border-top: 1px solid var(--borda); padding: 3rem 0;
-            text-align: center; margin-top: 6rem; font-size: 0.9rem; color: var(--cinza-medio);
-        }
+        /* --- 10. Footer --- */
+        footer { border-top: 1px solid var(--borda); padding: 3rem 0; text-align: center; margin-top: 6rem; font-size: 0.9rem; color: var(--cinza-medio); }
 
-        /* --- 10. Responsividade --- */
+        /* --- 11. Mobile --- */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
-            
             .nav-toggler { display: block; z-index: 1001; }
-            .nav-links {
-                position: fixed; top: 0; right: -100%; width: 70%; height: 100vh;
-                background: #0a0a0a; border-left: 1px solid var(--borda);
-                flex-direction: column; justify-content: center; align-items: center;
-                transition: right 0.3s ease-in-out;
-            }
+            .nav-links { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background: #0a0a0a; border-left: 1px solid var(--borda); flex-direction: column; justify-content: center; align-items: center; transition: right 0.3s ease-in-out; }
             .nav-links.active { right: 0; }
+            .calendar-wrapper { height: 850px; } /* Mais altura no mobile */
         }
     </style>
 </head>
@@ -337,7 +249,7 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#portfolio">Laboratório</a></li>
                 <li><a href="#servicos">Expertise</a></li>
-                <li><a href="#planos">Planos</a></li>
+                <li><a href="#agenda" style="color:var(--amarelo)">Agenda</a></li> <li><a href="#planos">Planos</a></li>
                 <li><a href="#contato">Contato</a></li>
             </ul>
         </div>
@@ -349,7 +261,7 @@
         <p>Desenvolvimento Web, Tracking Avançado e Suporte Técnico. Do código à conversão, sem pontas soltas.</p>
         <div class="hero-btns">
             <a href="#portfolio" class="btn btn-primary">Ver Portfólio Técnico</a>
-            <a href="#contato" class="btn btn-secondary">Pedir Orçamento</a>
+            <a href="#agenda" class="btn btn-secondary">Agendar Diagnóstico</a>
         </div>
     </header>
 
@@ -415,6 +327,22 @@
         </div>
     </section>
 
+    <section id="agenda" style="padding: 100px 0; background: linear-gradient(to bottom, var(--bg-body), #0a0a0a);">
+        <div class="container">
+            <h2 class="section-title fade-up">Conversa ao vivo</h2>
+            <p class="section-subtitle fade-up">Prefere conversar ao vivo? Agende uma call gratuita sem compromisso.</p>
+
+            <div class="calendar-wrapper fade-up">
+                <iframe 
+                    src="https://cal.com/const-conv?theme=dark" 
+                    style="width: 100%; height: 100%; border: none; overflow: hidden;"
+                    frameborder="0"
+                    title="Agende sua call">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
     <section id="planos" style="padding: 100px 0;">
         <div class="container">
             <h2 class="section-title fade-up">Investimento</h2>
@@ -429,7 +357,7 @@
                         <li>Identificação de falhas no pixel</li>
                         <li>Relatório em vídeo explicativo</li>
                     </ul>
-                    <a href="#contato" class="btn btn-secondary" style="width:100%">Quero Auditar</a>
+                    <a href="#agenda" class="btn btn-secondary" style="width:100%">Agendar Call</a>
                 </div>
 
                 <div class="pricing-card featured fade-up">
@@ -462,8 +390,8 @@
 
     <section id="contato" style="padding: 100px 0;">
         <div class="container">
-            <h2 class="section-title fade-up">Vamos Conversar?</h2>
-            <p class="section-subtitle fade-up">Preencha abaixo. Respondemos rápido (geralmente em algumas horas).</p>
+            <h2 class="section-title fade-up">Mensagem Direta</h2>
+            <p class="section-subtitle fade-up">Preencha abaixo se preferir texto. Respondemos rápido.</p>
             
             <form id="contactForm" class="fade-up">
                 <div class="input-group">
@@ -475,7 +403,7 @@
                 <div class="input-group">
                     <textarea id="mensagem" class="input-field" placeholder="Descreva seu projeto ou problema..." required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensagem 🚀</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensagem</button>
             </form>
         </div>
     </section>
