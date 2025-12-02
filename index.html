@@ -6,6 +6,7 @@
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https.www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TXNFJLZZ');</script>
+    
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
       emailjs.init('3Aaing7IC5U8ZAIuQ');
@@ -13,717 +14,572 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ConstConv | Especialista em Landing Pages e Tracking</title>
-    <meta name="description" content="Eu crio Landing Pages de alta performance e configuro o Google Ads e GA4 para rastrear cada conversão. Sem achismos.">
+    <title>ConstConv | Tracking & Performance Web</title>
+    <meta name="description" content="Especialista em Landing Pages e Tracking Avançado (GA4/Ads).">
     
     <link rel="icon" href="./favicon.ico.png" sizes="any">
-    <link rel="icon" type="image/png" href="./favicon-32.png" sizes="32x32">
-    <link rel="apple-touch-icon" href="./favicon-180.png" sizes="180x180">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
     <style>
-        /* --- Reset e Variáveis de Cor --- */
+        /* --- 1. Variáveis e Reset --- */
         :root {
-            --preto-principal: #101010;
-            --branco-fundo: #FFFFFF;
-            --amarelo-dourado: #FFC700;
-            --roxo-moderno: #7C3AED;
-            --cinza-texto: #A1A1AA;
-            --cinza-borda: #27272A;
-            --preto-secundario: #18181B;
+            --bg-body: #050505;
+            --bg-card: rgba(20, 20, 20, 0.6);
+            --bg-card-hover: rgba(30, 30, 30, 0.8);
+            --borda: rgba(255, 255, 255, 0.08);
+            --borda-hover: rgba(255, 255, 255, 0.2);
+            
+            --branco: #FFFFFF;
+            --cinza-claro: #E4E4E7;
+            --cinza-medio: #A1A1AA;
+            
+            /* Cores de destaque (Marca) */
+            --amarelo: #FFC700;
+            --roxo-brilho: #8B5CF6;
+            --gradiente-texto: linear-gradient(135deg, #FFFFFF 0%, #A1A1AA 100%);
+            
+            --fonte: 'Inter', sans-serif;
         }
 
-        /* [CORRIGIDO] Rolagem suave agora é tratada pelo CSS */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+        
         body {
-            background-color: var(--preto-principal);
-            font-family: 'Inter', sans-serif;
-            color: var(--branco-fundo);
+            background-color: var(--bg-body);
+            font-family: var(--fonte);
+            color: var(--branco);
             overflow-x: hidden;
+            line-height: 1.6;
+            
+            /* Padrão de Grid Tecnológico no Fundo */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            
             opacity: 0; 
-            transition: opacity 0.5s ease-in;
+            transition: opacity 0.6s ease;
         }
         
-        body.loaded {
-            opacity: 1;
-        }
-
-        /* --- PRELOADER --- */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            background-color: var(--preto-principal);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
-            transition-delay: 0.5s; 
-            opacity: 1;
-            visibility: visible;
-        }
-        #preloader.loaded {
-            opacity: 0;
-            visibility: hidden;
-        }
-        .preloader-logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--branco-fundo);
-            animation: pulse-logo 1.5s infinite ease-in-out;
-        }
-        .preloader-logo span {
-            color: var(--amarelo-dourado);
-        }
-        @keyframes pulse-logo {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        /* --- FIM PRELOADER --- */
-
+        body.loaded { opacity: 1; }
 
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
         }
 
-        /* --- [ATUALIZADO] Animações --- */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { 
-            from { opacity: 0; transform: translateY(30px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-        @keyframes animated-gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        /* --- 2. Tipografia e Utilitários --- */
+        h1, h2, h3, h4 { letter-spacing: -0.03em; color: var(--branco); }
+        p { color: var(--cinza-medio); font-weight: 300; }
         
-        /* [NOVO] Lógica de animação em cascata */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .animate-on-scroll.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to bottom, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
-        .services-grid .animate-on-scroll:nth-child(2) { transition-delay: 0.15s; }
+        .section-subtitle {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem auto;
+            font-size: 1.1rem;
+        }
 
-        .process-timeline .animate-on-scroll:nth-child(2) { transition-delay: 0.15s; }
-        .process-timeline .animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
-        .process-timeline .animate-on-scroll:nth-child(4) { transition-delay: 0.45s; }
+        /* Animações de Entrada */
+        .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
         
-        .pricing-container .animate-on-scroll:nth-child(2) { transition-delay: 0.15s; }
-        .pricing-container .animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
-        /* --- FIM Animações --- */
+        /* Utilitário para Grid Responsivo */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
 
-
-        /* --- Barra de Navegação --- */
+        /* --- 3. Navbar (Vidro) --- */
         .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--borda);
             padding: 1rem 0;
-            z-index: 1000;
-            background: rgba(16, 16, 16, 0.7);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--cinza-borda);
-            animation: fadeIn 1s ease-out;
-            transition: top 0.3s ease;
+            transition: all 0.3s;
         }
         .navbar .container { display: flex; justify-content: space-between; align-items: center; }
-        .nav-logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--branco-fundo);
-            text-decoration: none;
-        }
-        .nav-logo span {
-            color: var(--amarelo-dourado);
-        }
-        .nav-links { list-style: none; display: flex; gap: 1.5rem; }
-        .nav-links a { color: var(--cinza-texto); text-decoration: none; font-weight: 500; padding: 0.5rem; transition: color 0.3s ease; }
-        .nav-links a:hover, .nav-links a.active { color: var(--amarelo-dourado); }
-        .nav-toggler { display: none; }
-
-        /* --- Botão CTA Genérico --- */
-        .cta-button { display: inline-block; background-color: var(--amarelo-dourado); color: #000; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .cta-button:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 199, 0, 0.5); }
-        .cta-button.purple { background-color: var(--roxo-moderno); color: var(--branco-fundo); }
-        .cta-button.purple:hover { box-shadow: 0 0 20px rgba(124, 58, 237, 0.5); }
-
-        /* --- Seção Home (Hero) --- */
-        .hero { padding-top: 130px; min-height: 100vh; display: flex; align-items: center; text-align: center; }
-        .hero-content { max-width: 800px; margin: 0 auto; }
         
-        .hero-content h1, .hero-content p, .hero-content .cta-button {
-            opacity: 0;
-            animation: slideUp 1s ease-out forwards;
-        }
-        .hero-content h1 { animation-delay: 0.2s; } 
-        .hero-content p { animation-delay: 0.4s; }
-        .hero-content .cta-button { animation-delay: 0.6s; }
+        .nav-logo { font-size: 1.4rem; font-weight: 900; color: var(--branco); text-decoration: none; display: flex; align-items: center; gap: 5px; }
+        .nav-logo span { color: var(--amarelo); }
         
-        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(90deg, var(--amarelo-dourado), var(--roxo-moderno), var(--amarelo-dourado)); background-size: 200% auto; color: #fff; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: animated-gradient 5s linear infinite, slideUp 1s ease-out 0.2s forwards; opacity: 0; line-height: 1.2; }
-        .hero p { font-size: 1.25rem; color: var(--cinza-texto); margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
-        
-        /* --- Seções Padrão --- */
-        section { padding: 100px 0; }
-        .section-title { text-align: center; font-size: 2.8rem; font-weight: 900; margin-bottom: 1rem; }
-        .section-subtitle { text-align: center; color: var(--cinza-texto); max-width: 600px; margin: 0 auto 4rem auto; font-size: 1.1rem; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a {
+            color: var(--cinza-medio); text-decoration: none; font-size: 0.9rem; font-weight: 500;
+            transition: color 0.3s; position: relative;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--branco); }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
+            background: var(--amarelo); transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-        /* --- Seção de Serviços --- */
-        #servicos {
-             background-color: var(--preto-secundario);
-        }
-        .services-grid { 
-            display: grid; 
-            /* [MELHORIA] Ajustado para 2 colunas, centralizado */
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 2rem; 
-            margin-bottom: 5rem;
-            max-width: 800px; /* Limita a largura máxima para 2 cards */
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .service-card { background-color: var(--preto-principal); padding: 2rem; border-radius: 12px; border: 1px solid var(--cinza-borda); position: relative; overflow: hidden; transition: transform 0.3s ease; height: 100%; display: flex; flex-direction: column; }
-        .service-card:hover { transform: translateY(-10px); }
-        .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(124, 58, 237, 0.15), transparent 40%); opacity: 0; transition: opacity 0.4s ease; z-index: 1; }
-        .service-card:hover::before { opacity: 1; }
-        .service-card-content { position: relative; z-index: 2; flex-grow: 1; }
-        .service-card .icon { width: 48px; height: 48px; margin-bottom: 1.5rem; color: var(--roxo-moderno); }
-        .service-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--branco-fundo); }
-        .service-card p { color: var(--cinza-texto); line-height: 1.6; }
-        .service-card .cta-button { margin-top: 1.5rem; width: 100%; text-align: center; padding: 0.8rem 1.5rem; }
+        .nav-toggler { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
 
-        .guarantee-box { background: linear-gradient(90deg, rgba(124, 58, 237, 0.1), rgba(255, 199, 0, 0.1)); border: 1px solid var(--roxo-moderno); padding: 2.5rem; border-radius: 12px; text-align: center; }
-        .guarantee-box h3 { font-size: 2rem; margin-bottom: 1rem; color: var(--branco-fundo); }
-        .guarantee-box p { color: var(--cinza-texto); max-width: 700px; margin: 0 auto; }
-
-        /* --- [NOVA] Seção Abordagem (Substitui "Sobre Mim") --- */
-        #abordagem { background-color: var(--branco-fundo); }
-        #abordagem .section-title { color: var(--preto-principal); }
-        #abordagem .section-subtitle { color: #52525B; }
-        .approach-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
-        }
-        .approach-content h3 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--preto-principal);
-            margin-top: 2.5rem;
-        }
-        .approach-content p {
-            color: #52525B;
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-        .approach-content p strong {
-            color: var(--roxo-moderno);
-            font-weight: 700;
-        }
-        .approach-content .cta-button {
-            margin-top: 1rem;
+        /* --- 4. Botões (Glow) --- */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 0.9rem 2rem; border-radius: 8px;
+            font-weight: 600; text-decoration: none; font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative; overflow: hidden;
+            border: 1px solid transparent;
         }
         
-        /* --- Seção Processo --- */
-        .process-timeline {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+        .btn-primary {
+            background: var(--amarelo); color: #000;
+            box-shadow: 0 0 15px rgba(255, 199, 0, 0.15);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(255, 199, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05); color: var(--branco);
+            border: 1px solid var(--borda);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--branco);
+        }
+        
+        .btn-purple {
+            background: var(--roxo-brilho); color: white;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+        }
+        .btn-purple:hover {
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* --- 5. Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center;
+            padding-top: 80px; position: relative;
+            background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
+        }
+        
+        .hero h1 {
+            font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem;
+            max-width: 900px;
+        }
+        .hero h1 span {
+            color: var(--amarelo);
             position: relative;
+            display: inline-block;
         }
-        .process-step {
-            background-color: var(--preto-secundario);
-            padding: 2rem;
+        
+        .hero p { font-size: 1.2rem; max-width: 650px; margin-bottom: 2.5rem; }
+        
+        .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+        /* --- 6. Cards com Efeito Spotlight (Mouse Tracking) --- */
+        /* Esta classe será usada nos cards de projetos e serviços */
+        .spotlight-card {
+            background: var(--bg-card);
+            border: 1px solid var(--borda);
             border-radius: 12px;
-            border: 1px solid var(--cinza-borda);
+            padding: 2rem;
             position: relative;
-            transition: transform 0.3s ease;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex; flex-direction: column;
+            height: 100%;
         }
-        .process-step:hover {
-            transform: translateY(-5px);
-        }
-        .step-number {
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--roxo-moderno);
-            opacity: 0.3;
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-        }
-        .process-step h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--amarelo-dourado);
-            position: relative;
-            z-index: 2;
-        }
-        .process-step p {
-            color: var(--cinza-texto);
-            line-height: 1.6;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* --- Seção Planos e Preços --- */
-        /* [MELHORIA] Ajustado para 3 colunas */
-        .pricing-container { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 2rem; 
-            align-items: stretch; /* Faz os cards terem a mesma altura */
-            max-width: 1100px; 
-            margin: 0 auto; 
-        }
-        .plan-card { background-color: var(--preto-secundario); padding: 2.5rem 2rem; border-radius: 16px; border: 1px solid var(--cinza-borda); text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; display: flex; flex-direction: column; height: 100%; }
-        .plan-card:hover { transform: translateY(-15px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-        .plan-card.featured { border-color: var(--roxo-moderno); transform: scale(1.05); box-shadow: 0 0 30px rgba(124, 58, 237, 0.3); }
-        .plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, var(--roxo-moderno), var(--amarelo-dourado)); color: var(--preto-principal); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 700; }
-        .plan-card h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; color: var(--branco-fundo); }
-        .plan-card .price { font-size: 3.5rem; font-weight: 900; color: var(--amarelo-dourado); margin-bottom: 0.5rem; }
-        .plan-card .price-sm { font-size: 2.8rem; } /* [NOVO] Classe para preço menor */
-        .plan-card .price span { font-size: 1rem; font-weight: 500; color: var(--cinza-texto); }
-        .plan-card .description { color: var(--cinza-texto); margin-bottom: 2rem; min-height: 40px; }
-        .plan-card .features { list-style: none; text-align: left; margin-bottom: 2.5rem; color: var(--cinza-texto); flex-grow: 1; }
-        .plan-card .features li { margin-bottom: 0.8rem; display: flex; align-items: center; }
-        .plan-card .features li::before { content: '✔'; color: var(--amarelo-dourado); font-size: 1.2rem; margin-right: 0.8rem; font-weight: bold; }
-        .plan-card .features li.credit::before { content: '⭐'; } /* [NOVO] Estilo para o crédito */
-        .plan-card .cta-button { width: 100%; margin-top: auto; }
         
-        /* --- Seção Contato --- */
-        #contato form { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
-        #contato input, #contato textarea { width: 100%; background-color: var(--preto-secundario); border: 1px solid var(--cinza-borda); padding: 1rem; border-radius: 8px; color: var(--branco-fundo); font-family: 'Inter', sans-serif; font-size: 1rem; transition: border-color 0.3s, box-shadow 0.3s; }
-        #contato input:focus, #contato textarea:focus { outline: none; border-color: var(--roxo-moderno); box-shadow: 0 0 10px rgba(124, 58, 237, 0.5); }
-        #contato textarea { min-height: 150px; resize: vertical; }
-        #contato button { align-self: center; border: none; cursor: pointer; }
-
-        /* --- Footer --- */
-        footer { padding: 2rem 0; text-align: center; border-top: 1px solid var(--cinza-borda); margin-top: 80px; }
-        footer p { color: var(--cinza-texto); font-size: 0.9rem; }
-
-        /* --- Responsividade --- */
-        @media (max-width: 992px) {
-            .hero h1 { font-size: 3rem; } .section-title { font-size: 2.2rem; } 
-            .plan-card.featured { transform: scale(1); }
-            /* [MELHORIA] pricing-container já é responsivo com auto-fit */
+        /* O efeito de brilho que segue o mouse */
+        .spotlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 12px;
+            padding: 1px; /* Espessura da borda brilhante */
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(255, 255, 255, 0.25),
+                transparent 40%
+            );
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s;
         }
+        
+        /* Brilho interno */
+        .spotlight-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(
+                500px circle at var(--mouse-x) var(--mouse-y),
+                rgba(255, 255, 255, 0.04),
+                transparent 40%
+            );
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 0;
+        }
+
+        .spotlight-card:hover::before,
+        .spotlight-card:hover::after { opacity: 1; }
+        .spotlight-card:hover { transform: translateY(-3px); }
+        
+        /* Conteúdo do card acima do efeito */
+        .card-content { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
+
+        /* Estilos específicos de Card */
+        .project-tag {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;
+            color: var(--amarelo); margin-bottom: 1rem; display: block;
+        }
+        .card-title { font-size: 1.4rem; margin-bottom: 0.8rem; font-weight: 700; }
+        .card-text { font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; } /* Empurra o botão para baixo */
+        
+        .card-link {
+            font-size: 0.9rem; font-weight: 600; color: var(--branco); text-decoration: none;
+            display: inline-flex; align-items: center; gap: 5px; margin-top: auto;
+        }
+        .card-link:hover { color: var(--amarelo); }
+
+        /* --- 7. Pricing Section --- */
+        .pricing-card {
+            background: var(--bg-card); border: 1px solid var(--borda);
+            padding: 2.5rem; border-radius: 16px;
+            display: flex; flex-direction: column;
+            transition: all 0.3s;
+        }
+        .pricing-card:hover { border-color: var(--borda-hover); transform: translateY(-5px); }
+        
+        .pricing-card.featured {
+            background: linear-gradient(180deg, rgba(139, 92, 246, 0.08) 0%, var(--bg-card) 100%);
+            border: 1px solid var(--roxo-brilho);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.1);
+        }
+
+        .price-tag { font-size: 3rem; font-weight: 800; color: var(--branco); margin: 1rem 0; }
+        .price-tag span { font-size: 1rem; font-weight: 400; color: var(--cinza-medio); }
+        
+        .feature-list { list-style: none; margin: 2rem 0; color: var(--cinza-claro); flex-grow: 1; }
+        .feature-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 0.8rem; font-size: 0.95rem; }
+        .feature-list li::before { content: "✓"; color: var(--amarelo); font-weight: bold; }
+
+        /* --- 8. Formulário --- */
+        #contato form { max-width: 600px; margin: 0 auto; }
+        
+        .input-group { margin-bottom: 1rem; }
+        .input-field {
+            width: 100%; padding: 1rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--borda); border-radius: 8px;
+            color: var(--branco); font-family: var(--fonte); font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .input-field:focus { outline: none; border-color: var(--roxo-brilho); background: rgba(255,255,255,0.05); }
+        textarea.input-field { resize: vertical; min-height: 120px; }
+
+        /* --- 9. Footer --- */
+        footer {
+            border-top: 1px solid var(--borda); padding: 3rem 0;
+            text-align: center; margin-top: 6rem; font-size: 0.9rem; color: var(--cinza-medio);
+        }
+
+        /* --- 10. Responsividade --- */
         @media (max-width: 768px) {
-            .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: rgba(16, 16, 16, 0.9); backdrop-filter: blur(10px); padding: 1rem 0; border-bottom: 1px solid var(--cinza-borda); }
-            .nav-links.active { display: flex; text-align: center; } .nav-links li { width: 100%; } .nav-links a { display: block; padding: 1rem; }
-            .nav-toggler { display: block; cursor: pointer; font-size: 1.8rem; color: var(--branco-fundo); background: none; border: none; }
-            .hero h1 { font-size: 2.5rem; } .hero p { font-size: 1rem; }
-            .services-grid { grid-template-columns: 1fr; }
-        }
-
-        /* --- Estilos do WhatsApp Popup (Sem Alterações) --- */
-        .whatsapp-fab { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background: linear-gradient(45deg, var(--roxo-moderno), #9333ea); color: var(--branco-fundo); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1001; box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4); transition: transform 0.3s ease, box-shadow 0.3s ease; animation: pulse 2s infinite ease-in-out; }
-        .whatsapp-fab:hover { transform: scale(1.1); box-shadow: 0 12px 30px rgba(124, 58, 237, 0.6); animation: none; }
-        .whatsapp-fab .icon-whatsapp { width: 32px; height: 32px; fill: currentColor; }
-        .fab-status-bubble { position: absolute; top: -10px; right: 45px; background-color: var(--amarelo-dourado); color: #000; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; pointer-events: none; }
-        .whatsapp-fab:hover .fab-status-bubble { opacity: 1; transform: translateY(0); }
-        .whatsapp-popup { position: fixed; bottom: 110px; right: 30px; width: 350px; z-index: 1000; opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; }
-        .whatsapp-popup.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
-        .popup-close { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.8rem; color: var(--cinza-texto); cursor: pointer; transition: color 0.3s ease, transform 0.3s ease; z-index: 10; }
-        .popup-close:hover { color: var(--branco-fundo); transform: rotate(90deg); }
-        .popup-chat-bubble { background-color: var(--preto-secundario); border-radius: 20px; padding: 20px 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.4); border: 1px solid var(--cinza-borda); }
-        .popup-chat-bubble::after { content: ''; position: absolute; bottom: -10px; right: 20px; width: 20px; height: 20px; background-color: var(--preto-secundario); border: 1px solid var(--cinza-borda); border-top-color: transparent; border-right-color: transparent; transform: rotate(-45deg); }
-        .chat-header { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--cinza-borda); }
-        .chat-header h5 { font-size: 1.1rem; color: var(--branco-fundo); margin: 0; }
-        .chat-header p { font-size: 0.8rem; color: #22C55E; margin: 0; font-weight: 500; }
-        .status-dot { display: inline-block; width: 8px; height: 8px; background-color: #22C55E; border-radius: 50%; margin-right: 5px; animation: pulse 1.5s infinite; }
-        .chat-message { background-color: var(--roxo-moderno); color: var(--branco-fundo); padding: 12px 18px; border-radius: 18px 18px 18px 4px; max-width: 90%; line-height: 1.5; opacity: 0; animation: show-message 0.5s ease 1.5s forwards; }
-        .chat-message p { margin: 0; }
-        .chat-cta { display: block; text-align: center; background-color: var(--amarelo-dourado); color: #000; text-decoration: none; padding: 12px; border-radius: 10px; margin-top: 20px; font-weight: 600; transition: transform 0.2s ease; }
-        .chat-cta:hover { transform: scale(1.05); }
-        .typing-indicator { margin-bottom: 10px; opacity: 1; animation: hide-typing 0.3s ease 1.5s forwards; }
-        .typing-indicator span { height: 10px; width: 10px; border-radius: 50%; background-color: var(--cinza-texto); display: inline-block; margin: 0 2px; animation: bounce 1.2s infinite ease-in-out; }
-        .typing-indicator span:nth-of-type(2) { animation-delay: -0.2s; }
-        .typing-indicator span:nth-of-type(3) { animation-delay: -0.4s; }
-        @keyframes pulse { 0% { opacity: 0.7; } 50% { opacity: 1; } 100% { opacity: 0.7; } }
-        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
-        @keyframes show-message { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes hide-typing { to { opacity: 0; height: 0; margin: 0; } }
-        @media(max-width: 480px) {
-            .whatsapp-popup { width: calc(100% - 40px); right: 20px; bottom: 90px; }
-            .whatsapp-fab { width: 60px; height: 60px; bottom: 20px; right: 20px; }
+            .hero h1 { font-size: 2.5rem; }
+            
+            .nav-toggler { display: block; z-index: 1001; }
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 70%; height: 100vh;
+                background: #0a0a0a; border-left: 1px solid var(--borda);
+                flex-direction: column; justify-content: center; align-items: center;
+                transition: right 0.3s ease-in-out;
+            }
+            .nav-links.active { right: 0; }
         }
     </style>
 </head>
 <body>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXNFJLZZ"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    
-    <div id="preloader">
-        <div class="preloader-logo">Const<span>Conv</span></div>
+
+    <div id="preloader" style="position:fixed; inset:0; background:#050505; z-index:9999; display:flex; justify-content:center; align-items:center;">
+        <div style="font-size:2rem; font-weight:900;">Const<span style="color:#FFC700">Conv</span></div>
     </div>
 
-    <nav class="navbar" id="navbar">
+    <nav class="navbar">
         <div class="container">
-            <a href="#home" class="nav-logo">Const<span>Conv</span></a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#servicos">Soluções</a></li>
-                <li><a href="#abordagem">Abordagem</a></li>
-                <li><a href="#processo">Processo</a></li>
-                <li><a href="#planos">Planos</a></li>  
+            <a href="#" class="nav-logo">Const<span>Conv</span></a>
+            <button class="nav-toggler" id="menuBtn">☰</button>
+            <ul class="nav-links" id="menuList">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#portfolio">Laboratório</a></li>
+                <li><a href="#servicos">Expertise</a></li>
+                <li><a href="#planos">Planos</a></li>
                 <li><a href="#contato">Contato</a></li>
             </ul>
-            <button class="nav-toggler" id="navToggler">&#9776;</button>
         </div>
     </nav>
 
-    <header class="hero" id="home">
-        <div class="hero-content container">
-            <h1>Landing Pages de Alta Performance.<br>Rastreamento de Dados Impecável.</h1>
-            <p>Eu crio sua página de vendas e configuro o Google Ads e Analytics para rastrear cada centavo. Do clique ao cliente, sem achismos.</p>
-            <a href="#planos" class="cta-button">Ver Planos e Preços</a>
+    <header id="home" class="hero container fade-up">
+        <div style="font-size: 0.9rem; color: var(--roxo-brilho); font-weight: 700; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 2px;">Data Driven Developer</div>
+        <h1>Landing Pages que <br> <span>Vendem & Rastreiam</span></h1>
+        <p>Desenvolvimento Full Stack combinado com Tracking Avançado (GTM/GA4/Server-Side). Pare de perder dados e comece a escalar com precisão.</p>
+        <div class="hero-btns">
+            <a href="#portfolio" class="btn btn-primary">Ver Portfólio Técnico</a>
+            <a href="#contato" class="btn btn-secondary">Pedir Orçamento</a>
         </div>
     </header>
 
-    <main>
-        
-        <section id="servicos">
-            <div class="container">
-                <h2 class="section-title animate-on-scroll">Minhas Soluções Focadas</h2>
-                <p class="section-subtitle animate-on-scroll">Eu não faço tudo. Eu faço o essencial: criar sua página e garantir que ela seja 100% rastreável para você parar de perder dinheiro com anúncios.</p>
-                
-                <div class="services-grid">
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-card-content">
-                            <img src="./websiteicon.png" style="width: 50px; height: 50px;" alt="Ícone de Website">
-                            <h3>Landing Pages e Sites</h3>
-                            <p>Desenvolvo LPs de alta conversão ou sites institucionais, com código limpo, design responsivo e foco total em capturar leads.</p>
-                            <a href="#planos" class="cta-button purple">Ver Pacotes</a>
-                        </div>
+    <section id="portfolio" style="padding: 100px 0;">
+        <div class="container">
+            <h2 class="section-title fade-up">Laboratório & Portfólio</h2>
+            <p class="section-subtitle fade-up">Aqui eu provo o que falo. Projetos reais e ambientes de teste onde você pode verificar meu código e configurações de tracking em ação.</p>
+            
+            <div class="grid-3">
+                <div class="spotlight-card fade-up" onclick="window.location.href='./demo-loja.html'" style="cursor: pointer;">
+                    <div class="card-content">
+                        <span class="project-tag">Tracking E-commerce</span>
+                        <h3 class="card-title">Demo: Loja Virtual</h3>
+                        <p class="card-text">Simulação completa de um e-commerce com DataLayer robusto. Eventos de <em>view_item</em>, <em>add_to_cart</em> e <em>purchase</em> configurados via GTM.</p>
+                        <span class="card-link">Testar Agora →</span>
                     </div>
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-card-content">
-                            <img src="./analyticsicon.png" style="width: 50px; height: 50px;" alt="Ícone de Analytics">
-                            <h3>Setup de Conversão GA4</h3>
-                            <p>O serviço essencial. Configuro o tracking completo (Google Ads + GA4) para que você saiba exatamente de onde vêm seus resultados.</p>
-                            <a href="#planos" class="cta-button purple">Ver Pacotes de Tracking</a>
-                        </div>
-                    </div>
-
-                    </div>
-
-                <div class="guarantee-box animate-on-scroll" style="margin-top: 4rem;">
-                    <h3>Garantia Blindada de 30 Dias</h3>
-                    <p>Confiamos tanto no meu trabalho de tracking que ofereço uma garantia completa. Se as configurações de conversão não funcionarem como o prometido, eu corrijo sem custo algum. Seu sucesso é o meu sucesso.</p>
                 </div>
-            </div>
-        </section>
 
-        <section id="abordagem">
-            <div class="container">
-                <h2 class="section-title animate-on-scroll">Minha Abordagem: Dados vs. "Achismos"</h2>
-                <p class="section-subtitle animate-on-scroll">No mercado, existem dois tipos de sites: os "bonitos" e os que "vendem". Meu trabalho é garantir que você tenha os dois.</p>
-                
-                <div class="approach-content animate-on-scroll">
-                    <h3>O Problema Comum:</h3>
-                    <p>Muitos investem rios de dinheiro em anúncios e recebem cliques, mas não veem vendas. O motivo? O site é "bonito", mas lento, confuso ou, pior, <strong>não rastreia os dados corretamente.</strong> Você não sabe o que funciona e o que é desperdício.</p>
-                    
-                    <h3>Minha Solução (Como Especialista):</h3>
-                    <p>Eu não sou apenas um designer. Sou um desenvolvedor focado em conversão. Meu trabalho é garantir que cada centavo do seu investimento em tráfego seja justificado com dados. Crio páginas rápidas, claras e <strong>100% rastreáveis</strong> no Google Ads e GA4.</p>
-                    
-                    <a href="#processo" class="cta-button purple">Veja como eu faço</a>
+                <div class="spotlight-card fade-up" onclick="window.location.href='./demo-leads.html'" style="cursor: pointer;">
+                    <div class="card-content">
+                        <span class="project-tag">Google Ads + Conversões</span>
+                        <h3 class="card-title">Captura de Leads</h3>
+                        <p class="card-text">Landing Page focada em conversão. Validação de formulário anti-spam e disparo de tag de conversão do Google Ads apenas em envios qualificados.</p>
+                        <span class="card-link">Ver Detalhes →</span>
+                    </div>
                 </div>
-            </div>
-        </section>
 
-        <section id="processo">
-            <div class="container">
-                <h2 class="section-title animate-on-scroll">Meu Método Para Resultados</h2>
-                <p class="section-subtitle animate-on-scroll">Profissionalismo é ter um processo. Sigo 4 etapas claras para garantir que seu projeto seja entregue com excelência, do início ao fim.</p>
-                <div class="process-timeline">
-                    <div class="process-step animate-on-scroll">
-                        <div class="step-number">01</div>
-                        <h3>Imersão e Estratégia</h3>
-                        <p>Entendo seu público, seus objetivos e seus concorrentes. Aqui, defino o plano de ação e a estrutura da sua página.</p>
-                    </div>
-                    <div class="process-step animate-on-scroll">
-                        <div class="step-number">02</div>
-                        <h3>Design e Construção</h3>
-                        <p>Crio um design de alta fidelidade e, após aprovação, desenvolvo o código, garantindo performance e responsividade.</p>
-                    </div>
-                    <div class="process-step animate-on-scroll">
-                        <div class="step-number">03</div>
-                        <h3>Validação e Tracking</h3>
-                        <p>A etapa crucial. Implemento o Google Analytics (GA4) e as tags do Google Ads, testando cada formulário e botão de conversão.</p>
-                    </div>
-                    <div class="process-step animate-on-scroll">
-                        <div class="step-number">04</div>
-                        <h3>Lançamento</h3>
-                        <p>Seu site vai ao ar, otimizado e pronto para receber tráfego. Entrego os acessos e você está pronto para vender.</p>
+                <div class="spotlight-card fade-up" onclick="window.location.href='./demo-server.html'" style="cursor: pointer;">
+                    <div class="card-content">
+                        <span class="project-tag">Server-Side Tracking</span>
+                        <h3 class="card-title">API de Conversões</h3>
+                        <p class="card-text">Case study de implementação da API de Conversões do Facebook (CAPI) para contornar bloqueadores de anúncios e iOS14.</p>
+                        <span class="card-link">Ler Case →</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="planos">
-            <div class="container">
-                <h2 class="section-title animate-on-scroll">Comece por onde fizer sentido</h2>
-                <p class="section-subtitle animate-on-scroll">Sem complicação. Escolha a solução exata que você precisa agora e vamos começar a rastrear seus resultados.</p>
-                
-                <div class="pricing-container">
-                    
-                    <div class="plan-card animate-on-scroll">
-                        <h3>Auditoria de Tracking</h3>
-                        <p class="description">Já tem um site, mas não sabe se os dados estão corretos? Eu audito.</p>
-                        <div class="price price-sm">R$ 99</div>
-                        <ul class="features">
-                            <li>Análise de tags (GA4 e Google Ads)</li>
-                            <li>Relatório em vídeo de 15 min</li>
-                            <li>Plano de 3 melhorias práticas</li>
-                            <li class="credit">Valor vira 100% de crédito</li>
-                        </ul>
-                        <a href="#contato" class="cta-button purple">Quero a Auditoria</a>
+    <section id="servicos" style="padding: 100px 0; background: linear-gradient(to bottom, transparent, rgba(20,20,20,0.5));">
+        <div class="container">
+            <h2 class="section-title fade-up">Minha Expertise</h2>
+            <div class="grid-3" style="margin-top: 4rem;">
+                <div class="spotlight-card fade-up">
+                    <div class="card-content">
+                        <h3 class="card-title">💻 Web Development</h3>
+                        <p class="card-text">Criação de sites ultra-rápidos usando HTML, CSS e JS limpo. Sem construtores pesados que deixam seu site lento.</p>
                     </div>
-
-                    <div class="plan-card featured animate-on-scroll">
-                        <div class="plan-badge">Mais Popular</div>
-                        <h3>LP Essencial + Tracking</h3>
-                        <p class="description">Para quem já tem domínio/hospedagem e precisa da página e do tracking.</p>
-                        <div class="price">R$ 500</div>
-                        <ul class="features">
-                            <li>Desenvolvimento de Landing Page</li>
-                            <li>Design 100% Responsivo</li>
-                            <li>Configuração de Conversões (GA4)</li>
-                            <li>Setup de Conversões (Google Ads)</li>
-                            <li>Formulário de Contato</li>
-                        </ul>
-                        <a href="#contato" class="cta-button">Quero este plano!</a>
+                </div>
+                <div class="spotlight-card fade-up">
+                    <div class="card-content">
+                        <h3 class="card-title">📊 GA4 & GTM Setup</h3>
+                        <p class="card-text">Configuração profissional do Google Tag Manager e Analytics 4. Organização de eventos, métricas e relatórios personalizados.</p>
                     </div>
-                    
-                    <div class="plan-card animate-on-scroll">
-                        <h3>LP Completo (Tudo Incluso)</h3>
-                        <p class="description">A solução "chave na mão". Saia do zero com tudo pronto em um só lugar.</p>
-                        <div class="price">R$ 620</div> 
-                        <ul class="features">
-                            <li><strong>Tudo do plano Essencial</strong></li>
-                            <li>Registro de Domínio (1 ano)</li>
-                            <li>Hospedagem de Alta Velocidade (1 ano)</li>
-                            <li>Certificado de Segurança SSL</li>
-                            <li>E-mail Profissional (Ex: contato@)</li>
-                        </ul>
-                        <a href="#contato" class="cta-button purple">Solicitar Contato</a>
+                </div>
+                <div class="spotlight-card fade-up">
+                    <div class="card-content">
+                        <h3 class="card-title">🔗 Integrações API</h3>
+                        <p class="card-text">Conecto seu site ao seu CRM, planilhas ou Slack. Automação de leads em tempo real.</p>
                     </div>
-                    
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="contato">
-            <div class="container">
-                <h2 class="section-title animate-on-scroll">Vamos Construir seu Sucesso?</h2>
-                <p class="section-subtitle animate-on-scroll">Envie sua mensagem e vamos agendar uma conversa sem compromisso para entender suas metas. O próximo grande resultado da sua empresa começa aqui.</p>
-                
-                <form id="contactForm" class="animate-on-scroll">
-                    <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
-                    <input type="email" id="email" name="email" placeholder="Seu melhor e-mail" required>
-                    <input type="text" id="assunto" name="assunto" placeholder="Assunto da mensagem" required>
-                    <textarea id="mensagem" name="mensagem" placeholder="Digite sua mensagem..." required></textarea>
-                    <button type="submit" class="cta-button">Enviar Mensagem</button>
-                </form>
+    <section id="planos" style="padding: 100px 0;">
+        <div class="container">
+            <h2 class="section-title fade-up">Investimento</h2>
+            <p class="section-subtitle fade-up">Soluções diretas ao ponto.</p>
+            
+            <div class="grid-3">
+                <div class="pricing-card fade-up">
+                    <h3>Auditoria de Tracking</h3>
+                    <div class="price-tag">R$ 99<span>/único</span></div>
+                    <ul class="feature-list">
+                        <li>Diagnóstico completo do GA4/Ads</li>
+                        <li>Identificação de falhas no pixel</li>
+                        <li>Relatório em vídeo explicativo</li>
+                    </ul>
+                    <a href="#contato" class="btn btn-secondary" style="width:100%">Quero Auditar</a>
+                </div>
+
+                <div class="pricing-card featured fade-up">
+                    <div style="color:var(--amarelo); font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Recomendado</div>
+                    <h3>LP + Tracking Pro</h3>
+                    <div class="price-tag">R$ 500<span>/projeto</span></div>
+                    <ul class="feature-list">
+                        <li>Landing Page Alta Conversão</li>
+                        <li>Setup Completo de Tags</li>
+                        <li>Otimização Mobile</li>
+                        <li>Teste de Velocidade</li>
+                    </ul>
+                    <a href="#contato" class="btn btn-primary" style="width:100%">Contratar Agora</a>
+                </div>
+
+                <div class="pricing-card fade-up">
+                    <h3>Pacote Full Stack</h3>
+                    <div class="price-tag">R$ 620<span>/projeto</span></div>
+                    <ul class="feature-list">
+                        <li>Tudo do plano LP + Tracking</li>
+                        <li>Configuração de Domínio/Host</li>
+                        <li>E-mail Profissional</li>
+                        <li>1 Mês de Suporte Técnico</li>
+                    </ul>
+                    <a href="#contato" class="btn btn-purple" style="width:100%">Solicitar Full Stack</a>
+                </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+
+    <section id="contato" style="padding: 100px 0;">
+        <div class="container">
+            <h2 class="section-title fade-up">Vamos Conversar?</h2>
+            <p class="section-subtitle fade-up">Preencha abaixo. Eu respondo rápido (geralmente em algumas horas).</p>
+            
+            <form id="contactForm" class="fade-up">
+                <div class="input-group">
+                    <input type="text" id="nome" class="input-field" placeholder="Seu Nome" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="email" class="input-field" placeholder="Seu E-mail Profissional" required>
+                </div>
+                <div class="input-group">
+                    <textarea id="mensagem" class="input-field" placeholder="Descreva seu projeto ou problema..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensagem 🚀</button>
+            </form>
+        </div>
+    </section>
 
     <footer>
         <div class="container">
-            <p>&copy; <span id="currentYear"></span> <img src="./favicon.ico.png" alt="Logo ConstConv" style="width: 20px; height: 20px; vertical-align: middle;"> ConstConv. Todos os direitos reservados.</p>
+            <p>&copy; <span id="year"></span> ConstConv. Developed by Raul Campos.</p>
         </div>
     </footer>
 
-    <div class="whatsapp-fab" id="whatsappFab">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon-whatsapp">
-            <path d="M380.9 97.1C339.6 55.8 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 221.9-99.6 221.9-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.8 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.4-2.5-5.1-4.2-10.6-6.9z"/>
-        </svg>
-        <div class="fab-status-bubble">Online!</div>
-    </div>
-    <div class="whatsapp-popup popup-chat-bubble" id="whatsappPopup">
-        <button class="popup-close" id="whatsappClose">&times;</button>
-        <div class="chat-header"><h5>ConstConv</h5><p><span class="status-dot"></span>Online</p></div>
-        <div class="chat-body"><div class="typing-indicator"><span></span><span></span><span></span></div><div class="chat-message"><p>Olá! Pronto para transformar seus anúncios em resultados? Me chame aqui! 🚀</p></div></div>
-        <a href="https://wa.me/5511955203133?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços." target="_blank" class="chat-cta">Iniciar Conversa</a>
-    </div>
+    <a href="https://wa.me/5511955203133" target="_blank" style="position:fixed; bottom:30px; right:30px; width:60px; height:60px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 20px rgba(0,0,0,0.5); z-index:9999; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+        <svg fill="white" width="32" height="32" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    </a>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        
-        // --- Lógica do Preloader (ligado ao 'load') ---
-        const preloader = document.getElementById('preloader');
-        const body = document.body;
-
-        window.addEventListener('load', function() {
-            if (preloader) {
-                preloader.classList.add('loaded');
-            }
-            body.classList.add('loaded'); // Mostra o body
+        // --- 1. Preloader ---
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => { 
+                preloader.style.display = 'none'; 
+                document.body.classList.add('loaded');
+            }, 500);
         });
 
-        // --- Ano Atual no Footer ---
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        // --- 2. Menu Mobile Inteligente ---
+        const menuBtn = document.getElementById('menuBtn');
+        const menuList = document.getElementById('menuList');
+        const menuLinks = document.querySelectorAll('.nav-links a');
 
-        // --- Menu Hamburguer Responsivo ---
-        const navToggler = document.getElementById('navToggler');
-        const navLinks = document.getElementById('navLinks');
-        navToggler.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            navToggler.textContent = navLinks.classList.contains('active') ? '\u2715' : '\u2630';
+        menuBtn.addEventListener('click', () => {
+            menuList.classList.toggle('active');
+            menuBtn.innerHTML = menuList.classList.contains('active') ? '✕' : '☰';
         });
-        
-        // --- [CORRIGIDO] Lógica para fechar menu mobile ao clicar no link ---
-        document.querySelectorAll('.nav-links a').forEach(link => {
+
+        // Fechar menu ao clicar em link
+        menuLinks.forEach(link => {
             link.addEventListener('click', () => {
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    navToggler.textContent = '\u2630';
-                }
+                menuList.classList.remove('active');
+                menuBtn.innerHTML = '☰';
             });
         });
 
-        // --- Efeito "Glow" no Card de Serviço ---
-        const cards = document.querySelectorAll('.service-card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', e => {
+        // --- 3. Efeito Spotlight (Seguir Mouse) nos Cards ---
+        const cards = document.querySelectorAll('.spotlight-card');
+        
+        document.addEventListener('mousemove', (e) => {
+            cards.forEach(card => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
+                
                 card.style.setProperty('--mouse-x', `${x}px`);
                 card.style.setProperty('--mouse-y', `${y}px`);
             });
         });
 
-        // --- [ATUALIZADO] Efeito Fade-in para seções ao rolar ---
-        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        // --- 4. Animação Scroll (Intersection Observer) ---
+        const observerOptions = { threshold: 0.15 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Animar apenas uma vez
                 }
             });
-        }, { threshold: 0.1 }); // 10% visível para ativar
-        
-        animatedElements.forEach(el => {
-            observer.observe(el);
-        });
+        }, observerOptions);
 
-        // --- Marcar link ativo na navbar ---
-        const navbar = document.getElementById('navbar');
-        const navItems = document.querySelectorAll('.nav-links a');
-        const pageSections = document.querySelectorAll('header, section[id]');
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
         
-        function updateActiveLink() {
-            let currentSectionId = 'home'; // Default para o topo
-            const navbarHeight = navbar ? navbar.offsetHeight : 70;
-            
-            pageSections.forEach(section => {
-                const sectionTop = section.offsetTop - navbarHeight - 50;
-                if (window.pageYOffset >= sectionTop) {
-                    currentSectionId = section.getAttribute('id');
-                }
-            });
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-            // Lógica para ativar "Contato" no final
-            if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 100) { 
-                 const lastSection = pageSections[pageSections.length - 1];
-                 if (lastSection) {
-                       currentSectionId = lastSection.getAttribute('id');
-                 }
-            }
-
-            navItems.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${currentSectionId}`) {
-                    link.classList.add('active');
-                }
-            });
-        }
-        
-        window.addEventListener('scroll', updateActiveLink);
-        window.addEventListener('resize', updateActiveLink);
-        updateActiveLink(); 
-
-        
-        // --- [CORRIGIDO] Lógica do Formulário com EmailJS ---
-        const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', function (e) {
+        // --- 5. Envio de Form (EmailJS + DataLayer) ---
+        const form = document.getElementById('contactForm');
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-            const submitButton = this.querySelector('button[type="submit"]');
-            submitButton.textContent = 'Enviando...';
-            submitButton.disabled = true;
+            const btn = form.querySelector('button');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Enviando...';
+            btn.disabled = true;
 
-            const formData = {
-                nome: this.querySelector('#nome').value,
-                email: this.querySelector('#email').value,
-                assunto: this.querySelector('#assunto').value,
-                mensagem: this.querySelector('#mensagem').value
+            const params = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                mensagem: document.getElementById('mensagem').value
             };
 
-            emailjs.send("default_service", "template_nwqgt6c", formData)
-                .then(function () {
-                    window.dataLayer = window.dataLayer || [];
-                    window.dataLayer.push({
-                        "event": 'formSubmited',
-                        "label": 'Formulário de Contato',
-                        "action": 'submit',
-                        "email": formData.email,
-                    });
-                    alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-                    contactForm.reset();
-                    submitButton.textContent = 'Enviar Mensagem';
-                    submitButton.disabled = false;
-                }, function (error) {
-                    console.error('Erro ao enviar o e-mail:', error);
-                    alert('Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente.');
-                    submitButton.textContent = 'Enviar Mensagem';
-                    submitButton.disabled = false;
-                });
+            emailjs.send("default_service", "template_nwqgt6c", params)
+            .then(() => {
+                alert('Mensagem enviada com sucesso!');
+                form.reset();
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({'event': 'lead_form_submitted'});
+            })
+            .catch((err) => {
+                alert('Erro ao enviar. Tente novamente.');
+                console.error(err);
+            })
+            .finally(() => {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            });
         });
-
-        // --- Lógica do Popup de WhatsApp ---
-        const whatsappFab = document.getElementById('whatsappFab');
-        const whatsappPopup = document.getElementById('whatsappPopup');
-        const whatsappClose = document.getElementById('whatsappClose');
-
-        if (whatsappFab && whatsappPopup && whatsappClose) {
-            whatsappFab.addEventListener('click', () => {
-                whatsappPopup.classList.toggle('active');
-            });
-            whatsappClose.addEventListener('click', () => {
-                whatsappPopup.classList.remove('active');
-            });
-            document.addEventListener('click', (event) => {
-                if (!whatsappPopup.contains(event.target) && !whatsappFab.contains(event.target)) {
-                    whatsappPopup.classList.remove('active');
-                }
-            });
-        }
-    });
     </script>
 </body>
 </html>
