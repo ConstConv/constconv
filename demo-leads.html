@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Financial | Lead Gen Demo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. CONFIGURAÇÕES GERAIS --- */
+        :root {
+            --bg-body: #f8f9fa;
+            --bg-dark: #0f172a;
+            --accent: #d4af37; /* Dourado */
+            --success: #10b981;
+            --error: #ef4444;
+            --text-main: #1e293b;
+            --text-light: #f8fafc;
+            --border: #e2e8f0;
+
+            /* Monitor Colors */
+            --json-key: #005cc5;
+            --json-string: #22863a;
+            --json-number: #005cc5;
+            --json-bool: #d73a49;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-bottom: 70px; /* Espaço para o monitor mobile */
+        }
+
+        /* --- 2. LAYOUT --- */
+        .split-layout { display: flex; min-height: 100vh; }
+
+        /* Lado Esquerdo */
+        .left-panel {
+            flex: 1; padding: 4rem 6%;
+            background: var(--bg-dark); color: var(--text-light);
+            display: flex; flex-direction: column; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .left-panel::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 40%);
+            pointer-events: none;
+        }
+        .brand { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 3rem; display: flex; align-items: center; gap: 10px; }
+        .brand-dot { width: 12px; height: 12px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+        
+        h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; font-weight: 800; }
+        .highlight { color: var(--accent); }
+        .value-props { list-style: none; margin-top: 2rem; }
+        .value-props li { display: flex; align-items: center; gap: 15px; margin-bottom: 1.2rem; font-size: 1.1rem; color: #cbd5e1; }
+        .check-icon { color: var(--accent); font-weight: bold; }
+
+        .back-link {
+            position: absolute; top: 2rem; left: 6%;
+            color: #94a3b8; text-decoration: none; font-size: 0.9rem;
+            display: flex; align-items: center; gap: 5px; transition: color 0.3s;
+        }
+        .back-link:hover { color: white; }
+
+        /* Lado Direito */
+        .right-panel {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            padding: 2rem; background: white;
+        }
+        .form-card {
+            width: 100%; max-width: 480px; padding: 3rem;
+            background: white; border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+        .form-header { margin-bottom: 2rem; }
+        .form-header h2 { font-size: 1.8rem; font-weight: 700; color: var(--bg-dark); }
+        .form-header p { color: #64748b; font-size: 0.95rem; margin-top: 0.5rem; }
+
+        /* Inputs */
+        .input-group { margin-bottom: 1.2rem; position: relative; }
+        .label { display: block; font-size: 0.85rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem; }
+        input, select {
+            width: 100%; padding: 0.9rem 1rem;
+            border: 1px solid var(--border); border-radius: 8px;
+            font-family: inherit; font-size: 1rem; color: var(--bg-dark);
+            background: #f8fafc; transition: all 0.2s;
+        }
+        input:focus, select:focus { outline: none; border-color: var(--bg-dark); background: white; box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.1); }
+
+        .btn-submit {
+            width: 100%; padding: 1rem; margin-top: 1rem;
+            background: var(--bg-dark); color: white; border: none; border-radius: 8px;
+            font-size: 1rem; font-weight: 700; cursor: pointer;
+            transition: all 0.2s; display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2); }
+        .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+        .btn-spam {
+            width: 100%; padding: 0.8rem; margin-top: 1rem;
+            background: transparent; color: #64748b;
+            border: 1px dashed #cbd5e1; border-radius: 8px;
+            font-size: 0.85rem; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-spam:hover { background: #fef2f2; color: var(--error); border-color: var(--error); }
+
+        .honey-trap { display: none; opacity: 0; position: absolute; left: -9999px; }
+
+        /* --- 3. MONITOR INTELIGENTE (Responsive Bottom Sheet) --- */
+        .dl-monitor {
+            position: fixed; z-index: 1000;
+            background: white; border: 1px solid #cbd5e1;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+            font-family: 'JetBrains Mono', monospace;
+            overflow: hidden; display: flex; flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Desktop */
+        @media (min-width: 901px) {
+            .dl-monitor {
+                bottom: 20px; left: 20px;
+                width: 450px; max-width: 35vw;
+                border-radius: 12px; height: auto; max-height: 500px;
+            }
+            .dl-monitor.minimized { height: 48px !important; }
+            .dl-content { height: 350px; }
+        }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+            .split-layout { flex-direction: column; }
+            .left-panel { padding: 3rem 1.5rem; min-height: auto; }
+            h1 { font-size: 2.2rem; }
+            
+            .dl-monitor {
+                bottom: 0; left: 0; right: 0; width: 100%;
+                border-radius: 16px 16px 0 0;
+                border-left: none; border-right: none; border-bottom: none;
+                height: 60vh; /* Expandido */
+            }
+            .dl-monitor.minimized { height: 55px !important; }
+            .dl-content { flex-grow: 1; }
+            .back-link { position: relative; top: 0; left: 0; margin-bottom: 2rem; color: #94a3b8; }
+            .right-panel { padding: 1rem; }
+            .form-card { padding: 2rem 1.5rem; }
+        }
+
+        .dl-header {
+            background: #f1f5f9; padding: 0 15px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.8rem; color: #475569; font-weight: 700;
+            cursor: pointer; user-select: none; height: 48px;
+        }
+        
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 10px; border-radius: 20px;
+            font-size: 0.75rem; background: #e2e8f0; color: #64748b;
+            transition: all 0.3s;
+        }
+        .status-badge.active { background: #dcfce7; color: #166534; }
+        .status-badge.error { background: #fee2e2; color: #991b1b; }
+        .status-dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
+
+        .dl-controls button { background: none; border: none; font-size: 1.1rem; cursor: pointer; color: #94a3b8; margin-left: 12px; transition: color 0.2s; }
+        .dl-controls button:hover { color: var(--bg-dark); }
+
+        .dl-content { overflow-y: auto; padding: 15px; font-size: 0.8rem; color: #333; background: #ffffff; }
+
+        .log-entry { 
+            padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid #f1f5f9; 
+            animation: slideIn 0.3s ease; position: relative;
+        }
+        .log-entry::before { content: ''; position: absolute; left: 0; top: 0; bottom: 12px; width: 3px; background: #cbd5e1; border-radius: 2px; }
+        
+        .log-entry.blocked::before { background: var(--error); }
+        .log-entry.blocked { background: #fff5f5; padding: 10px; border-radius: 0 6px 6px 0; }
+        
+        .log-entry.success::before { background: var(--success); }
+        .log-entry.success { background: #f0fdfa; padding: 10px; border-radius: 0 6px 6px 0; }
+        
+        .log-title { font-weight: 700; display: flex; justify-content: space-between; margin-bottom: 5px; }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Flash Animations for Header */
+        @keyframes flash-green { 0% { background: #dcfce7; } 100% { background: #f1f5f9; } }
+        @keyframes flash-red { 0% { background: #fee2e2; } 100% { background: #f1f5f9; } }
+        .flash-success { animation: flash-green 0.8s ease-out; }
+        .flash-error { animation: flash-red 0.8s ease-out; }
+
+    </style>
+</head>
+<body>
+
+    <div class="split-layout">
+        <section class="left-panel">
+            <a href="index.html" class="back-link">← Voltar ao Hub</a>
+            
+            <div class="brand">
+                <div class="brand-dot"></div>
+                NEXUS FINANCIAL
+            </div>
+
+            <h1>Potencialize seu <br> Patrimônio com <br> <span class="highlight">Dados Precisos.</span></h1>
+            
+            <ul class="value-props">
+                <li><span class="check-icon">✓</span> Consultoria de Investimento High-End</li>
+                <li><span class="check-icon">✓</span> Gestão de Ativos Globais</li>
+                <li><span class="check-icon">✓</span> <strong>Tracking Anti-Fraude Ativado</strong></li>
+            </ul>
+        </section>
+
+        <section class="right-panel">
+            <div class="form-card">
+                <div class="form-header">
+                    <h2>Solicite uma Análise</h2>
+                    <p>Preencha os dados abaixo. Nossos consultores entrarão em contato em até 24h.</p>
+                </div>
+
+                <form id="leadForm">
+                    <div class="input-group">
+                        <label class="label">Nome Completo</label>
+                        <input type="text" id="name" placeholder="Ex: Carlos Silva" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="label">E-mail Corporativo</label>
+                        <input type="email" id="email" placeholder="nome@empresa.com.br" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="label">Volume de Investimento</label>
+                        <select id="budget" required>
+                            <option value="" disabled selected>Selecione uma opção</option>
+                            <option value="padrao">Entre R$ 50k e R$ 200k</option>
+                            <option value="premium">Acima de R$ 200k (VIP)</option>
+                            <option value="ultra">Acima de R$ 1 Milhão</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group honey-trap" style="display:none;"> 
+                        <label>Se você é humano, deixe vazio:</label>
+                        <input type="text" id="website_url" name="website_url" autocomplete="off" tabindex="-1">
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <span>Enviar Solicitação</span>
+                    </button>
+                    
+                    <button type="button" class="btn-spam" onclick="simulateBot()">🤖 Simular Ataque de Bot (Spam)</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <div class="dl-monitor" id="dlMonitor">
+        <div class="dl-header" onclick="toggleMonitor()">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <strong>Guard™ Monitor</strong>
+                <span id="statusBadge" class="status-badge">
+                    <span class="status-dot"></span> <span id="statusText">Aguardando...</span>
+                </span>
+            </div>
+            <div class="dl-controls">
+                <button onclick="clearMonitor(event)" title="Limpar">⊘</button>
+                <button id="toggleBtn">▲</button>
+            </div>
+        </div>
+        <div class="dl-content" id="dlOutput">
+            <div style="color: #94a3b8; font-style: italic; margin-bottom:10px;">// Sistema pronto. Aguardando input do usuário...</div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. SETUP DO MONITOR (Mobile vs Desktop) ---
+        const monitor = document.getElementById('dlMonitor');
+        const isMobile = window.innerWidth <= 900;
+        
+        // Mobile: Inicia minimizado (Bottom Sheet). Desktop: Inicia aberto.
+        if (isMobile) {
+            monitor.classList.add('minimized');
+            document.getElementById('toggleBtn').innerText = '▲';
+        } else {
+            document.getElementById('toggleBtn').innerText = '▼';
+        }
+
+        // --- 2. LÓGICA DE NEGÓCIO ---
+        const form = document.getElementById('leadForm');
+        const honeyPot = document.getElementById('website_url');
+        const submitBtn = document.getElementById('submitBtn');
+
+        function simulateBot() {
+            document.getElementById('name').value = "Bot Malicioso";
+            document.getElementById('email').value = "spam@virus.com";
+            document.getElementById('budget').value = "padrao";
+            honeyPot.value = "http://site-de-spam.com"; 
+            
+            // Simula clique real
+            form.requestSubmit();
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Feedback Visual de Carregamento
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span>Validando...</span>';
+            submitBtn.disabled = true;
+
+            // Simula um pequeno delay de processamento (para parecer real)
+            setTimeout(() => {
+                processSubmission(originalBtnText);
+            }, 800);
+        });
+
+        function processSubmission(originalBtnText) {
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                budget: document.getElementById('budget').value,
+                honeypot: honeyPot.value
+            };
+
+            // 2.1 VERIFICAÇÃO DE SPAM
+            if (formData.honeypot !== "") {
+                logBlocked("SPAM DETECTADO", "Campo armadilha preenchido. Tag Bloqueada.");
+                alert("⛔ Acesso Negado: Comportamento de robô detectado.");
+                resetForm(originalBtnText);
+                return;
+            }
+
+            // 2.2 LÓGICA DE QUALIFICAÇÃO
+            let eventName = "generate_lead";
+            let leadValue = 50;
+            
+            if (formData.budget === 'premium' || formData.budget === 'ultra') {
+                eventName = "qualified_lead"; 
+                leadValue = 500; // Valor Alto
+            }
+
+            // 2.3 CONSTRUÇÃO DO DATALAYER (CORRIGIDO: Incluindo User Data)
+            // Estrutura focada em Enhanced Conversions
+            const dataLayerEvent = {
+                event: eventName,
+                event_id: "EVT_" + Math.floor(Math.random() * 1000000), // ID Único para deduplicação
+                user_data: {
+                    email: formData.email, // Enviando e-mail real para demo
+                    name: formData.name,   // Enviando nome real para demo
+                },
+                lead_info: {
+                    budget_tier: formData.budget,
+                    source: "landing_page_demo"
+                },
+                value: leadValue,
+                currency: "BRL"
+            };
+
+            // Push Real
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push(dataLayerEvent);
+
+            // Log Visual
+            logSuccess(eventName, dataLayerEvent);
+            
+            alert(`✅ SUCESSO!\n\nDados enviados com segurança.\nVerifique o console abaixo.`);
+            resetForm(originalBtnText);
+        }
+
+        function resetForm(originalText) {
+            form.reset();
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+
+        // --- 3. FUNÇÕES VISUAIS DO MONITOR ---
+
+        function updateHeaderStatus(msg, type) {
+            const badge = document.getElementById('statusBadge');
+            const text = document.getElementById('statusText');
+            const header = document.querySelector('.dl-header');
+            
+            text.innerText = msg;
+            badge.className = `status-badge active ${type === 'error' ? 'error' : ''}`;
+            
+            // Flash Animation
+            header.classList.remove('flash-success', 'flash-error');
+            void header.offsetWidth; // Reset animation
+            header.classList.add(type === 'error' ? 'flash-error' : 'flash-success');
+        }
+
+        function logBlocked(title, reason) {
+            const output = document.getElementById('dlOutput');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry blocked';
+            entry.innerHTML = `
+                <div class="log-title" style="color:#dc2626;">
+                    ⛔ ${title} 
+                    <span class="log-badge badge-spam">BLOCKED</span>
+                </div>
+                <div style="color:#475569;">${reason}</div>
+            `;
+            output.prepend(entry);
+            updateHeaderStatus("Bloqueado", "error");
+        }
+
+        function logSuccess(eventName, data) {
+            const output = document.getElementById('dlOutput');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry success';
+            let badgeClass = eventName === 'qualified_lead' ? 'badge-qualified' : 'badge-lead';
+            
+            entry.innerHTML = `
+                <div class="log-title" style="color:#059669;">
+                    ⚡ ${eventName} 
+                    <span class="log-badge ${badgeClass}">SENT</span>
+                </div>
+                <pre style="margin-top:8px; font-family:'JetBrains Mono'; color:#334155;">${syntaxHighlight(data)}</pre>
+            `;
+            output.prepend(entry);
+            updateHeaderStatus("Evento Enviado", "success");
+        }
+
+        function syntaxHighlight(json) {
+            if (typeof json !== 'string') json = JSON.stringify(json, undefined, 2);
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                let color = 'var(--json-number)';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) color = 'var(--json-key)';
+                    else color = 'var(--json-string)';
+                } else if (/true|false/.test(match)) color = 'var(--json-bool)';
+                
+                const content = match.replace(/:$/, '');
+                const suffix = match.endsWith(':') ? ':' : '';
+                return `<span style="color:${color}">${content}</span>${suffix}`;
+            });
+        }
+
+        // Toggle Monitor Logic
+        function toggleMonitor() {
+            const btn = document.getElementById('toggleBtn');
+            const wasMinimized = monitor.classList.contains('minimized');
+            
+            if(wasMinimized) {
+                monitor.classList.remove('minimized');
+                btn.innerText = '▼';
+            } else {
+                monitor.classList.add('minimized');
+                btn.innerText = '▲';
+            }
+        }
+
+        function clearMonitor(e) {
+            e.stopPropagation();
+            document.getElementById('dlOutput').innerHTML = '<div style="color: #94a3b8;">// Console cleared.</div>';
+            document.getElementById('statusBadge').className = 'status-badge';
+            document.getElementById('statusText').innerText = 'Aguardando...';
+        }
+    </script>
+</body>
+</html>

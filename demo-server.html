@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server-Side CAPI Demo | Flux Tracking</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. SETUP & VARIAVEIS (Tema Cyber-Security) --- */
+        :root {
+            --bg-body: #050505;
+            --bg-panel: #0a0a0a;
+            --border: #333;
+            
+            --success: #00ff9d; /* Verde Matrix */
+            --error: #ff0055; /* Vermelho Alerta */
+            --processing: #00dbff; /* Azul Dados */
+            --text-main: #ffffff;
+            --text-muted: #666;
+
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+        }
+
+        /* Fundo Grid Tecnológico */
+        body::before {
+            content: ""; position: fixed; inset: 0; z-index: -1;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+        }
+
+        /* --- 2. HEADER & CONTROLS --- */
+        .navbar {
+            padding: 1.5rem 5%; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 100;
+        }
+        
+        .back-link { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+        .back-link:hover { color: white; }
+
+        .header-title { text-align: center; padding: 3rem 1rem; }
+        .header-title h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
+        .header-title p { color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.5; }
+        .highlight { color: var(--processing); }
+
+        /* --- 3. O SIMULADOR (VISUALIZATION) --- */
+        .simulation-container {
+            max-width: 1000px; margin: 0 auto; width: 100%;
+            padding: 0 20px 100px 20px;
+        }
+
+        /* Control Panel (AdBlock Switch) */
+        .control-panel {
+            background: var(--bg-panel); border: 1px solid var(--border);
+            border-radius: 12px; padding: 1.5rem;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .switch-wrapper { display: flex; align-items: center; gap: 15px; }
+        .switch-label { font-weight: 600; font-size: 1.1rem; }
+        
+        /* Toggle Switch CSS */
+        .toggle-switch { position: relative; width: 60px; height: 34px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #333; transition: .4s; border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px;
+            background-color: white; transition: .4s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--error); box-shadow: 0 0 15px var(--error); } /* Vermelho quando ativado (AdBlock ON) */
+        input:checked + .slider:before { transform: translateX(26px); }
+
+        /* The Button */
+        .btn-trigger {
+            background: var(--text-main); color: black;
+            border: none; padding: 1rem 2rem; border-radius: 8px;
+            font-weight: 800; font-size: 1rem; cursor: pointer;
+            transition: transform 0.1s;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+        .btn-trigger:active { transform: scale(0.95); }
+        .btn-trigger:hover { box-shadow: 0 0 30px rgba(255,255,255,0.4); }
+
+        /* --- 4. DATA PIPELINES (The Visuals) --- */
+        .pipeline-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+            position: relative;
+        }
+
+        .pipeline-card {
+            background: var(--bg-panel); border: 1px solid var(--border);
+            border-radius: 16px; padding: 2rem;
+            min-height: 300px; position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        .card-header { 
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; 
+            font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase;
+        }
+        .icon { font-size: 1.5rem; }
+
+        /* Visualização do fluxo de dados */
+        .data-stream {
+            flex-grow: 1; border-left: 2px dashed #333; margin-left: 10px; position: relative;
+            height: 150px; /* Altura fixa para animação */
+        }
+        
+        .packet {
+            width: 12px; height: 12px; border-radius: 50%;
+            position: absolute; left: -7px; top: 0;
+            opacity: 0;
+        }
+
+        /* Status Final */
+        .status-box {
+            margin-top: auto; padding: 15px; border-radius: 8px;
+            font-family: var(--font-mono); font-size: 0.8rem;
+            display: flex; align-items: center; gap: 10px;
+            background: #111; border: 1px solid #222;
+            transition: all 0.3s;
+        }
+        
+        /* Estados */
+        .status-box.success { border-color: var(--success); color: var(--success); background: rgba(0, 255, 157, 0.05); }
+        .status-box.blocked { border-color: var(--error); color: var(--error); background: rgba(255, 0, 85, 0.05); }
+
+        /* Animações */
+        @keyframes flow-down {
+            0% { top: 0; opacity: 1; background: var(--processing); box-shadow: 0 0 10px var(--processing); }
+            90% { top: 90%; opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        @keyframes flow-blocked {
+            0% { top: 0; opacity: 1; background: var(--processing); }
+            50% { top: 50%; background: var(--error); box-shadow: 0 0 15px var(--error); }
+            60% { top: 50%; opacity: 0; transform: scale(2); } /* Explode */
+            100% { top: 50%; opacity: 0; }
+        }
+
+        /* --- 5. TERMINAL LOGS --- */
+        .terminal-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;
+        }
+        .terminal {
+            background: #000; border: 1px solid #222; border-radius: 8px;
+            padding: 15px; font-family: var(--font-mono); font-size: 0.75rem;
+            height: 150px; overflow-y: auto; color: #888;
+        }
+        .log-line { margin-bottom: 5px; }
+        .log-success { color: var(--success); }
+        .log-error { color: var(--error); }
+        .log-info { color: var(--processing); }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .pipeline-grid, .terminal-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .control-panel { flex-direction: column; gap: 20px; text-align: center; }
+            .header-title h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="back-link">← Voltar ao Hub</a>
+        <div style="font-weight: 700;">FLUX<span style="color:var(--processing)">.SERVER</span></div>
+    </nav>
+
+    <div class="header-title">
+        <h1>Server-Side <span class="highlight">Tracking</span></h1>
+        <p>A solução definitiva contra bloqueadores de anúncios e restrições do iOS. <br>Veja como a API de Conversões recupera dados que o Pixel perde.</p>
+    </div>
+
+    <div class="simulation-container">
+        
+        <div class="control-panel">
+            <div class="switch-wrapper">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="adBlockToggle">
+                    <span class="slider"></span>
+                </label>
+                <div>
+                    <div class="switch-label">Simular AdBlock / iOS14</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">Ative para bloquear o Client-Side</div>
+                </div>
+            </div>
+            
+            <button class="btn-trigger" onclick="simulateConversion()">⚡ SIMULAR COMPRA</button>
+        </div>
+
+        <div class="pipeline-grid">
+            
+            <div class="pipeline-card" id="clientCard">
+                <div class="card-header">
+                    <span>Client-Side (Pixel)</span>
+                    <span class="icon">🌐</span>
+                </div>
+                <div class="data-stream">
+                    <div id="clientPacket" class="packet"></div>
+                </div>
+                <div class="status-box" id="clientStatus">
+                    <span class="indicator">●</span> <span id="clientText">Aguardando evento...</span>
+                </div>
+            </div>
+
+            <div class="pipeline-card" id="serverCard">
+                <div class="card-header">
+                    <span>Server-Side (CAPI)</span>
+                    <span class="icon">☁️</span>
+                </div>
+                <div class="data-stream">
+                    <div id="serverPacket" class="packet"></div>
+                </div>
+                <div class="status-box" id="serverStatus">
+                    <span class="indicator">●</span> <span id="serverText">Aguardando evento...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal" id="clientTerminal">
+                <div class="log-line">> Browser Console initialized...</div>
+            </div>
+            <div class="terminal" id="serverTerminal">
+                <div class="log-line">> Server Logs initialized...</div>
+                <div class="log-line">> Connected to Gateway AWS...</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- LÓGICA DO SIMULADOR ---
+
+        function simulateConversion() {
+            const isBlocked = document.getElementById('adBlockToggle').checked;
+            
+            // 1. Resetar Estados
+            resetAnimations();
+            
+            // 2. Iniciar Animação do Cliente
+            const clientPacket = document.getElementById('clientPacket');
+            const clientStatus = document.getElementById('clientStatus');
+            const clientText = document.getElementById('clientText');
+
+            // 3. Iniciar Animação do Servidor (Sempre funciona)
+            const serverPacket = document.getElementById('serverPacket');
+            const serverStatus = document.getElementById('serverStatus');
+            const serverText = document.getElementById('serverText');
+
+            // Log de Início
+            log('clientTerminal', 'Simulando evento "Purchase"...', 'info');
+            log('serverTerminal', 'Recebendo request webhook...', 'info');
+
+            // --- LÓGICA DO CLIENTE (BROWSER) ---
+            if (isBlocked) {
+                // Simula Bloqueio
+                clientPacket.style.animation = "flow-blocked 1s forwards"; // Animação de explosão/bloqueio
+                
+                setTimeout(() => {
+                    clientStatus.className = "status-box blocked";
+                    clientText.innerText = "BLOCKED: uBlock Origin detectado.";
+                    log('clientTerminal', 'ERR_BLOCKED_BY_CLIENT: script gtm.js falhou.', 'error');
+                }, 500);
+            } else {
+                // Sucesso Normal
+                clientPacket.style.animation = "flow-down 1s forwards";
+                
+                setTimeout(() => {
+                    clientStatus.className = "status-box success";
+                    clientText.innerText = "200 OK: Pixel Fired";
+                    log('clientTerminal', 'Event sent successfully to Facebook Pixel.', 'success');
+                }, 1000);
+            }
+
+            // --- LÓGICA DO SERVIDOR (CAPI) ---
+            // O servidor SEMPRE funciona, independentemente do AdBlock
+            serverPacket.style.animation = "flow-down 1s forwards";
+            
+            setTimeout(() => {
+                serverStatus.className = "status-box success";
+                serverText.innerText = "200 OK: Event ID " + Math.floor(Math.random() * 10000);
+                
+                // Mensagem poderosa se o cliente bloqueou
+                if(isBlocked) {
+                    log('serverTerminal', 'Recovering data via Server...', 'info');
+                    log('serverTerminal', 'SUCCESS: Evento salvo pela API (Bypassed AdBlock).', 'success');
+                } else {
+                    log('serverTerminal', 'SUCCESS: Evento enviado via CAPI (Deduplicação OK).', 'success');
+                }
+            }, 1000);
+        }
+
+        // --- FUNÇÕES DE UTILIDADE ---
+
+        function resetAnimations() {
+            // Remove e readiciona classes para reiniciar animações CSS
+            const p1 = document.getElementById('clientPacket');
+            const p2 = document.getElementById('serverPacket');
+            
+            p1.style.animation = 'none';
+            p1.offsetHeight; /* trigger reflow */
+            p2.style.animation = 'none';
+            p2.offsetHeight; /* trigger reflow */
+
+            // Resetar Status
+            document.getElementById('clientStatus').className = "status-box";
+            document.getElementById('clientStatus').innerHTML = '<span class="indicator">●</span> Aguardando...';
+            
+            document.getElementById('serverStatus').className = "status-box";
+            document.getElementById('serverStatus').innerHTML = '<span class="indicator">●</span> Aguardando...';
+        }
+
+        function log(terminalId, msg, type) {
+            const terminal = document.getElementById(terminalId);
+            const line = document.createElement('div');
+            line.className = 'log-line';
+            
+            if (type === 'error') line.classList.add('log-error');
+            if (type === 'success') line.classList.add('log-success');
+            if (type === 'info') line.classList.add('log-info');
+            
+            const time = new Date().toLocaleTimeString().split(' ')[0];
+            line.innerText = `[${time}] ${msg}`;
+            
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight; // Auto-scroll
+        }
+    </script>
+</body>
+</html>

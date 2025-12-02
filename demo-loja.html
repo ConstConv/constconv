@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flux Gear | Advanced Tracking Demo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. CONFIGURAÇÕES GERAIS --- */
+        :root {
+            --bg-body: #0b0e14;
+            --bg-panel: #151921;
+            --border: rgba(255, 255, 255, 0.08);
+            --primary: #ccff00; 
+            --secondary: #00f0ff;
+            --danger: #ff2a6d;
+            --text-main: #ffffff;
+            --text-muted: #8b9bb4;
+            --json-key: #9cdcfe;
+            --json-string: #ce9178;
+            --json-number: #b5cea8;
+            --json-bool: #569cd6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-bottom: 80px; /* Espaço extra para o monitor mobile não cobrir o fim */
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-body); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
+        /* --- 2. NAVBAR --- */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+            background: rgba(11, 14, 20, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.05em; color: white; text-transform: uppercase; }
+        .logo span { color: var(--primary); }
+
+        .back-link {
+            text-decoration: none; color: var(--text-muted); font-size: 0.9rem;
+            transition: color 0.3s; display: flex; align-items: center; gap: 5px;
+        }
+        .back-link:hover { color: white; }
+
+        /* --- 3. HERO --- */
+        .hero {
+            padding: 8rem 1rem 3rem 1rem;
+            text-align: center;
+            background: radial-gradient(circle at 50% 0%, rgba(204, 255, 0, 0.05) 0%, transparent 60%);
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; line-height: 1.1; }
+        .hero p { color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        /* --- 4. PRODUTOS --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        
+        .product-grid {
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex; flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(204, 255, 0, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+
+        .image-wrapper {
+            width: 100%; height: 260px;
+            background: #1a1f29;
+            position: relative;
+            overflow: hidden;
+        }
+        .image-wrapper img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s ease;
+            opacity: 0.9;
+        }
+        .product-card:hover img { transform: scale(1.1); opacity: 1; }
+
+        .card-body { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .product-cat { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+        .product-title { font-size: 1.25rem; font-weight: 500; color: white; margin-bottom: 0.5rem; }
+        .product-price { font-size: 1.5rem; color: var(--primary); font-weight: 700; margin-bottom: 1.5rem; font-family: 'JetBrains Mono', monospace; }
+        
+        .btn-add {
+            margin-top: auto; width: 100%; padding: 1rem;
+            background: transparent; border: 1px solid rgba(255,255,255,0.2);
+            color: white; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;
+            cursor: pointer; transition: all 0.2s; border-radius: 6px;
+        }
+        .btn-add:hover { background: var(--primary); color: black; border-color: var(--primary); box-shadow: 0 0 15px rgba(204, 255, 0, 0.4); }
+        .btn-add:active { transform: scale(0.98); }
+
+        /* --- 5. DATALAYER MONITOR (INTELLIGENT RESPONSIVE) --- */
+        .dl-monitor {
+            position: fixed; 
+            z-index: 1000;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+            font-family: 'JetBrains Mono', monospace;
+            overflow: hidden;
+            display: flex; flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Desktop State */
+        @media (min-width: 769px) {
+            .dl-monitor {
+                bottom: 20px; left: 20px;
+                width: 400px; max-width: 30vw;
+                border-radius: 8px;
+                height: auto;
+                max-height: 400px;
+            }
+            .dl-monitor.minimized {
+                height: 42px !important;
+                overflow: hidden;
+            }
+            .dl-content {
+                height: 300px;
+            }
+        }
+
+        /* Mobile State (Bottom Sheet) */
+        @media (max-width: 768px) {
+            .navbar { padding: 1rem; }
+            .hero h1 { font-size: 2rem; }
+            
+            .dl-monitor {
+                bottom: 0; left: 0; right: 0;
+                width: 100%;
+                border-radius: 12px 12px 0 0;
+                border-left: none; border-right: none; border-bottom: none;
+                /* Estado Expandido Mobile */
+                height: 50vh; 
+            }
+            
+            .dl-monitor.minimized {
+                height: 50px !important; /* Barra fina no rodapé */
+            }
+            
+            .dl-content {
+                flex-grow: 1; /* Ocupa o resto do espaço */
+            }
+            
+            /* Ajuste para o conteúdo não ficar escondido atrás da barra */
+            body { padding-bottom: 60px; }
+        }
+
+        .dl-header {
+            background: #161b22;
+            padding: 12px 15px;
+            border-bottom: 1px solid #30363d;
+            display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer;
+            user-select: none;
+            height: 50px; /* Altura fixa para header */
+        }
+        
+        .dl-title { font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 8px; color: #c9d1d9; }
+        .status-dot { width: 8px; height: 8px; background: #238636; border-radius: 50%; box-shadow: 0 0 5px #238636; animation: pulse 2s infinite; }
+        
+        /* Texto de Último Evento (aparece ao lado do título) */
+        .last-event-indicator {
+            font-size: 0.7rem; color: var(--primary); 
+            opacity: 0.8; margin-left: 10px; display: none;
+            animation: fadeIn 0.5s;
+        }
+        .last-event-indicator.visible { display: inline-block; }
+
+        .dl-controls { display: flex; gap: 15px; align-items: center; }
+        .dl-btn { background: none; border: none; color: #8b949e; cursor: pointer; font-size: 0.9rem; }
+        .dl-btn:hover { color: white; }
+
+        .dl-content {
+            overflow-y: auto;
+            padding: 15px;
+            font-size: 0.75rem;
+            color: #e6edf3;
+            background: #0d1117;
+            scroll-behavior: smooth;
+        }
+
+        .log-entry {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #21262d;
+            padding-bottom: 10px;
+            animation: slideIn 0.3s ease;
+        }
+        .log-time { color: #8b949e; font-size: 0.7rem; margin-bottom: 4px; display: block; }
+
+        /* Flash Effect quando chega evento novo e está minimizado */
+        @keyframes flash-header {
+            0% { background: #161b22; }
+            50% { background: #1f2937; border-color: var(--primary); }
+            100% { background: #161b22; }
+        }
+        .dl-header.flash { animation: flash-header 0.5s ease-out; }
+
+        /* --- 6. TOAST & MODAL --- */
+        .toast {
+            position: fixed; top: 80px; right: 20px;
+            background: #1f2937; border-left: 4px solid var(--primary);
+            padding: 1rem; border-radius: 4px;
+            display: flex; align-items: center; gap: 12px;
+            transform: translateX(150%); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 90%;
+        }
+        .toast.active { transform: translateX(0); }
+
+        .modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+            z-index: 3000;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: all 0.3s;
+        }
+        .modal-overlay.open { opacity: 1; visibility: visible; }
+        
+        .modal-card {
+            background: var(--bg-panel); border: 1px solid var(--border);
+            padding: 2rem; width: 90%; max-width: 400px;
+            border-radius: 16px; text-align: center;
+            transform: scale(0.9); transition: transform 0.3s;
+        }
+        .modal-overlay.open .modal-card { transform: scale(1); }
+
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="back-link">← Voltar</a>
+        <div class="logo">Flux<span>.Tracking</span></div>
+        <div style="font-family: 'JetBrains Mono'; font-size: 0.8rem; color: var(--primary); cursor: pointer;" onclick="toggleCart()">
+            CART [<span id="cartCount">0</span>]
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Tracking Lab<span style="color:var(--primary)">.</span></h1>
+        <p>Ambiente de teste para validação de eventos <strong>GA4</strong>. <br>Interaja com os produtos.</p>
+    </header>
+
+    <main class="container">
+        <div class="product-grid" id="productGrid">
+            </div>
+    </main>
+
+    <div class="dl-monitor" id="dlMonitor">
+        <div class="dl-header" onclick="toggleMonitor()">
+            <div class="dl-title">
+                <span class="status-dot"></span> 
+                DL Watcher
+                <span id="lastEventDisplay" class="last-event-indicator"></span>
+            </div>
+            <div class="dl-controls">
+                <button class="dl-btn" onclick="clearMonitor(event)" title="Limpar">⊘</button>
+                <button class="dl-btn" id="toggleBtn">▲</button>
+            </div>
+        </div>
+        <div class="dl-content" id="dlContent">
+            <div style="color: #6a737d; margin-bottom: 10px;">// Console ready. Waiting for user interaction...</div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <div style="font-size:1.5rem; color:var(--primary);">✓</div>
+        <div>
+            <div style="font-weight:700; color:white;">Evento Disparado</div>
+            <div style="font-size:0.8rem; color:var(--text-muted);" id="toastMsg">add_to_cart enviado.</div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-card">
+            <div style="font-size: 3rem; margin-bottom: 10px;">⚡</div>
+            <h2 style="color:white; margin-bottom:10px;">Compra Confirmada!</h2>
+            <p style="color:var(--text-muted); font-size: 0.9rem; margin-bottom:20px;">O evento de <code>purchase</code> foi disparado.</p>
+            <button class="btn-add" style="background:var(--primary); color:black; border:none;" onclick="closeModal()">Continuar</button>
+        </div>
+    </div>
+
+    <script>
+        // --- DADOS ---
+        const products = [
+            { id: "PROD_001", name: "Cyberpunk Hoodie", category: "Apparel", price: 189.00, image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=600&q=80" },
+            { id: "PROD_002", name: "Neon Visor V2", category: "Accessories", price: 349.50, image: "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&w=600&q=80" },
+            { id: "PROD_003", name: "Mecha Sneakers", category: "Footwear", price: 599.90, image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=600&q=80" },
+            { id: "PROD_004", name: "Tactical Backpack", category: "Equipment", price: 220.00, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80" }
+        ];
+
+        let cart = [];
+        let viewItemTimeouts = {};
+
+        // --- INICIALIZAÇÃO AUTOMÁTICA ---
+        const isMobile = window.innerWidth <= 768;
+        const monitor = document.getElementById('dlMonitor');
+        
+        // No mobile, começa minimizado. No desktop, começa aberto.
+        if (isMobile) {
+            monitor.classList.add('minimized');
+            document.getElementById('toggleBtn').innerText = '▲';
+        } else {
+            document.getElementById('toggleBtn').innerText = '▼';
+        }
+
+        const grid = document.getElementById('productGrid');
+        
+        products.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div class="image-wrapper"><img src="${p.image}" alt="${p.name}"></div>
+                <div class="card-body">
+                    <div class="product-cat">${p.category}</div>
+                    <div class="product-title">${p.name}</div>
+                    <div class="product-price">R$ ${p.price.toFixed(2)}</div>
+                    <button class="btn-add" onclick="handleAddToCart('${p.id}')">Adicionar +</button>
+                </div>
+            `;
+            
+            // View Item Logic
+            card.addEventListener('mouseenter', () => {
+                viewItemTimeouts[p.id] = setTimeout(() => {
+                    pushDataLayer({
+                        event: "view_item",
+                        ecommerce: {
+                            currency: "BRL", value: p.price,
+                            items: [{ item_id: p.id, item_name: p.name, item_category: p.category, price: p.price }]
+                        }
+                    });
+                }, 500);
+            });
+
+            card.addEventListener('mouseleave', () => {
+                if (viewItemTimeouts[p.id]) clearTimeout(viewItemTimeouts[p.id]);
+            });
+
+            grid.appendChild(card);
+        });
+
+        // --- TRACKING CORE ---
+        function pushDataLayer(data) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push(data);
+            renderLog(data);
+            
+            // UX Enhancement: Flash Header
+            const header = document.querySelector('.dl-header');
+            header.classList.remove('flash');
+            void header.offsetWidth; // Trigger reflow
+            header.classList.add('flash');
+
+            // Show Last Event Name in Header (Important for Mobile)
+            const indicator = document.getElementById('lastEventDisplay');
+            indicator.innerHTML = `⚡ ${data.event}`;
+            indicator.classList.add('visible');
+        }
+
+        function handleAddToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            updateCartUI();
+            showToast(`Adicionado: ${product.name}`);
+            
+            pushDataLayer({
+                event: "add_to_cart",
+                ecommerce: {
+                    currency: "BRL", value: product.price,
+                    items: [{ item_id: product.id, item_name: product.name, item_category: product.category, price: product.price, quantity: 1 }]
+                }
+            });
+        }
+
+        function toggleCart() {
+            if(cart.length === 0) { alert("Carrinho vazio!"); return; }
+            
+            const total = cart.reduce((acc, item) => acc + item.price, 0);
+            const transactionId = "TRX_" + Math.random().toString(36).substr(2, 9).toUpperCase();
+
+            pushDataLayer({
+                event: "purchase",
+                ecommerce: {
+                    transaction_id: transactionId, value: parseFloat(total.toFixed(2)),
+                    currency: "BRL", items: cart.map(item => ({ item_id: item.id, item_name: item.name, price: item.price, quantity: 1 }))
+                }
+            });
+
+            cart = []; updateCartUI();
+            document.getElementById('checkoutModal').classList.add('open');
+        }
+
+        // --- UI UTILS ---
+        function updateCartUI() { document.getElementById('cartCount').innerText = cart.length; }
+        function closeModal() { document.getElementById('checkoutModal').classList.remove('open'); }
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 3000);
+        }
+
+        // --- MONITOR VISUALIZER ---
+        function renderLog(data) {
+            const container = document.getElementById('dlContent');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            const time = new Date().toLocaleTimeString('pt-BR');
+            
+            entry.innerHTML = `
+                <span class="log-time">[${time}] event: <strong style="color:white">${data.event}</strong></span>
+                <pre style="margin:0;">${syntaxHighlight(data)}</pre>
+            `;
+            
+            container.prepend(entry);
+        }
+
+        function syntaxHighlight(json) {
+            if (typeof json !== 'string') json = JSON.stringify(json, undefined, 2);
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                let color = 'var(--json-number)';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) color = 'var(--json-key)';
+                    else color = 'var(--json-string)';
+                } else if (/true|false/.test(match)) {
+                    color = 'var(--json-bool)';
+                }
+                const content = match.replace(/:$/, '');
+                const suffix = match.endsWith(':') ? ':' : '';
+                return `<span style="color:${color}">${content}</span>${suffix}`;
+            });
+        }
+
+        // Toggle Monitor
+        function toggleMonitor() {
+            const btn = document.getElementById('toggleBtn');
+            const wasMinimized = monitor.classList.contains('minimized');
+            
+            if(wasMinimized) {
+                monitor.classList.remove('minimized');
+                btn.innerText = '▼';
+            } else {
+                monitor.classList.add('minimized');
+                btn.innerText = '▲';
+            }
+        }
+
+        function clearMonitor(e) {
+            e.stopPropagation();
+            document.getElementById('dlContent').innerHTML = '<div style="color: #6a737d;">// Console cleared.</div>';
+            document.getElementById('lastEventDisplay').classList.remove('visible');
+        }
+    </script>
+</body>
+</html>
