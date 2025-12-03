@@ -512,7 +512,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 alert('Mensagem enviada com sucesso!');
                 form.reset();
                 window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({'event': 'lead_form_submitted'});
+                window.dataLayer.push({'event': 'lead_form_submitted', 'email': params.email});
             })
             .catch((err) => {
                 alert('Erro ao enviar. Tente novamente.');
