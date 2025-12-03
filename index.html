@@ -198,7 +198,7 @@
         .feature-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 0.8rem; font-size: 0.95rem; }
         .feature-list li::before { content: "✓"; color: var(--amarelo); font-weight: bold; }
 
-        /* --- 8. Agenda (Novo) --- */
+        /* --- 8. Agenda --- */
         .calendar-wrapper {
             position: relative;
             background: var(--bg-card);
@@ -207,7 +207,7 @@
             overflow: hidden;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             margin-top: 3rem;
-            height: 700px; /* Altura ideal para o widget do Cal.com */
+            height: 700px;
         }
         .calendar-wrapper::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
@@ -231,7 +231,7 @@
             .nav-toggler { display: block; z-index: 1001; }
             .nav-links { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background: #0a0a0a; border-left: 1px solid var(--borda); flex-direction: column; justify-content: center; align-items: center; transition: right 0.3s ease-in-out; }
             .nav-links.active { right: 0; }
-            .calendar-wrapper { height: 850px; } /* Mais altura no mobile */
+            .calendar-wrapper { height: 850px; }
         }
     </style>
 </head>
@@ -249,7 +249,8 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#portfolio">Laboratório</a></li>
                 <li><a href="#servicos">Expertise</a></li>
-                <li><a href="#agenda" style="color:var(--amarelo)">Agenda</a></li> <li><a href="#planos">Planos</a></li>
+                <li><a href="#agenda" style="color:var(--amarelo)">Agenda</a></li>
+                <li><a href="#planos">Planos</a></li>
                 <li><a href="#contato">Contato</a></li>
             </ul>
         </div>
@@ -297,13 +298,22 @@
                         <span class="card-link">Ler Case →</span>
                     </div>
                 </div>
+
+                <div class="spotlight-card fade-up" onclick="window.location.href='./demo-design.html'" style="cursor: pointer;">
+                    <div class="card-content">
+                        <span class="project-tag" style="color: #ff0055;">Social Media & Design</span>
+                        <h3 class="card-title">Criativos de Performance</h3>
+                        <p class="card-text">Design estratégico focado em aumentar o CTR. Exemplos de peças para E-commerce, Branding e Institucional.</p>
+                        <span class="card-link" style="margin-top:auto; color:#ff0055;">Ver Galeria →</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="servicos" style="padding: 100px 0; background: linear-gradient(to bottom, transparent, rgba(20,20,20,0.5));">
         <div class="container">
-            <h2 class="section-title fade-up">Expertise</h2>
+            <h2 class="section-title fade-up">Minha Expertise</h2>
             <div class="grid-3" style="margin-top: 4rem;">
                 <div class="spotlight-card fade-up">
                     <div class="card-content">
@@ -329,8 +339,8 @@
 
     <section id="agenda" style="padding: 100px 0; background: linear-gradient(to bottom, var(--bg-body), #0a0a0a);">
         <div class="container">
-            <h2 class="section-title fade-up">Conversa ao vivo</h2>
-            <p class="section-subtitle fade-up">Prefere conversar ao vivo? Agende uma call gratuita sem compromisso.</p>
+            <h2 class="section-title fade-up">Diagnóstico Técnico</h2>
+            <p class="section-subtitle fade-up">Prefere conversar ao vivo? Agende uma call gratuita. Vamos analisar seu tracking e encontrar os gargalos de dados.</p>
 
             <div class="calendar-wrapper fade-up">
                 <iframe 
@@ -403,14 +413,14 @@
                 <div class="input-group">
                     <textarea id="mensagem" class="input-field" placeholder="Descreva seu projeto ou problema..." required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensagem</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensagem 🚀</button>
             </form>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>&copy; <span id="year"></span> ConstConv.</p>
+            <p>&copy; <span id="year"></span> ConstConv. Developed by Raul Campos.</p>
         </div>
     </footer>
 
