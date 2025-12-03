@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Lab | Visual Performance</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- VARIAVEIS --- */
+        :root {
+            --bg: #050505;
+            --card: #101010;
+            --border: #222;
+            --text: #ffffff;
+            --accent: #ff0055; /* Rosa Neon (Diferencia do resto do site) */
+            --muted: #888;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            /* Grid sutil no fundo */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            padding: 1.5rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border);
+            background: rgba(5,5,5,0.8); backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .back-link { text-decoration: none; color: var(--muted); display: flex; align-items: center; gap: 8px; transition: 0.3s; font-size: 0.9rem; }
+        .back-link:hover { color: white; }
+        .logo { font-weight: 700; font-size: 1.2rem; }
+        .logo span { color: var(--accent); font-weight: 900; }
+
+        /* --- HEADER --- */
+        .header { text-align: center; padding: 5rem 1rem 3rem 1rem; }
+        .header h1 { font-size: 3rem; margin-bottom: 1rem; font-weight: 900; letter-spacing: -1px; }
+        .header p { color: var(--muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        /* --- FILTROS --- */
+        .filters { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 4rem; flex-wrap: wrap; }
+        .filter-btn {
+            background: transparent; border: 1px solid #333; color: #aaa;
+            padding: 0.6rem 1.5rem; border-radius: 50px; cursor: pointer;
+            transition: all 0.3s; font-size: 0.9rem; font-weight: 500;
+        }
+        .filter-btn:hover { border-color: var(--accent); color: white; }
+        .filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; box-shadow: 0 0 15px rgba(255, 0, 85, 0.4); }
+
+        /* --- GRID GALERIA --- */
+        .gallery {
+            max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 6rem 1.5rem;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .art-card {
+            background: var(--card); border-radius: 16px; overflow: hidden;
+            transition: transform 0.3s ease, opacity 0.3s ease; 
+            border: 1px solid var(--border);
+            display: flex; flex-direction: column;
+            position: relative;
+        }
+        .art-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); border-color: #333; }
+
+        /* Area da Imagem */
+        .img-box { 
+            position: relative; 
+            /* Altura fixa para alinhar, mas a imagem cobre */
+            height: 400px; 
+            overflow: hidden; 
+            background: #1a1a1a;
+        }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); opacity: 0.9; }
+        .art-card:hover img { transform: scale(1.05); opacity: 1; }
+
+        /* Overlay de Dados (O Pulo do Gato) */
+        .stats-overlay {
+            position: absolute; bottom: 15px; left: 15px; right: 15px;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+            padding: 12px 20px; border-radius: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+            opacity: 0; transform: translateY(10px); transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .art-card:hover .stats-overlay { opacity: 1; transform: translateY(0); }
+
+        .stat-item { text-align: left; }
+        .stat-value { font-weight: 800; color: var(--accent); display: block; font-size: 1.1rem; }
+        .stat-label { color: #aaa; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Infos do Card */
+        .card-info { padding: 1.5rem; border-top: 1px solid var(--border); background: #0f0f0f; }
+        .client-tag { 
+            font-size: 0.7rem; color: var(--accent); 
+            text-transform: uppercase; letter-spacing: 1px; font-weight: 700; 
+            background: rgba(255, 0, 85, 0.1); padding: 4px 8px; border-radius: 4px;
+            display: inline-block; margin-bottom: 10px;
+        }
+        .art-title { font-size: 1.2rem; margin-bottom: 8px; color: white; }
+        .art-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+
+        /* Responsividade */
+        @media(max-width: 768px) {
+            .header h1 { font-size: 2.2rem; }
+            /* No mobile, mostra as stats sempre, não só no hover */
+            .stats-overlay { opacity: 1; transform: translateY(0); bottom: 10px; left: 10px; right: 10px; }
+            .gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="back-link">← Voltar ao Hub</a>
+        <div class="logo">CREATIVE<span>.LAB</span></div>
+    </nav>
+
+    <div class="header">
+        <h1>Design Orientado a Dados</h1>
+        <p>Não basta ser bonito. Tem que converter. <br>Veja exemplos de criativos desenvolvidos com foco em retenção e CTR.</p>
+    </div>
+
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterGallery('all')">Todos</button>
+        <button class="filter-btn" onclick="filterGallery('ecommerce')">E-commerce</button>
+        <button class="filter-btn" onclick="filterGallery('apps')">Apps & Tech</button>
+        <button class="filter-btn" onclick="filterGallery('food')">Delivery</button>
+        <button class="filter-btn" onclick="filterGallery('sports')">Esportes</button>
+    </div>
+
+    <div class="gallery">
+        
+        <div class="art-card" data-category="apps">
+            <div class="img-box">
+                <img src="runner-portifolio.png" alt="App Fitness">
+                <div class="stats-overlay">
+                    <div class="stat-item">
+                        <span class="stat-value">4.5%</span>
+                        <span class="stat-label">CTR Médio</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">R$ 2,10</span>
+                        <span class="stat-label">Custo p/ Install</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-info">
+                <div class="client-tag">App / Fitness</div>
+                <h3 class="art-title">Campanha "Run 3D"</h3>
+                <p class="art-desc">Efeito "Out of Bounds" (3D) para destacar o movimento. Integração visual de métricas do app para atrair público qualificado.</p>
+            </div>
+        </div>
+
+        <div class="art-card" data-category="food">
+            <div class="img-box">
+                <img src="fome-imediata-portifolio.png" alt="Hamburguer Suculento">
+                <div class="stats-overlay">
+                    <div class="stat-item">
+                        <span class="stat-value">8.2%</span>
+                        <span class="stat-label">CTR (iFood)</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">150+</span>
+                        <span class="stat-label">Cupons Usados</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-info">
+                <div class="client-tag">Delivery / Local</div>
+                <h3 class="art-title">Gatilho de "Fome Imediata"</h3>
+                <p class="art-desc">Foco total em textura (Food Porn) e contraste alto. Uso de cores quentes e fumaça para despertar desejo impulsivo.</p>
+            </div>
+        </div>
+
+        <div class="art-card" data-category="ecommerce">
+            <div class="img-box">
+                <img src="stanley-portifolio.png" alt="Copo Térmico">
+                <div class="stats-overlay">
+                    <div class="stat-item">
+                        <span class="stat-value">5x</span>
+                        <span class="stat-label">ROAS</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">Premium</span>
+                        <span class="stat-label">Posicionamento</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-info">
+                <div class="client-tag">E-commerce / Varejo</div>
+                <h3 class="art-title">Durabilidade Térmica</h3>
+                <p class="art-desc">Ambientação sensorial (Gelo/Frio). Iluminação de recorte para destacar a silhueta do produto em fundo escuro.</p>
+            </div>
+        </div>
+
+        <div class="art-card" data-category="sports">
+            <div class="img-box">
+                <img src="placar-portifolio.png" alt="Placar Futebol">
+                <div class="stats-overlay">
+                    <div class="stat-item">
+                        <span class="stat-value">+60%</span>
+                        <span class="stat-label">Retenção</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">Dinâmico</span>
+                        <span class="stat-label">Formato</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-info">
+                <div class="client-tag">Esportes / Dados</div>
+                <h3 class="art-title">Template Real-Time</h3>
+                <p class="art-desc">Arte modular desenvolvida para automação. Conecta com APIs de futebol para gerar placares em tempo real nos Stories.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.art-card');
+            const btns = document.querySelectorAll('.filter-btn');
+            
+            // Atualiza botões
+            btns.forEach(btn => {
+                btn.classList.remove('active');
+                // Lógica simples para ativar o botão clicado
+                if(btn.getAttribute('onclick').includes(category)) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Filtra itens
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'flex';
+                    // Pequeno delay para animação fluida
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    setTimeout(() => item.style.display = 'none', 300);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
