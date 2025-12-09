@@ -1,19 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TXNFJLZZ');</script>
-<!-- End Google Tag Manager -->
-    
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-      emailjs.init('3Aaing7IC5U8ZAIuQ');
-    </script>
-
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TXNFJLZZ');</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ConstConv | Tracking & Performance Web</title>
@@ -238,11 +230,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXNFJLZZ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-    <div id="preloader" style="position:fixed; inset:0; background:#050505; z-index:9999; display:flex; justify-content:center; align-items:center;">
+<div id="preloader" style="position:fixed; inset:0; background:#050505; z-index:9999; display:flex; justify-content:center; align-items:center;">
         <div style="font-size:2rem; font-weight:900;">Const<span style="color:#FFC700">Conv</span></div>
     </div>
 
@@ -410,13 +400,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             <form id="contactForm" class="fade-up">
                 <div class="input-group">
-                    <input type="text" id="nome" class="input-field" placeholder="Seu Nome" required>
+                    <input type="text" id="nome" name="nome" class="input-field" placeholder="Seu Nome" required>
                 </div>
                 <div class="input-group">
-                    <input type="email" id="email" class="input-field" placeholder="Seu E-mail Profissional" required>
+                    <input type="email" id="email" name="email" class="input-field" placeholder="Seu E-mail Profissional" required>
                 </div>
                 <div class="input-group">
-                    <textarea id="mensagem" class="input-field" placeholder="Descreva seu projeto ou problema..." required></textarea>
+                    <textarea id="mensagem" name="mensagem" class="input-field" placeholder="Descreva seu projeto ou problema..." required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensagem 🚀</button>
             </form>
@@ -434,9 +424,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </a>
 
     <script>
-    window.dataLayer = window.dataLayer || [];
-</script>
-<script src="https://app.constconv.agency/tracker.js?id=constconv" async></script>
+        window.dataLayer = window.dataLayer || [];
+    </script>
+    <script src="https://app.constconv.agency/tracker.js?id=constconv" async></script>
 
     <script>
         // --- 1. Preloader ---
@@ -459,7 +449,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             menuBtn.innerHTML = menuList.classList.contains('active') ? '✕' : '☰';
         });
 
-        // Fechar menu ao clicar em link
         menuLinks.forEach(link => {
             link.addEventListener('click', () => {
                 menuList.classList.remove('active');
@@ -487,7 +476,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // Animar apenas uma vez
+                    observer.unobserve(entry.target); 
                 }
             });
         }, observerOptions);
@@ -496,40 +485,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // --- 5. Envio de Form (EmailJS + DataLayer) ---
+        // --- 5. Envio de Form (INTEGRAÇÃO NATIVA CONSTCONV) ---
         const form = document.getElementById('contactForm');
+        
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = form.querySelector('button');
             const originalText = btn.textContent;
             
+            // Feedback Visual
             btn.textContent = 'Enviando...';
             btn.disabled = true;
 
-            const params = {
-                nome: document.getElementById('nome').value,
-                email: document.getElementById('email').value,
-                mensagem: document.getElementById('mensagem').value
-            };
+            // Coleta Inteligente dos Dados (Pega todos os campos com name="")
+            const formData = new FormData(form);
+            const dados = {};
+            formData.forEach((value, key) => {
+                dados[key] = value;
+            });
+            
+            // Adiciona origem
+            dados.origem = 'Formulário Site Oficial';
 
-            emailjs.send("default_service", "template_nwqgt6c", params)
-            .then(() => {
-                alert('Mensagem enviada com sucesso!');
-                form.reset();
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({'event': 'constconv-contactform-submit',
-                'nome': params.nome ? params.nome : 'Visitante' ,
-                'email': params.email ? params.email : 'nao@informado.com',
-                'origem': 'form_rodape_site_constconv'});
-            })
-            .catch((err) => {
-                alert('Erro ao enviar. Tente novamente.');
-                console.error(err);
-            })
-            .finally(() => {
+            // Envia para o VPS (que dispara o email)
+            if (window.ConstConv) {
+                ConstConv.send('constconv-contactform-submit', dados);
+
+                // Aguarda feedback (simulado para UX)
+                setTimeout(() => {
+                    alert('Mensagem enviada com sucesso! Em breve entraremos em contato.');
+                    form.reset();
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                }, 1500);
+            } else {
+                // Fallback se o tracker não carregou
+                alert('Erro de conexão com o servidor. Tente novamente em instantes.');
                 btn.textContent = originalText;
                 btn.disabled = false;
-            });
+            }
         });
     </script>
 </body>
