@@ -22,19 +22,13 @@
         :root {
             --bg-body: #050505;
             --bg-card: rgba(20, 20, 20, 0.6);
-            --bg-card-hover: rgba(30, 30, 30, 0.8);
             --borda: rgba(255, 255, 255, 0.08);
             --borda-hover: rgba(255, 255, 255, 0.2);
-            
             --branco: #FFFFFF;
-            --cinza-claro: #E4E4E7;
             --cinza-medio: #A1A1AA;
-            
-            /* Cores de destaque (Marca) */
             --amarelo: #FFC700;
             --roxo-brilho: #8B5CF6;
-            --gradiente-texto: linear-gradient(135deg, #FFFFFF 0%, #A1A1AA 100%);
-            
+            --sucesso: #22c55e;
             --fonte: 'Inter', sans-serif;
         }
 
@@ -48,184 +42,151 @@
             color: var(--branco);
             overflow-x: hidden;
             line-height: 1.6;
-            
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
-            
             opacity: 0; 
             transition: opacity 0.6s ease;
         }
         
         body.loaded { opacity: 1; }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
 
-        /* --- 2. Tipografia e Utilitários --- */
-        h1, h2, h3, h4 { letter-spacing: -0.03em; color: var(--branco); }
+        /* --- Tipografia --- */
+        h1, h2, h3 { color: var(--branco); letter-spacing: -0.02em; }
         p { color: var(--cinza-medio); font-weight: 300; }
         
         .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 0.5rem;
+            font-size: 2.5rem; font-weight: 800; text-align: center; margin-bottom: 0.5rem;
             background: linear-gradient(to bottom, #fff, #999);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        
-        .section-subtitle {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 4rem auto;
-            font-size: 1.1rem;
-        }
+        .section-subtitle { text-align: center; max-width: 600px; margin: 0 auto 4rem auto; font-size: 1.1rem; }
 
         .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
         
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
 
-        /* --- 3. Navbar --- */
+        /* --- Navbar --- */
         .navbar {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(5, 5, 5, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--borda);
-            padding: 1rem 0;
-            transition: all 0.3s;
+            background: rgba(5, 5, 5, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--borda); padding: 1rem 0;
         }
         .navbar .container { display: flex; justify-content: space-between; align-items: center; }
-        
-        .nav-logo { font-size: 1.4rem; font-weight: 900; color: var(--branco); text-decoration: none; display: flex; align-items: center; gap: 5px; }
+        .nav-logo { font-size: 1.4rem; font-weight: 900; color: var(--branco); text-decoration: none; }
         .nav-logo span { color: var(--amarelo); }
-        
         .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-        .nav-links a {
-            color: var(--cinza-medio); text-decoration: none; font-size: 0.9rem; font-weight: 500;
-            transition: color 0.3s; position: relative;
-        }
-        .nav-links a:hover, .nav-links a.active { color: var(--branco); }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
-            background: var(--amarelo); transition: width 0.3s ease;
-        }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-
+        .nav-links a { color: var(--cinza-medio); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--branco); }
         .nav-toggler { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
 
-        /* --- 4. Botões --- */
+        /* --- Botões --- */
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
-            padding: 0.9rem 2rem; border-radius: 8px;
-            font-weight: 600; text-decoration: none; font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-            position: relative; overflow: hidden;
-            border: 1px solid transparent;
+            padding: 0.9rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none;
+            transition: all 0.3s; border: 1px solid transparent; cursor: pointer;
         }
         .btn-primary { background: var(--amarelo); color: #000; box-shadow: 0 0 15px rgba(255, 199, 0, 0.15); }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(255, 199, 0, 0.4); }
         .btn-secondary { background: rgba(255, 255, 255, 0.05); color: var(--branco); border: 1px solid var(--borda); }
-        .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--branco); }
+        .btn-secondary:hover { border-color: var(--branco); }
         .btn-purple { background: var(--roxo-brilho); color: white; box-shadow: 0 0 15px rgba(139, 92, 246, 0.3); }
-        .btn-purple:hover { box-shadow: 0 0 30px rgba(139, 92, 246, 0.6); transform: translateY(-2px); }
 
-        /* --- 5. Hero --- */
+        /* Estado de Loading do Botão */
+        .btn.loading { opacity: 0.8; pointer-events: none; }
+        .btn.loading::after {
+            content: ""; width: 16px; height: 16px; border: 2px solid #000; border-top-color: transparent;
+            border-radius: 50%; margin-left: 10px; animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* --- Hero --- */
         .hero {
-            min-height: 100vh;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center;
-            padding-top: 80px; position: relative;
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding-top: 80px;
             background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
         }
         .hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem; max-width: 900px; }
-        .hero h1 span { color: var(--amarelo); position: relative; display: inline-block; }
-        .hero p { font-size: 1.2rem; max-width: 650px; margin-bottom: 2.5rem; }
+        .hero h1 span { color: var(--amarelo); }
         .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
 
-        /* --- 6. Cards Spotlight --- */
+        /* --- Cards Spotlight --- */
         .spotlight-card {
             background: var(--bg-card); border: 1px solid var(--borda); border-radius: 12px;
-            padding: 2rem; position: relative; overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; height: 100%;
+            padding: 2rem; position: relative; overflow: hidden; display: flex; flex-direction: column; height: 100%;
         }
-        .spotlight-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 12px; padding: 1px;
-            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.25), transparent 40%);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; opacity: 0; transition: opacity 0.4s;
-        }
-        .spotlight-card::after {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(500px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.04), transparent 40%);
-            pointer-events: none; opacity: 0; transition: opacity 0.4s; z-index: 0;
-        }
-        .spotlight-card:hover::before, .spotlight-card:hover::after { opacity: 1; }
-        .spotlight-card:hover { transform: translateY(-3px); }
-        .card-content { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
-        
-        .project-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; color: var(--amarelo); margin-bottom: 1rem; display: block; }
-        .card-title { font-size: 1.4rem; margin-bottom: 0.8rem; font-weight: 700; }
-        .card-text { font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; }
-        .card-link { font-size: 0.9rem; font-weight: 600; color: var(--branco); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; margin-top: auto; }
+        .spotlight-card:hover { transform: translateY(-3px); border-color: var(--borda-hover); }
+        .project-tag { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--amarelo); margin-bottom: 1rem; }
+        .card-title { font-size: 1.4rem; margin-bottom: 0.8rem; }
+        .card-link { margin-top: auto; font-size: 0.9rem; font-weight: 600; color: var(--branco); text-decoration: none; }
         .card-link:hover { color: var(--amarelo); }
 
-        /* --- 7. Pricing --- */
-        .pricing-card { background: var(--bg-card); border: 1px solid var(--borda); padding: 2.5rem; border-radius: 16px; display: flex; flex-direction: column; transition: all 0.3s; }
-        .pricing-card:hover { border-color: var(--borda-hover); transform: translateY(-5px); }
-        .pricing-card.featured { background: linear-gradient(180deg, rgba(139, 92, 246, 0.08) 0%, var(--bg-card) 100%); border: 1px solid var(--roxo-brilho); box-shadow: 0 0 30px rgba(139, 92, 246, 0.1); }
-        .price-tag { font-size: 3rem; font-weight: 800; color: var(--branco); margin: 1rem 0; }
-        .price-tag span { font-size: 1rem; font-weight: 400; color: var(--cinza-medio); }
-        .feature-list { list-style: none; margin: 2rem 0; color: var(--cinza-claro); flex-grow: 1; }
-        .feature-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 0.8rem; font-size: 0.95rem; }
-        .feature-list li::before { content: "✓"; color: var(--amarelo); font-weight: bold; }
-
-        /* --- 8. Agenda --- */
-        .calendar-wrapper {
-            position: relative;
-            background: var(--bg-card);
-            border: 1px solid var(--borda);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            margin-top: 3rem;
-            height: 700px;
-        }
-        .calendar-wrapper::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--amarelo), transparent);
-            opacity: 0.5;
-        }
-
-        /* --- 9. Formulário --- */
+        /* --- Form --- */
         #contato form { max-width: 600px; margin: 0 auto; }
         .input-group { margin-bottom: 1rem; }
-        .input-field { width: 100%; padding: 1rem; background: rgba(255,255,255,0.03); border: 1px solid var(--borda); border-radius: 8px; color: var(--branco); font-family: var(--fonte); font-size: 1rem; transition: all 0.3s; }
+        .input-field { 
+            width: 100%; padding: 1rem; background: rgba(255,255,255,0.03); 
+            border: 1px solid var(--borda); border-radius: 8px; color: var(--branco); 
+            font-family: var(--fonte); font-size: 1rem; transition: all 0.3s; 
+        }
         .input-field:focus { outline: none; border-color: var(--roxo-brilho); background: rgba(255,255,255,0.05); }
         textarea.input-field { resize: vertical; min-height: 120px; }
 
-        /* --- 10. Footer --- */
+        /* --- Pricing --- */
+        .pricing-card { background: var(--bg-card); border: 1px solid var(--borda); padding: 2.5rem; border-radius: 16px; display: flex; flex-direction: column; }
+        .pricing-card.featured { border-color: var(--roxo-brilho); background: linear-gradient(180deg, rgba(139, 92, 246, 0.08) 0%, var(--bg-card) 100%); }
+        .price-tag { font-size: 3rem; font-weight: 800; margin: 1rem 0; }
+        .price-tag span { font-size: 1rem; font-weight: 400; color: var(--cinza-medio); }
+        .feature-list { list-style: none; margin: 2rem 0; color: var(--cinza-medio); flex-grow: 1; }
+        .feature-list li { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; }
+        .feature-list li::before { content: "✓"; color: var(--amarelo); font-weight: bold; }
+
+        /* --- Agenda --- */
+        .calendar-wrapper {
+            background: var(--bg-card); border: 1px solid var(--borda); border-radius: 16px;
+            overflow: hidden; height: 700px; margin-top: 3rem;
+        }
+
+        /* --- Footer --- */
         footer { border-top: 1px solid var(--borda); padding: 3rem 0; text-align: center; margin-top: 6rem; font-size: 0.9rem; color: var(--cinza-medio); }
 
-        /* --- 11. Mobile --- */
+        /* --- MODAL DE SUCESSO (NOVO) --- */
+        .custom-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            z-index: 99999; display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
+        }
+        .custom-modal.active { opacity: 1; visibility: visible; }
+        
+        .modal-content {
+            background: #18181B; border: 1px solid var(--borda); padding: 2.5rem;
+            border-radius: 16px; text-align: center; max-width: 400px; width: 90%;
+            transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .custom-modal.active .modal-content { transform: scale(1); }
+
+        .success-icon {
+            width: 70px; height: 70px; background: rgba(34, 197, 94, 0.1); color: var(--sucesso);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1.5rem auto; border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        .success-icon svg { width: 35px; height: 35px; stroke-width: 3; }
+
+        .modal-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: white; }
+        .modal-text { color: var(--cinza-medio); margin-bottom: 2rem; font-size: 0.95rem; }
+
+        /* Mobile */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .nav-toggler { display: block; z-index: 1001; }
             .nav-links { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background: #0a0a0a; border-left: 1px solid var(--borda); flex-direction: column; justify-content: center; align-items: center; transition: right 0.3s ease-in-out; }
             .nav-links.active { right: 0; }
-            .calendar-wrapper { height: 850px; }
         }
     </style>
 </head>
@@ -234,6 +195,17 @@
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="preloader" style="position:fixed; inset:0; background:#050505; z-index:9999; display:flex; justify-content:center; align-items:center;">
         <div style="font-size:2rem; font-weight:900;">Const<span style="color:#FFC700">Conv</span></div>
+    </div>
+
+    <div id="successModal" class="custom-modal">
+        <div class="modal-content">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h3 class="modal-title">Mensagem Enviada!</h3>
+            <p class="modal-text">Recebemos seus dados com sucesso. Em breve nossa equipe entrará em contato.</p>
+            <button onclick="fecharModal()" class="btn btn-secondary" style="width:100%; padding: 0.7rem;">Fechar</button>
+        </div>
     </div>
 
     <nav class="navbar">
@@ -429,63 +401,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src="https://app.constconv.agency/tracker.js?id=constconv" async></script>
 
     <script>
-        // --- 1. Preloader ---
+        // --- 1. Preloader e Outros Scripts (Mantidos) ---
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             preloader.style.opacity = '0';
-            setTimeout(() => { 
-                preloader.style.display = 'none'; 
-                document.body.classList.add('loaded');
-            }, 500);
+            setTimeout(() => { preloader.style.display = 'none'; document.body.classList.add('loaded'); }, 500);
         });
 
-        // --- 2. Menu Mobile Inteligente ---
         const menuBtn = document.getElementById('menuBtn');
         const menuList = document.getElementById('menuList');
         const menuLinks = document.querySelectorAll('.nav-links a');
+        menuBtn.addEventListener('click', () => { menuList.classList.toggle('active'); menuBtn.innerHTML = menuList.classList.contains('active') ? '✕' : '☰'; });
+        menuLinks.forEach(link => { link.addEventListener('click', () => { menuList.classList.remove('active'); menuBtn.innerHTML = '☰'; }); });
 
-        menuBtn.addEventListener('click', () => {
-            menuList.classList.toggle('active');
-            menuBtn.innerHTML = menuList.classList.contains('active') ? '✕' : '☰';
-        });
-
-        menuLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menuList.classList.remove('active');
-                menuBtn.innerHTML = '☰';
-            });
-        });
-
-        // --- 3. Efeito Spotlight (Seguir Mouse) nos Cards ---
         const cards = document.querySelectorAll('.spotlight-card');
-        
         document.addEventListener('mousemove', (e) => {
             cards.forEach(card => {
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
+                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
             });
         });
 
-        // --- 4. Animação Scroll (Intersection Observer) ---
-        const observerOptions = { threshold: 0.15 };
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); 
-                }
-            });
-        }, observerOptions);
-
+            entries.forEach(entry => { if(entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+        }, { threshold: 0.15 });
         document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-        
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // --- 5. Envio de Form (INTEGRAÇÃO NATIVA CONSTCONV) ---
+        // --- LÓGICA DO MODAL DE SUCESSO ---
+        const modal = document.getElementById('successModal');
+        
+        function abrirModal() {
+            modal.classList.add('active');
+            // Fecha sozinho após 3 segundos
+            setTimeout(fecharModal, 3000);
+        }
+
+        function fecharModal() {
+            modal.classList.remove('active');
+        }
+        
+        // Fecha ao clicar fora
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) fecharModal();
+        });
+
+        // --- ENVIO DO FORMULÁRIO (ANIMAÇÃO + ENVIO) ---
         const form = document.getElementById('contactForm');
         
         form.addEventListener('submit', function(e) {
@@ -493,36 +455,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const btn = form.querySelector('button');
             const originalText = btn.textContent;
             
-            // Feedback Visual
+            // 1. Estado de Carregamento
             btn.textContent = 'Enviando...';
-            btn.disabled = true;
+            btn.classList.add('loading');
 
-            // Coleta Inteligente dos Dados (Pega todos os campos com name="")
+            // 2. Coleta de Dados
             const formData = new FormData(form);
             const dados = {};
-            formData.forEach((value, key) => {
-                dados[key] = value;
-            });
-            
-            // Adiciona origem
+            formData.forEach((value, key) => dados[key] = value);
             dados.origem = 'Formulário Site Oficial';
 
-            // Envia para o VPS (que dispara o email)
+            // 3. Envio para o Tracker
             if (window.ConstConv) {
                 ConstConv.send('constconv-contactform-submit', dados);
 
-                // Aguarda feedback (simulado para UX)
+                // 4. Sucesso (após delay simulado para UX)
                 setTimeout(() => {
-                    alert('Mensagem enviada com sucesso! Em breve entraremos em contato.');
-                    form.reset();
                     btn.textContent = originalText;
-                    btn.disabled = false;
-                }, 1500);
+                    btn.classList.remove('loading');
+                    form.reset();
+                    abrirModal(); // Abre o modal bonito
+                }, 1000);
             } else {
-                // Fallback se o tracker não carregou
-                alert('Erro de conexão com o servidor. Tente novamente em instantes.');
+                alert('Erro de conexão. Tente novamente.');
                 btn.textContent = originalText;
-                btn.disabled = false;
+                btn.classList.remove('loading');
             }
         });
     </script>
