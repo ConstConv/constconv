@@ -1,420 +1,463 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConstConv | Data Driven Performance</title>
+    <meta name="description" content="Desenvolvimento Web, Tracking Avançado e Gestão de Tráfego.">
+    <link rel="icon" href="./favicon.ico.png" sizes="any">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TXNFJLZZ');</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ConstConv | Tracking & Performance Web</title>
-    <meta name="description" content="Especialista em Landing Pages e Tracking Avançado (GA4/Ads).">
-    
-    <link rel="icon" href="./favicon.ico.png" sizes="any">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
     <style>
-        /* --- 1. Variáveis e Reset --- */
+        /* --- 1. CORE STYLES --- */
         :root {
             --bg-body: #050505;
             --bg-card: rgba(20, 20, 20, 0.6);
             --borda: rgba(255, 255, 255, 0.08);
-            --borda-hover: rgba(255, 255, 255, 0.2);
+            --borda-hover: rgba(255, 255, 255, 0.25);
             --branco: #FFFFFF;
-            --cinza-medio: #A1A1AA;
+            --cinza: #A1A1AA;
             --amarelo: #FFC700;
-            --roxo-brilho: #8B5CF6;
+            --roxo: #8B5CF6;
             --sucesso: #22c55e;
             --fonte: 'Inter', sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         html { scroll-behavior: smooth; }
         
         body {
             background-color: var(--bg-body);
             font-family: var(--fonte);
             color: var(--branco);
-            overflow-x: hidden;
             line-height: 1.6;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0; 
-            transition: opacity 0.6s ease;
+            overflow-x: hidden; /* Previne scroll horizontal indesejado */
         }
+
+        /* Container e Grids */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
         
-        body.loaded { opacity: 1; }
-
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-
-        /* --- Tipografia --- */
-        h1, h2, h3 { color: var(--branco); letter-spacing: -0.02em; }
-        p { color: var(--cinza-medio); font-weight: 300; }
-        
-        .section-title {
-            font-size: 2.5rem; font-weight: 800; text-align: center; margin-bottom: 0.5rem;
-            background: linear-gradient(to bottom, #fff, #999);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .section-subtitle { text-align: center; max-width: 600px; margin: 0 auto 4rem auto; font-size: 1.1rem; }
-
-        .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        /* Utilitários */
+        .fade-up { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
         
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        /* Tipografia */
+        h1, h2, h3 { letter-spacing: -0.03em; color: var(--branco); }
+        p { color: var(--cinza); font-size: 1rem; font-weight: 300; }
+        .tag-highlight { color: var(--amarelo); font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 0.5rem; display: block; }
 
-        /* --- Navbar --- */
+        /* --- 2. HERO FIXO (FUNDO) --- */
+        .hero-fixed {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: -1; /* Fica atrás de tudo */
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
+            will-change: transform, opacity;
+        }
+        
+        /* Grid Pattern no fundo do Hero */
+        .bg-grid {
+            position: absolute; inset: 0; z-index: -1;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .hero-content { text-align: center; max-width: 900px; padding: 0 20px; transition: transform 0.1s linear; }
+        .hero-title { 
+            font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 1.5rem; font-weight: 900; 
+            background: linear-gradient(180deg, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* --- 3. MAIN CONTENT (COBRE O HERO) --- */
+        .main-wrapper {
+            position: relative; 
+            z-index: 20; /* Garante que fique acima do Hero */
+            margin-top: 100vh; /* Cria a janela transparente inicial */
+            background-color: var(--bg-body); /* Fundo sólido essencial */
+            box-shadow: 0 -60px 100px rgba(0,0,0,1); /* Sombra para transição suave */
+            border-top: 1px solid var(--borda);
+        }
+
+        /* --- NAVBAR --- */
         .navbar {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(5, 5, 5, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--borda); padding: 1rem 0;
+            position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 0; transition: all 0.3s ease;
         }
-        .navbar .container { display: flex; justify-content: space-between; align-items: center; }
-        .nav-logo { font-size: 1.4rem; font-weight: 900; color: var(--branco); text-decoration: none; }
-        .nav-logo span { color: var(--amarelo); }
-        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-        .nav-links a { color: var(--cinza-medio); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--branco); }
-        .nav-toggler { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        .navbar.scrolled { background: rgba(5,5,5,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--borda); padding: 1rem 0; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: white; text-decoration: none; }
+        .logo span { color: var(--amarelo); }
+        
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: var(--cinza); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: white; }
+        
+        .menu-btn { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
 
-        /* --- Botões --- */
-        .btn {
-            display: inline-flex; align-items: center; justify-content: center;
-            padding: 0.9rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none;
-            transition: all 0.3s; border: 1px solid transparent; cursor: pointer;
-        }
-        .btn-primary { background: var(--amarelo); color: #000; box-shadow: 0 0 15px rgba(255, 199, 0, 0.15); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(255, 199, 0, 0.4); }
-        .btn-secondary { background: rgba(255, 255, 255, 0.05); color: var(--branco); border: 1px solid var(--borda); }
-        .btn-secondary:hover { border-color: var(--branco); }
-        .btn-purple { background: var(--roxo-brilho); color: white; box-shadow: 0 0 15px rgba(139, 92, 246, 0.3); }
-
-        /* Estado de Loading do Botão */
-        .btn.loading { opacity: 0.8; pointer-events: none; }
-        .btn.loading::after {
-            content: ""; width: 16px; height: 16px; border: 2px solid #000; border-top-color: transparent;
-            border-radius: 50%; margin-left: 10px; animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* --- Hero --- */
-        .hero {
-            min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding-top: 80px;
-            background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
-        }
-        .hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem; max-width: 900px; }
-        .hero h1 span { color: var(--amarelo); }
-        .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-
-        /* --- Cards Spotlight --- */
-        .spotlight-card {
+        /* --- CARDS & SPOTLIGHT --- */
+        .card {
             background: var(--bg-card); border: 1px solid var(--borda); border-radius: 12px;
             padding: 2rem; position: relative; overflow: hidden; display: flex; flex-direction: column; height: 100%;
+            transition: transform 0.3s, border-color 0.3s;
         }
-        .spotlight-card:hover { transform: translateY(-3px); border-color: var(--borda-hover); }
-        .project-tag { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--amarelo); margin-bottom: 1rem; }
-        .card-title { font-size: 1.4rem; margin-bottom: 0.8rem; }
-        .card-link { margin-top: auto; font-size: 0.9rem; font-weight: 600; color: var(--branco); text-decoration: none; }
-        .card-link:hover { color: var(--amarelo); }
-
-        /* --- Form --- */
-        #contato form { max-width: 600px; margin: 0 auto; }
-        .input-group { margin-bottom: 1rem; }
-        .input-field { 
-            width: 100%; padding: 1rem; background: rgba(255,255,255,0.03); 
-            border: 1px solid var(--borda); border-radius: 8px; color: var(--branco); 
-            font-family: var(--fonte); font-size: 1rem; transition: all 0.3s; 
-        }
-        .input-field:focus { outline: none; border-color: var(--roxo-brilho); background: rgba(255,255,255,0.05); }
-        textarea.input-field { resize: vertical; min-height: 120px; }
-
-        /* --- Pricing --- */
-        .pricing-card { background: var(--bg-card); border: 1px solid var(--borda); padding: 2.5rem; border-radius: 16px; display: flex; flex-direction: column; }
-        .pricing-card.featured { border-color: var(--roxo-brilho); background: linear-gradient(180deg, rgba(139, 92, 246, 0.08) 0%, var(--bg-card) 100%); }
-        .price-tag { font-size: 3rem; font-weight: 800; margin: 1rem 0; }
-        .price-tag span { font-size: 1rem; font-weight: 400; color: var(--cinza-medio); }
-        .feature-list { list-style: none; margin: 2rem 0; color: var(--cinza-medio); flex-grow: 1; }
-        .feature-list li { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; }
-        .feature-list li::before { content: "✓"; color: var(--amarelo); font-weight: bold; }
-
-        /* --- Agenda --- */
-        .calendar-wrapper {
-            background: var(--bg-card); border: 1px solid var(--borda); border-radius: 16px;
-            overflow: hidden; height: 700px; margin-top: 3rem;
-        }
-
-        /* --- Footer --- */
-        footer { border-top: 1px solid var(--borda); padding: 3rem 0; text-align: center; margin-top: 6rem; font-size: 0.9rem; color: var(--cinza-medio); }
-
-        /* --- MODAL DE SUCESSO (NOVO) --- */
-        .custom-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-            z-index: 99999; display: flex; justify-content: center; align-items: center;
-            opacity: 0; visibility: hidden; transition: all 0.3s ease;
-        }
-        .custom-modal.active { opacity: 1; visibility: visible; }
+        .card:hover { transform: translateY(-5px); border-color: var(--borda-hover); }
         
-        .modal-content {
-            background: #18181B; border: 1px solid var(--borda); padding: 2.5rem;
-            border-radius: 16px; text-align: center; max-width: 400px; width: 90%;
-            transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        /* Efeito de Luz do Mouse */
+        .card::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.05), transparent 40%);
+            opacity: 0; transition: opacity 0.5s; pointer-events: none; z-index: 1;
         }
-        .custom-modal.active .modal-content { transform: scale(1); }
+        .card:hover::before { opacity: 1; }
+        .card-content-inner { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; }
 
-        .success-icon {
-            width: 70px; height: 70px; background: rgba(34, 197, 94, 0.1); color: var(--sucesso);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 1.5rem auto; border: 1px solid rgba(34, 197, 94, 0.2);
+        /* --- PRICING --- */
+        .toggle-container { display: flex; justify-content: center; margin-bottom: 3rem; }
+        .toggle-pill {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--borda);
+            padding: 4px; border-radius: 50px; display: inline-flex;
         }
-        .success-icon svg { width: 35px; height: 35px; stroke-width: 3; }
+        .toggle-btn {
+            background: transparent; border: none; color: var(--cinza); padding: 10px 24px;
+            border-radius: 40px; cursor: pointer; font-weight: 600; transition: 0.3s;
+        }
+        .toggle-btn.active { background: var(--amarelo); color: #000; box-shadow: 0 0 15px rgba(255,199,0,0.3); }
 
-        .modal-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: white; }
-        .modal-text { color: var(--cinza-medio); margin-bottom: 2rem; font-size: 0.95rem; }
+        .price-grid { display: none; animation: fadeIn 0.6s ease; }
+        .price-grid.active { display: grid; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
-        /* Mobile */
+        .price-val { font-size: 2.2rem; font-weight: 800; margin: 0.5rem 0 1.5rem 0; }
+        .price-val span { font-size: 0.9rem; font-weight: 400; color: var(--cinza); }
+        
+        .list-check li { margin-bottom: 0.8rem; display: flex; gap: 10px; font-size: 0.95rem; color: #ccc; }
+        .list-check li::before { content: "✓"; color: var(--sucesso); font-weight: bold; }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-flex; justify-content: center; align-items: center; width: 100%;
+            padding: 1rem; border-radius: 8px; font-weight: 600; text-decoration: none; cursor: pointer;
+            border: 1px solid transparent; transition: 0.3s; margin-top: auto;
+        }
+        .btn-primary { background: var(--amarelo); color: #000; }
+        .btn-primary:hover { box-shadow: 0 0 20px rgba(255,199,0,0.4); }
+        .btn-secondary { background: rgba(255,255,255,0.05); color: white; border-color: var(--borda); }
+        .btn-secondary:hover { border-color: white; background: rgba(255,255,255,0.1); }
+        .btn-purple { background: var(--roxo); color: white; }
+        .btn-purple:hover { box-shadow: 0 0 20px rgba(139,92,246,0.4); }
+
+        /* --- FORM & MODAL --- */
+        .form-input { 
+            width: 100%; padding: 1rem; margin-bottom: 1rem; background: rgba(255,255,255,0.03); 
+            border: 1px solid var(--borda); border-radius: 8px; color: white; outline: none; transition: 0.3s;
+        }
+        .form-input:focus { border-color: var(--roxo); background: rgba(255,255,255,0.06); }
+        
+        .modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; 
+            display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: 0.3s; backdrop-filter: blur(5px);
+        }
+        .modal.active { opacity: 1; pointer-events: all; }
+        .modal-box { background: #18181b; padding: 2rem; border-radius: 16px; border: 1px solid var(--borda); text-align: center; max-width: 400px; width: 90%; transform: scale(0.9); transition: 0.3s; }
+        .modal.active .modal-box { transform: scale(1); }
+
+        /* --- RESPONSIVIDADE --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .nav-toggler { display: block; z-index: 1001; }
-            .nav-links { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background: #0a0a0a; border-left: 1px solid var(--borda); flex-direction: column; justify-content: center; align-items: center; transition: right 0.3s ease-in-out; }
+            .menu-btn { display: block; z-index: 101; position: relative; }
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 80%; height: 100vh;
+                background: #0a0a0a; flex-direction: column; justify-content: center; align-items: center;
+                border-left: 1px solid var(--borda); transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
             .nav-links.active { right: 0; }
+            .main-wrapper { margin-top: 100vh; }
         }
     </style>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXNFJLZZ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<div id="preloader" style="position:fixed; inset:0; background:#050505; z-index:9999; display:flex; justify-content:center; align-items:center;">
-        <div style="font-size:2rem; font-weight:900;">Const<span style="color:#FFC700">Conv</span></div>
-    </div>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXNFJLZZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-    <div id="successModal" class="custom-modal">
-        <div class="modal-content">
-            <div class="success-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <div id="modalSucesso" class="modal">
+        <div class="modal-box">
+            <div style="width:60px; height:60px; background:rgba(34,197,94,0.15); color:var(--sucesso); border-radius:50%; margin:0 auto 1.5rem; display:flex; align-items:center; justify-content:center;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
-            <h3 class="modal-title">Mensagem Enviada!</h3>
-            <p class="modal-text">Recebemos seus dados com sucesso. Em breve nossa equipe entrará em contato.</p>
-            <button onclick="fecharModal()" class="btn btn-secondary" style="width:100%; padding: 0.7rem;">Fechar</button>
+            <h3>Mensagem Enviada!</h3>
+            <p style="margin: 10px 0 20px;">Recebemos seus dados. Em breve entraremos em contato.</p>
+            <button onclick="fecharModal()" class="btn btn-secondary">Fechar</button>
         </div>
     </div>
 
-    <nav class="navbar">
-        <div class="container">
-            <a href="#" class="nav-logo">Const<span>Conv</span></a>
-            <button class="nav-toggler" id="menuBtn">☰</button>
-            <ul class="nav-links" id="menuList">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#portfolio">Laboratório</a></li>
-                <li><a href="#servicos">Expertise</a></li>
-                <li><a href="#agenda" style="color:var(--amarelo)">Agenda</a></li>
-                <li><a href="#planos">Planos</a></li>
-                <li><a href="#contato">Contato</a></li>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Const<span>Conv</span></a>
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+                <li><a href="#portfolio" onclick="toggleMenu()">Laboratório</a></li>
+                <li><a href="#servicos" onclick="toggleMenu()">Planos</a></li>
+                <li><a href="#agenda" onclick="toggleMenu()" style="color:var(--amarelo)">Agenda</a></li>
+                <li><a href="#contato" onclick="toggleMenu()">Contato</a></li>
             </ul>
         </div>
     </nav>
 
-    <header id="home" class="hero container fade-up">
-        <div style="font-size: 0.9rem; color: var(--roxo-brilho); font-weight: 700; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 2px;">Data Driven Developer</div>
-        <h1>Infraestrutura Digital <br> <span>Inteligência de Dados</span></h1>
-        <p>Desenvolvimento Web, Tracking Avançado e Suporte Técnico. Do código à conversão, sem pontas soltas.</p>
-        <div class="hero-btns">
-            <a href="#portfolio" class="btn btn-primary">Ver Portfólio Técnico</a>
-            <a href="#agenda" class="btn btn-secondary">Agendar Conversa</a>
+    <header id="home" class="hero-fixed">
+        <div class="bg-grid"></div>
+        <div class="hero-content" id="heroContent">
+            <span class="tag-highlight" style="color:var(--roxo); border:1px solid rgba(139,92,246,0.3); padding:5px 15px; border-radius:20px; background:rgba(139,92,246,0.1);">Data Driven Developer</span>
+            <h1 class="hero-title">Infraestrutura Digital <br> Inteligência de Dados</h1>
+            <p style="margin-bottom: 2rem; font-size: 1.1rem;">Especialista em Landing Pages, Tracking Server-Side e Ads.</p>
+            <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+                <a href="#servicos" class="btn btn-primary" style="width:auto; padding: 0.8rem 2.5rem;">Ver Serviços</a>
+                <a href="#agenda" class="btn btn-secondary" style="width:auto; padding: 0.8rem 2.5rem;">Agendar Call</a>
+            </div>
+        </div>
+        <div style="position:absolute; bottom:30px; opacity:0.6; animation:bounce 2s infinite;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
         </div>
     </header>
 
-    <section id="portfolio" style="padding: 100px 0;">
-        <div class="container">
-            <h2 class="section-title fade-up">Laboratório & Portfólio</h2>
-            <p class="section-subtitle fade-up">Projetos reais e ambientes de teste onde você pode verificar meu código e configurações de tracking em ação.</p>
-            
-            <div class="grid-3">
-                <div class="spotlight-card fade-up" onclick="window.location.href='./demo-loja.html'" style="cursor: pointer;">
-                    <div class="card-content">
-                        <span class="project-tag">Tracking E-commerce</span>
-                        <h3 class="card-title">Demo: Loja Virtual</h3>
-                        <p class="card-text">Simulação completa de um e-commerce com DataLayer robusto. Eventos de <em>view_item</em>, <em>add_to_cart</em> e <em>purchase</em> configurados via GTM.</p>
-                        <span class="card-link">Testar Agora →</span>
-                    </div>
+    <div class="main-wrapper">
+        
+        <section id="portfolio" style="padding: 100px 0;">
+            <div class="container">
+                <div style="text-align:center; margin-bottom:4rem;" class="fade-up">
+                    <h2>Laboratório & Cases</h2>
+                    <p>Ambientes reais para testar minha tecnologia.</p>
                 </div>
-
-                <div class="spotlight-card fade-up" onclick="window.location.href='./demo-leads.html'" style="cursor: pointer;">
-                    <div class="card-content">
-                        <span class="project-tag">Google Ads + Conversões</span>
-                        <h3 class="card-title">Captura de Leads</h3>
-                        <p class="card-text">Landing Page focada em conversão. Validação de formulário anti-spam e disparo de tag de conversão do Google Ads apenas em envios qualificados.</p>
-                        <span class="card-link">Ver Detalhes →</span>
+                <div class="grid-3">
+                    <div class="card fade-up" onclick="window.location.href='./demo-loja.html'" style="cursor:pointer;">
+                        <div class="card-content-inner">
+                            <span class="tag-highlight">E-commerce</span>
+                            <h3>Loja Virtual Demo</h3>
+                            <p style="font-size:0.9rem; margin-bottom:1rem;">Simulação de checkout com DataLayer GA4 completo (add_to_cart, purchase).</p>
+                            <span style="margin-top:auto; font-size:0.9rem; font-weight:700; color:white;">Testar Agora →</span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="spotlight-card fade-up" onclick="window.location.href='./demo-server.html'" style="cursor: pointer;">
-                    <div class="card-content">
-                        <span class="project-tag">Server-Side Tracking</span>
-                        <h3 class="card-title">API de Conversões</h3>
-                        <p class="card-text">Case study de implementação da API de Conversões do Facebook (CAPI) para contornar bloqueadores de anúncios e iOS14.</p>
-                        <span class="card-link">Ler Case →</span>
+                    <div class="card fade-up" onclick="window.location.href='./demo-leads.html'" style="cursor:pointer;">
+                        <div class="card-content-inner">
+                            <span class="tag-highlight">Google Ads</span>
+                            <h3>Validação de Leads</h3>
+                            <p style="font-size:0.9rem; margin-bottom:1rem;">Landing Page com script anti-spam e disparo de conversão apenas para leads qualificados.</p>
+                            <span style="margin-top:auto; font-size:0.9rem; font-weight:700; color:white;">Ver Sistema →</span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="spotlight-card fade-up" onclick="window.location.href='./demo-design.html'" style="cursor: pointer;">
-                    <div class="card-content">
-                        <span class="project-tag" style="color: #ff0055;">Social Media & Design</span>
-                        <h3 class="card-title">Criativos de Performance</h3>
-                        <p class="card-text">Design estratégico focado em aumentar o CTR. Exemplos de peças para E-commerce, Branding e Institucional.</p>
-                        <span class="card-link" style="margin-top:auto; color:#ff0055;">Ver Galeria →</span>
+                    <div class="card fade-up" onclick="window.location.href='./demo-server.html'" style="cursor:pointer;">
+                        <div class="card-content-inner">
+                            <span class="tag-highlight">Server-Side</span>
+                            <h3>API de Conversões</h3>
+                            <p style="font-size:0.9rem; margin-bottom:1rem;">Implementação CAPI (Meta) e Enhanced Conversions (Google) via Docker/Stape.</p>
+                            <span style="margin-top:auto; font-size:0.9rem; font-weight:700; color:white;">Ler Case →</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="servicos" style="padding: 100px 0; background: linear-gradient(to bottom, transparent, rgba(20,20,20,0.5));">
-        <div class="container">
-            <h2 class="section-title fade-up">Minha Expertise</h2>
-            <div class="grid-3" style="margin-top: 4rem;">
-                <div class="spotlight-card fade-up">
-                    <div class="card-content">
-                        <h3 class="card-title">💻 Web Development</h3>
-                        <p class="card-text">Criação de sites ultra-rápidos usando HTML, CSS e JS limpo. Sem construtores pesados que deixam seu site lento.</p>
+        <section id="servicos" style="padding: 100px 0; background: linear-gradient(to bottom, transparent, rgba(20,20,20,0.8));">
+            <div class="container">
+                <div style="text-align:center; margin-bottom:3rem;" class="fade-up">
+                    <h2>Investimento & Serviços</h2>
+                    <p>Transparência total. Selecione a modalidade:</p>
+                </div>
+
+                <div class="toggle-container fade-up">
+                    <div class="toggle-pill">
+                        <button class="toggle-btn active" onclick="switchPlan('unico')">Pagamento Único</button>
+                        <button class="toggle-btn" onclick="switchPlan('mensal')">Mensalidades</button>
                     </div>
                 </div>
-                <div class="spotlight-card fade-up">
-                    <div class="card-content">
-                        <h3 class="card-title">📊 GA4 & GTM Setup</h3>
-                        <p class="card-text">Configuração profissional do Google Tag Manager e Analytics 4. Organização de eventos, métricas e relatórios personalizados.</p>
+
+                <div id="plan-unico" class="price-grid grid-3 active fade-up">
+                    
+                    <div class="card">
+                        <div class="card-content-inner">
+                            <h3>Auditoria Tracking</h3>
+                            <div class="price-val">R$ 99<span>/único</span></div>
+                            <ul class="list-check">
+                                <li>Diagnóstico GA4 e GTM</li>
+                                <li>Verificação de Pixels</li>
+                                <li>Relatório em PDF</li>
+                            </ul>
+                            <a href="#contato" class="btn btn-secondary">Solicitar</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content-inner">
+                            <h3>Config. Infra</h3>
+                            <div class="price-val">R$ 120<span>/único</span></div>
+                            <ul class="list-check">
+                                <li>Domínio .br</li>
+                                <li>Hospedagem SSL</li>
+                                <li>E-mail Profissional</li>
+                            </ul>
+                            <a href="#contato" class="btn btn-secondary">Configurar</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content-inner">
+                            <h3>Site Institucional</h3>
+                            <div class="price-val">R$ 750<span>/projeto</span></div>
+                            <ul class="list-check">
+                                <li>Site Multipáginas</li>
+                                <li>Tracking Web Básico</li>
+                                <li>Layout Responsivo</li>
+                            </ul>
+                            <a href="#contato" class="btn btn-secondary">Orçar</a>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-color:var(--amarelo); background: linear-gradient(180deg, rgba(255,199,0,0.05), rgba(20,20,20,0.6));">
+                        <div class="card-content-inner">
+                            <span class="tag-highlight">Standard</span>
+                            <h3>Landing Page</h3>
+                            <div class="price-val">R$ 500<span>/projeto</span></div>
+                            <ul class="list-check">
+                                <li>LP Alta Conversão</li>
+                                <li>Tracking Browser (Pixel)</li>
+                                <li>Formulário Validado</li>
+                            </ul>
+                            <a href="#contato" class="btn btn-primary">Contratar</a>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-color:var(--roxo); box-shadow:0 0 20px rgba(139,92,246,0.1);">
+                        <div class="card-content-inner">
+                            <span class="tag-highlight" style="color:var(--roxo)">High-End</span>
+                            <h3>LP + Tracking Pro</h3>
+                            <div class="price-val">R$ 700<span>/projeto</span></div>
+                            <ul class="list-check">
+                                <li>Tudo do Standard</li>
+                                <li><strong>Server-Side Tracking</strong></li>
+                                <li>Painel de Leads Exclusivo</li>
+                            </ul>
+                            <a href="#contato" class="btn btn-purple">Contratar Pro</a>
+                        </div>
                     </div>
                 </div>
-                <div class="spotlight-card fade-up">
-                    <div class="card-content">
-                        <h3 class="card-title">🔗 Integrações API</h3>
-                        <p class="card-text">Conecto seu site ao seu CRM, planilhas ou Slack. Automação de leads em tempo real.</p>
+
+                <div id="plan-mensal" class="price-grid grid-3">
+                    
+                    <div class="card">
+                        <div class="card-content-inner">
+                            <h3>Gestão Social</h3>
+                            <div class="price-val">R$ 250<span>/mês</span></div>
+                            <ul class="list-check">
+                                <li>6 Posts/mês</li>
+                                <li>Legendas e Hashtags</li>
+                                <li>Sem fidelidade</li>
+                            </ul>
+                            <a href="#contato" class="btn btn-secondary">Assinar</a>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-color:var(--amarelo)">
+                        <div class="card-content-inner">
+                            <h3>Google Ads</h3>
+                            <div class="price-val">R$ 620<span>/mês</span></div>
+                            <ul class="list-check">
+                                <li>Search e Display</li>
+                                <li>Otimização Semanal</li>
+                                <li>Relatórios Mensais</li>
+                            </ul>
+                            <a href="#contato" class="btn btn-primary">Assinar</a>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-color:var(--roxo)">
+                        <div class="card-content-inner">
+                            <span class="tag-highlight" style="color:var(--roxo)">Full Stack</span>
+                            <h3>Ads 360º</h3>
+                            <div class="price-val">R$ 1.000<span>/mês</span></div>
+                            <ul class="list-check">
+                                <li>Google + Meta + TikTok</li>
+                                <li>Estratégia Cross-Channel</li>
+                                <li>Remarketing Dinâmico</li>
+                            </ul>
+                            <a href="#contato" class="btn btn-purple">Assinar Full</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="agenda" style="padding: 100px 0; background: linear-gradient(to bottom, var(--bg-body), #0a0a0a);">
-        <div class="container">
-            <h2 class="section-title fade-up">Diagnóstico Técnico</h2>
-            <p class="section-subtitle fade-up">Prefere conversar ao vivo? Agende uma call gratuita. Vamos analisar seu tracking e encontrar os gargalos de dados.</p>
-
-            <div class="calendar-wrapper fade-up">
-                <iframe 
-                    src="https://cal.com/const-conv?theme=dark" 
-                    style="width: 100%; height: 100%; border: none; overflow: hidden;"
-                    frameborder="0"
-                    title="Agende sua call">
-                </iframe>
-            </div>
-        </div>
-    </section>
-
-    <section id="planos" style="padding: 100px 0;">
-        <div class="container">
-            <h2 class="section-title fade-up">Investimento</h2>
-            <p class="section-subtitle fade-up">Soluções diretas ao ponto.</p>
-            
-            <div class="grid-3">
-                <div class="pricing-card fade-up">
-                    <h3>Auditoria de Tracking</h3>
-                    <div class="price-tag">R$ 99<span>/único</span></div>
-                    <ul class="feature-list">
-                        <li>Diagnóstico completo do GA4/Ads</li>
-                        <li>Identificação de falhas no pixel</li>
-                        <li>Relatório em vídeo explicativo</li>
-                    </ul>
-                    <a href="#agenda" class="btn btn-secondary" style="width:100%">Agendar Call</a>
+        <section id="agenda" style="padding: 100px 0; background:#0a0a0a;">
+            <div class="container">
+                <div style="text-align:center; margin-bottom:3rem;" class="fade-up">
+                    <h2>Diagnóstico Técnico</h2>
+                    <p>Agende uma call gratuita para alinhar expectativas.</p>
                 </div>
-
-                <div class="pricing-card featured fade-up">
-                    <div style="color:var(--amarelo); font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Recomendado</div>
-                    <h3>LP + Tracking Pro</h3>
-                    <div class="price-tag">R$ 500<span>/projeto</span></div>
-                    <ul class="feature-list">
-                        <li>Landing Page Alta Conversão</li>
-                        <li>Setup Completo de Tags</li>
-                        <li>Otimização Mobile</li>
-                        <li>Teste de Velocidade</li>
-                    </ul>
-                    <a href="#contato" class="btn btn-primary" style="width:100%">Contratar Agora</a>
-                </div>
-
-                <div class="pricing-card fade-up">
-                    <h3>Pacote Full Stack</h3>
-                    <div class="price-tag">R$ 620<span>/projeto</span></div>
-                    <ul class="feature-list">
-                        <li>Tudo do plano LP + Tracking</li>
-                        <li>Configuração de Domínio/Host</li>
-                        <li>E-mail Profissional</li>
-                        <li>1 Mês de Suporte Técnico</li>
-                    </ul>
-                    <a href="#contato" class="btn btn-purple" style="width:100%">Solicitar Full Stack</a>
+                <div class="fade-up" style="height: 700px; border: 1px solid var(--borda); border-radius: 16px; overflow: hidden; background:#111;">
+                    <iframe src="https://cal.com/const-conv?theme=dark" style="width: 100%; height: 100%; border: none;" title="Agende sua call"></iframe>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="contato" style="padding: 100px 0;">
-        <div class="container">
-            <h2 class="section-title fade-up">Mensagem Direta</h2>
-            <p class="section-subtitle fade-up">Preencha abaixo se preferir texto. Respondemos rápido.</p>
-            
-            <form id="contactForm" class="fade-up">
-                <div class="input-group">
-                    <input type="text" id="nome" name="nome" class="input-field" placeholder="Seu Nome" required>
+        <section id="contato" style="padding: 100px 0;">
+            <div class="container" style="max-width: 600px;">
+                <div style="text-align:center; margin-bottom:3rem;" class="fade-up">
+                    <h2>Mensagem Direta</h2>
+                    <p>Preencha os dados abaixo.</p>
                 </div>
-                <div class="input-group">
-                    <input type="email" id="email" name="email" class="input-field" placeholder="Seu E-mail Profissional" required>
-                </div>
-                <div class="input-group">
-                    <textarea id="mensagem" name="mensagem" class="input-field" placeholder="Descreva seu projeto ou problema..." required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensagem 🚀</button>
-            </form>
-        </div>
-    </section>
+                <form id="contactForm" class="fade-up">
+                    <input type="text" name="nome" class="form-input" placeholder="Seu Nome" required>
+                    <input type="email" name="email" class="form-input" placeholder="Seu E-mail Corporativo" required>
+                    <textarea name="mensagem" class="form-input" placeholder="Como posso ajudar seu negócio?" style="min-height:150px" required></textarea>
+                    <button type="submit" class="btn btn-primary">Enviar Mensagem 🚀</button>
+                </form>
+            </div>
+        </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; <span id="year"></span> ConstConv. Developed by Raul Campos.</p>
-        </div>
-    </footer>
+        <footer style="padding: 3rem 0; border-top: 1px solid var(--borda); text-align: center; color: var(--cinza); font-size: 0.9rem;">
+            <div class="container">
+                <p>&copy; <span id="year"></span> ConstConv. Developed by Raul Campos.</p>
+            </div>
+        </footer>
 
-    <a href="https://wa.me/5511955203133" target="_blank" onclick="window.dataLayer.push({'event': 'constconv-wpp'});" style="position:fixed; bottom:30px; right:30px; width:60px; height:60px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 20px rgba(0,0,0,0.5); z-index:9999; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+    </div> <a href="https://wa.me/5511955203133" target="_blank" onclick="window.dataLayer.push({'event': 'constconv-wpp'});" style="position:fixed; bottom:30px; right:30px; width:60px; height:60px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 20px rgba(0,0,0,0.5); z-index:999; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
         <svg fill="white" width="32" height="32" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
     </a>
 
+    <script src="https://app.constconv.agency/tracker.js?id=constconv" async></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-    </script>
-    <script src="https://app.constconv.agency/tracker.js?id=constconv" async></script>
 
-    <script>
-        // --- 1. Preloader e Outros Scripts (Mantidos) ---
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            preloader.style.opacity = '0';
-            setTimeout(() => { preloader.style.display = 'none'; document.body.classList.add('loaded'); }, 500);
+        // 1. Hero 3D Logic (Otimizado)
+        const heroContent = document.getElementById('heroContent');
+        window.addEventListener('scroll', () => {
+            const scroll = window.scrollY;
+            if (scroll < window.innerHeight) {
+                // Zoom mais suave e fade mais lento
+                const scale = 1 + (scroll * 0.0003); 
+                const opacity = 1 - (scroll * 0.0015);
+                
+                heroContent.style.transform = `scale(${scale}) translateY(${scroll * 0.3}px)`;
+                heroContent.style.opacity = opacity > 0 ? opacity : 0;
+            }
         });
 
-        const menuBtn = document.getElementById('menuBtn');
-        const menuList = document.getElementById('menuList');
-        const menuLinks = document.querySelectorAll('.nav-links a');
-        menuBtn.addEventListener('click', () => { menuList.classList.toggle('active'); menuBtn.innerHTML = menuList.classList.contains('active') ? '✕' : '☰'; });
-        menuLinks.forEach(link => { link.addEventListener('click', () => { menuList.classList.remove('active'); menuBtn.innerHTML = '☰'; }); });
+        // 2. Navbar Glass Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if(window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
 
-        const cards = document.querySelectorAll('.spotlight-card');
+        // 3. Spotlight (Mouse Follow)
+        const cards = document.querySelectorAll('.card');
         document.addEventListener('mousemove', (e) => {
             cards.forEach(card => {
                 const rect = card.getBoundingClientRect();
@@ -423,65 +466,71 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             });
         });
 
+        // 4. Fade Up Observer
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if(entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
-        }, { threshold: 0.15 });
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
         document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-        document.getElementById('year').textContent = new Date().getFullYear();
 
-        // --- LÓGICA DO MODAL DE SUCESSO ---
-        const modal = document.getElementById('successModal');
-        
-        function abrirModal() {
-            modal.classList.add('active');
-            // Fecha sozinho após 3 segundos
-            setTimeout(fecharModal, 3000);
+        // 5. Toggle Pricing
+        function switchPlan(plan) {
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.price-grid').forEach(grid => grid.classList.remove('active'));
+            
+            // Lógica para ativar botão e grid
+            const btns = document.querySelectorAll('.toggle-btn');
+            if(plan === 'unico') btns[0].classList.add('active');
+            else btns[1].classList.add('active');
+
+            document.getElementById(`plan-${plan}`).classList.add('active');
         }
 
-        function fecharModal() {
-            modal.classList.remove('active');
+        // 6. Mobile Menu Toggle
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
         }
-        
-        // Fecha ao clicar fora
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) fecharModal();
-        });
 
-        // --- ENVIO DO FORMULÁRIO (ANIMAÇÃO + ENVIO) ---
+        // 7. Form Handle
         const form = document.getElementById('contactForm');
-        
+        const modal = document.getElementById('modalSucesso');
+        function fecharModal() { modal.classList.remove('active'); }
+
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = form.querySelector('button');
             const originalText = btn.textContent;
             
-            // 1. Estado de Carregamento
-            btn.textContent = 'Enviando...';
-            btn.classList.add('loading');
-
-            // 2. Coleta de Dados
+            btn.textContent = "Enviando...";
+            btn.style.opacity = "0.7";
+            
             const formData = new FormData(form);
-            const dados = {};
-            formData.forEach((value, key) => dados[key] = value);
-            dados.origem = 'Formulário Site Oficial';
+            const data = Object.fromEntries(formData);
+            data.origem = "Site Form Oficial";
 
-            // 3. Envio para o Tracker
-            if (window.ConstConv) {
-                ConstConv.send('constconv-contactform-submit', dados);
-
-                // 4. Sucesso (após delay simulado para UX)
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.classList.remove('loading');
-                    form.reset();
-                    abrirModal(); // Abre o modal bonito
-                }, 1000);
-            } else {
-                alert('Erro de conexão. Tente novamente.');
+            // Envia para o Tracker se existir
+            if(window.ConstConv) ConstConv.send('lead_form_submit', data);
+            
+            // UX Simulação
+            setTimeout(() => {
                 btn.textContent = originalText;
-                btn.classList.remove('loading');
-            }
+                btn.style.opacity = "1";
+                form.reset();
+                modal.classList.add('active');
+                setTimeout(fecharModal, 4000);
+            }, 1000);
         });
+
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
+
+    <style>
+        /* Animação Bounce do ícone Hero */
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+    </style>
 </body>
 </html>
