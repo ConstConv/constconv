@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#101010" />
+  <title>Kit ConstConv — Vídeo + PDFs + WhatsApp</title>
+  <meta name="description"
+    content="Kit rápido para entender o Sistema Anti-Perda de Leads: vídeo, PDFs e WhatsApp com mensagem pronta." />
+
+  <meta property="og:title" content="Kit ConstConv — Vídeo + PDFs" />
+  <meta property="og:description" content="Assista ao vídeo, baixe os PDFs e fale no WhatsApp com mensagem pronta." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    /* =========================
+       ConstConv Identity Tokens
+       ========================= */
+    :root {
+      --preto-principal: #101010;
+      --preto-secundario: #18181B;
+      --branco-fundo: #FFFFFF;
+      --amarelo-dourado: #FFC700;
+      --roxo-moderno: #7C3AED;
+      --cinza-texto: #A1A1AA;
+      --cinza-borda: #27272A;
+
+      --text: #F4F4F5;
+      --muted: rgba(244, 244, 245, .68);
+      --muted2: rgba(244, 244, 245, .52);
+
+      --max: 1120px;
+      --radius: 18px;
+      --radius2: 14px;
+      --shadow: 0 22px 70px rgba(0, 0, 0, .45);
+      --shadow2: 0 12px 40px rgba(0, 0, 0, .35);
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--text);
+      background: var(--preto-principal);
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       Background: "3D aura"
+       ========================= */
+    .bg {
+      position: fixed;
+      inset: -40vh -40vw;
+      pointer-events: none;
+      background:
+        radial-gradient(48vw 42vw at 18% 18%, rgba(124, 58, 237, .22), transparent 55%),
+        radial-gradient(42vw 40vw at 82% 22%, rgba(255, 199, 0, .18), transparent 58%),
+        radial-gradient(60vw 44vw at 50% 88%, rgba(124, 58, 237, .12), transparent 60%),
+        radial-gradient(46vw 40vw at 22% 86%, rgba(255, 199, 0, .10), transparent 62%),
+        linear-gradient(180deg, #0c0c0c 0%, #101010 40%, #141418 100%);
+      filter: blur(10px);
+      opacity: .95;
+      transform: translateZ(0);
+      animation: drift 14s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift {
+      from {
+        transform: translate3d(-14px, -10px, 0) scale(1.02);
+      }
+
+      to {
+        transform: translate3d(16px, 12px, 0) scale(1.05);
+      }
+    }
+
+    /* Soft grid */
+    .grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .28;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, .06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, .06) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(65% 55% at 50% 18%, rgba(0, 0, 0, .95), transparent 70%);
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .bg {
+        animation: none;
+      }
+
+      * {
+        scroll-behavior: auto !important;
+      }
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      position: relative;
+      padding: 18px 16px 56px;
+    }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    /* =========================
+       Nav
+       ========================= */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 12px;
+      border: 1px solid var(--cinza-borda);
+      background: rgba(24, 24, 27, .62);
+      border-radius: 999px;
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background:
+        radial-gradient(14px 14px at 28% 28%, rgba(255, 255, 255, .30), transparent 62%),
+        linear-gradient(135deg, rgba(255, 199, 0, .95), rgba(124, 58, 237, .92));
+      box-shadow:
+        0 18px 40px rgba(255, 199, 0, .12),
+        0 18px 40px rgba(124, 58, 237, .10);
+      flex: 0 0 auto;
+    }
+
+    .brandText {
+      min-width: 0;
+      line-height: 1.1;
+    }
+
+    .brandText b {
+      display: block;
+      font-size: 13px;
+      letter-spacing: .2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 52vw;
+    }
+
+    .brandText small {
+      display: block;
+      color: var(--cinza-texto);
+      font-size: 12px;
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 52vw;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      padding: 10px 12px;
+      border: 1px solid var(--cinza-borda);
+      border-radius: 999px;
+      background: rgba(16, 16, 16, .35);
+      color: rgba(244, 244, 245, .74);
+      font-size: 13px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      white-space: nowrap;
+    }
+
+    .pill:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 199, 0, .35);
+      background: rgba(255, 199, 0, .06);
+    }
+
+    /* =========================
+       Panels / 3D Cards
+       ========================= */
+    .panel {
+      border: 1px solid var(--cinza-borda);
+      background: rgba(24, 24, 27, .56);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+      transform: translateZ(0);
+    }
+
+    .pad {
+      padding: 18px;
+    }
+
+    /* Holographic border (impressive but subtle) */
+    .holo {
+      position: relative;
+    }
+
+    .holo:before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(115deg,
+          rgba(255, 199, 0, .55),
+          rgba(124, 58, 237, .55),
+          rgba(255, 199, 0, .55));
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: .55;
+      pointer-events: none;
+    }
+
+    .holo:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        radial-gradient(500px 260px at var(--mx, 50%) var(--my, 50%),
+          rgba(255, 199, 0, .14), transparent 58%),
+        radial-gradient(460px 260px at calc(var(--mx, 50%) + 10%) calc(var(--my, 50%) - 10%),
+          rgba(124, 58, 237, .12), transparent 62%);
+      opacity: .9;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    /* 3D tilt (desktop only) */
+    .tilt {
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .tiltInner {
+      transform: translateZ(0);
+    }
+
+    /* =========================
+       Hero
+       ========================= */
+    .hero {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--cinza-borda);
+      background: rgba(16, 16, 16, .35);
+      color: rgba(244, 244, 245, .78);
+      font-size: 13px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--amarelo-dourado), var(--roxo-moderno));
+      box-shadow: 0 0 0 6px rgba(255, 199, 0, .08);
+    }
+
+    h1 {
+      margin: 12px 0 10px;
+      font-size: clamp(24px, 3.2vw, 36px);
+      line-height: 1.08;
+      letter-spacing: -0.6px;
+    }
+
+    p {
+      margin: 0;
+      color: rgba(244, 244, 245, .74);
+      line-height: 1.6;
+    }
+
+    .bullets {
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .b {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: rgba(244, 244, 245, .72);
+      font-size: 14px;
+    }
+
+    .b svg {
+      flex: 0 0 auto;
+      margin-top: 2px;
+    }
+
+    .ctaRow {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--cinza-borda);
+      background: rgba(16, 16, 16, .35);
+      color: rgba(244, 244, 245, .92);
+      font-weight: 650;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, filter .15s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 199, 0, .35);
+      background: rgba(255, 199, 0, .06);
+    }
+
+    .btn:active {
+      transform: translateY(0px) scale(.99);
+    }
+
+    .btn.primary {
+      border-color: rgba(255, 199, 0, .42);
+      background: rgba(255, 199, 0, .10);
+    }
+
+    .btn.gradient {
+      border: none;
+      color: #0a0a0a;
+      background: linear-gradient(90deg, var(--amarelo-dourado), var(--roxo-moderno));
+      box-shadow:
+        0 18px 50px rgba(255, 199, 0, .12),
+        0 18px 50px rgba(124, 58, 237, .10);
+    }
+
+    .btn.gradient:hover {
+      filter: brightness(1.03);
+    }
+
+    .hint {
+      font-size: 12px;
+      color: rgba(244, 244, 245, .55);
+    }
+
+    /* Video card */
+    .videoWrap {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .videoHead {
+      padding: 16px 16px 0;
+    }
+
+    .videoHead h2 {
+      margin: 6px 0 6px;
+      font-size: 16px;
+      letter-spacing: .1px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: rgba(244, 244, 245, .72);
+      border: 1px solid var(--cinza-borda);
+      background: rgba(16, 16, 16, .35);
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .ratio {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: rgba(0, 0, 0, .28);
+      border-top: 1px solid rgba(255, 255, 255, .06);
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      overflow: hidden;
+    }
+
+    .ratio iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .videoFoot {
+      padding: 12px 16px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tiny {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: rgba(244, 244, 245, .55);
+    }
+
+    /* =========================
+       Materials
+       ========================= */
+    .section {
+      margin-top: 16px;
+    }
+
+    .section h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      padding: 16px;
+      border: 1px solid var(--cinza-borda);
+      background: rgba(24, 24, 27, .52);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow2);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 160px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cardTop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--cinza-borda);
+      background: rgba(16, 16, 16, .35);
+      flex: 0 0 auto;
+    }
+
+    .card b {
+      font-size: 14px;
+      letter-spacing: .1px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: rgba(244, 244, 245, .70);
+      margin-top: -2px;
+    }
+
+    .card .btn {
+      width: 100%;
+    }
+
+    .tag {
+      font-size: 12px;
+      color: rgba(244, 244, 245, .58);
+    }
+
+    /* =========================
+       WhatsApp CTA
+       ========================= */
+    .ctaBig {
+      margin-top: 14px;
+      border: 1px solid rgba(255, 199, 0, .28);
+      background:
+        radial-gradient(900px 300px at 20% 20%, rgba(255, 199, 0, .12), transparent 55%),
+        radial-gradient(800px 320px at 90% 35%, rgba(124, 58, 237, .12), transparent 60%),
+        rgba(24, 24, 27, .50);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .ctaBig .pad {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .ctaBig .pad {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .ctaBig h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .miniForm {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .input,
+    .select {
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--cinza-borda);
+      background: rgba(16, 16, 16, .35);
+      color: rgba(244, 244, 245, .92);
+      outline: none;
+      min-height: 44px;
+    }
+
+    .input {
+      flex: 1 1 320px;
+      min-width: 220px;
+    }
+
+    .select {
+      flex: 0 1 260px;
+      min-width: 220px;
+    }
+
+    .fine {
+      font-size: 12px;
+      color: rgba(244, 244, 245, .58);
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 16px;
+      text-align: center;
+      color: rgba(244, 244, 245, .55);
+      font-size: 12px;
+      line-height: 1.6;
+      padding-top: 6px;
+    }
+
+    /* =========================
+       Small screens polish
+       ========================= */
+    @media (max-width: 420px) {
+      .wrap {
+        padding: 14px 12px 48px;
+      }
+
+      .nav {
+        border-radius: 18px;
+      }
+
+      .pill {
+        padding: 9px 10px;
+        font-size: 12px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .ctaRow .btn {
+        width: 100%;
+      }
+
+      .miniForm .btn {
+        width: 100%;
+      }
+
+      .brandText b,
+      .brandText small {
+        max-width: 64vw;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="grid" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="container">
+
+      <header class="nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div class="brandText">
+            <b>ConstConv — Kit de Apresentação</b>
+            <small>Vídeo + PDFs + WhatsApp (mensagem pronta)</small>
+          </div>
+        </div>
+
+        <nav class="navlinks" aria-label="Navegação">
+          <a class="pill" href="https://constconv.agency/" target="_blank" rel="noopener">Voltar</a>
+          <a class="pill" href="#materiais">Materiais</a>
+          <a class="pill" href="#whatsapp">WhatsApp</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div class="panel holo tilt" data-tilt>
+          <div class="pad tiltInner">
+            <span class="kicker"><span class="dot"></span> Decisão em 2 minutos</span>
+
+            <h1>Veja o fluxo, baixe os PDFs e peça a auditoria — sem reunião longa.</h1>
+
+            <p>
+              Se você anuncia e sente que <b>leads/eventos não batem</b>, é comum existir perda de sinal em iOS,
+              AdBlock,
+              configuração e limitações do navegador. Este kit explica como eu resolvo isso com <b>server-side +
+                validação</b>.
+            </p>
+
+            <div class="bullets" aria-label="Benefícios">
+              <div class="b">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 7L10 17l-5-5" stroke="rgba(255,199,0,.95)" stroke-width="2.2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+                <div><b>Prova rápida:</b> vídeo curto + PDFs objetivos (sem tecnês).</div>
+              </div>
+
+              <div class="b">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 2v20M2 12h20" stroke="rgba(124,58,237,.95)" stroke-width="2.2" stroke-linecap="round" />
+                </svg>
+                <div><b>Próximo passo:</b> auditoria de R$ 97 com PDF + call curta pra explicar.</div>
+              </div>
+
+              <div class="b">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 12a8 8 0 0 1 16 0" stroke="rgba(244,244,245,.7)" stroke-width="2.2"
+                    stroke-linecap="round" />
+                  <path d="M12 12l3 3" stroke="rgba(244,244,245,.7)" stroke-width="2.2" stroke-linecap="round" />
+                </svg>
+                <div><b>Sem atrito:</b> WhatsApp com mensagem pronta e campos opcionais.</div>
+              </div>
+            </div>
+
+            <div class="ctaRow">
+              <a class="btn gradient" href="#whatsapp" title="Ir para WhatsApp">
+                Quero a auditoria (R$ 97)
+              </a>
+              <a class="btn primary" href="#materiais" title="Ver materiais">
+                Ver materiais
+              </a>
+              <span class="hint">Dica: cole o link do seu site no WhatsApp para eu analisar mais rápido.</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="panel holo tilt videoWrap" data-tilt>
+          <div class="videoHead tiltInner">
+            <span class="badge"><span class="dot" style="width:8px;height:8px;box-shadow:none"></span> Vídeo
+              rápido</span>
+            <h2>Demonstração (90s)</h2>
+            <p class="hint">O fluxo completo: captura → validação → envio de sinal.</p>
+          </div>
+
+          <div class="ratio" aria-label="Vídeo do YouTube">
+            <iframe src="https://www.youtube.com/embed/GcVekhTGliU?rel=0&modestbranding=1"
+              title="Demo — Sistema Anti-Perda de Leads"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy"></iframe>
+          </div>
+
+          <div class="videoFoot tiltInner">
+            <span class="tiny">Se não carregar, abra direto no YouTube.</span>
+            <a class="btn" href="https://www.youtube.com/watch?v=GcVekhTGliU" target="_blank" rel="noopener">
+              Abrir no YouTube
+            </a>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section" id="materiais">
+        <h2>Materiais</h2>
+
+        <div class="cards">
+          <div class="card holo tilt" data-tilt>
+            <div class="cardTop tiltInner">
+              <div class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="rgba(244,244,245,.82)"
+                    stroke-width="2" stroke-linejoin="round" />
+                  <path d="M14 2v6h6" stroke="rgba(244,244,245,.82)" stroke-width="2" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <b>One-page (1 página)</b>
+            </div>
+            <p class="tiltInner">Resumo do problema, como funciona e qual o próximo passo (auditoria).</p>
+            <a class="btn primary tiltInner" href="./one-page.pdf" target="_blank" rel="noopener">Baixar PDF</a>
+            <span class="tag tiltInner">Arquivo: <span class="tiny">/kit/one-page.pdf</span></span>
+          </div>
+
+          <div class="card holo tilt" data-tilt>
+            <div class="cardTop tiltInner">
+              <div class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 4h16v16H4z" stroke="rgba(244,244,245,.82)" stroke-width="2" />
+                  <path d="M8 8h8M8 12h8M8 16h5" stroke="rgba(255,199,0,.92)" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+              <b>Exemplo de auditoria</b>
+            </div>
+            <p class="tiltInner">Modelo do relatório (achados + impacto + plano). Sem tecnês.</p>
+            <a class="btn primary tiltInner" href="./auditoria-exemplo.pdf" target="_blank" rel="noopener">Ver
+              exemplo</a>
+            <span class="tag tiltInner">Arquivo: <span class="tiny">/kit/auditoria-exemplo.pdf</span></span>
+          </div>
+
+          <div class="card holo tilt" data-tilt>
+            <div class="cardTop tiltInner">
+              <div class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 11l3 3L22 4" stroke="rgba(124,58,237,.95)" stroke-width="2.3" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M2 12.5l5 5 2-2" stroke="rgba(244,244,245,.82)" stroke-width="2.3" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M2 20h20" stroke="rgba(244,244,245,.22)" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+              <b>Checklist de implantação</b>
+            </div>
+            <p class="tiltInner">O que eu preciso de você pra implantar (sem dor de cabeça).</p>
+            <a class="btn primary tiltInner" href="./checklist-implantacao.pdf" target="_blank" rel="noopener">Baixar
+              checklist</a>
+            <span class="tag tiltInner">Arquivo: <span class="tiny">/kit/checklist-implantacao.pdf</span></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section ctaBig holo" id="whatsapp">
+        <div class="pad">
+          <div>
+            <h3>Quer que eu encontre onde seu funil está vazando?</h3>
+            <p>
+              Me mande o link do seu site/landing e diga onde você anuncia (Meta/Google/TikTok).
+              Eu retorno com o passo a passo da auditoria (R$ 97) e já te digo se faz sentido começar pela auditoria ou
+              partir direto para implantação.
+            </p>
+
+            <div class="miniForm" role="form" aria-label="WhatsApp com mensagem pronta">
+              <input id="siteUrl" class="input" placeholder="Cole o link do seu site/landing (opcional)"
+                inputmode="url" />
+              <select id="motivo" class="select" aria-label="Motivo do contato">
+                <option value="auditoria" selected>Quero a Auditoria (R$ 97)</option>
+                <option value="sistema">Quero implantar o Sistema</option>
+                <option value="parceria">Sou gestor/agência (parceria)</option>
+              </select>
+
+              <button id="btnWA" class="btn gradient" type="button">Abrir WhatsApp</button>
+              <button id="btnCopy" class="btn" type="button">Copiar mensagem</button>
+            </div>
+
+            <div class="fine">
+              <b>Tempo de resposta:</b> normalmente em poucos minutos (horário comercial).<br />
+              <span class="hint">Obs.: os dados e resultados variam por cenário; o objetivo é aumentar consistência e
+                qualidade do sinal.</span>
+            </div>
+          </div>
+
+          <div class="panel" style="height:100%;">
+            <div class="pad">
+              <span class="badge">Para acelerar</span>
+              <p style="margin-top:10px">
+                Assim que você mandar a mensagem, eu vou te pedir:
+              </p>
+              <div class="bullets" style="margin-top:12px">
+                <div class="b"><span class="dot" style="width:8px;height:8px;box-shadow:none;margin-top:6px"></span>
+                  Link da landing/site</div>
+                <div class="b"><span class="dot" style="width:8px;height:8px;box-shadow:none;margin-top:6px"></span>
+                  Plataforma principal (Meta/Google/TikTok)</div>
+                <div class="b"><span class="dot" style="width:8px;height:8px;box-shadow:none;margin-top:6px"></span>
+                  Evento principal (lead/whats/add_to_cart/purchase)</div>
+                <div class="b"><span class="dot" style="width:8px;height:8px;box-shadow:none;margin-top:6px"></span>
+                  Investimento mensal aproximado</div>
+              </div>
+              <p class="hint" style="margin-top:12px">
+                Com isso eu já consigo direcionar o melhor caminho (auditoria ou implantação).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div>© <span id="year"></span> ConstConv Agency • Kit para decisão rápida</div>
+        <div class="tiny">WhatsApp: +55 11 95520-3133</div>
+      </footer>
+
+    </div>
+  </div>
+
+  <script>
+    // ✅ Já configurei seu WhatsApp
+    const WHATSAPP_NUMBER = "5511955203133";
+
+    function qs(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name) || "";
+    }
+
+    // Prefill from querystring: ?site=...&m=auditoria|sistema|parceria
+    (function initPrefill() {
+      const site = qs("site");
+      const m = qs("m");
+      if (site) document.getElementById("siteUrl").value = site;
+      if (m) {
+        const sel = document.getElementById("motivo");
+        const opts = Array.from(sel.options).map(o => o.value);
+        if (opts.includes(m)) sel.value = m;
+      }
+      document.getElementById("year").textContent = new Date().getFullYear();
+    })();
+
+    function buildMessage(kind, url) {
+      const cleanUrl = (url || "").trim();
+      const hasUrl = cleanUrl.length > 6;
+
+      if (kind === "sistema") {
+        return `Quero implantar o Sistema Anti-Perda de Leads. ${hasUrl ? "Meu site/landing: " + cleanUrl : ""} | Eu anuncio em: (Meta/Google/TikTok) | Evento principal: (Lead/Whats/Purchase/AddToCart)`;
+      }
+      if (kind === "parceria") {
+        return `Sou gestor/agência e quero parceria/white-label. ${hasUrl ? "Cliente com site/landing: " + cleanUrl : ""} | Plataforma principal: (Meta/Google/TikTok) | Nicho: ____`;
+      }
+      return `Quero a Auditoria de Perda de Leads (R$97). ${hasUrl ? "Meu site/landing: " + cleanUrl : ""} | Eu anuncio em: (Meta/Google/TikTok) | Evento principal: (Lead/Whats/Purchase/AddToCart)`;
+    }
+
+    function openWhatsApp() {
+      const url = document.getElementById("siteUrl").value;
+      const kind = document.getElementById("motivo").value;
+      const msg = buildMessage(kind, url);
+      const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+      window.open(link, "_blank", "noopener");
+    }
+
+    async function copyMsg() {
+      const url = document.getElementById("siteUrl").value;
+      const kind = document.getElementById("motivo").value;
+      const msg = buildMessage(kind, url);
+      try {
+        await navigator.clipboard.writeText(msg);
+        const btn = document.getElementById("btnCopy");
+        const old = btn.textContent;
+        btn.textContent = "Copiado ✅";
+        setTimeout(() => btn.textContent = old, 1200);
+      } catch (e) {
+        alert("Não consegui copiar automaticamente. Você pode copiar manualmente: \n\n" + msg);
+      }
+    }
+
+    document.getElementById("btnWA").addEventListener("click", openWhatsApp);
+    document.getElementById("btnCopy").addEventListener("click", copyMsg);
+
+    // 3D tilt + spotlight (desktop only)
+    (function initTilt() {
+      const isTouch = ("ontouchstart" in window) || (navigator.maxTouchPoints > 0);
+      const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (isTouch || reduce) return;
+
+      const cards = document.querySelectorAll("[data-tilt]");
+      const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+
+      cards.forEach(card => {
+        let rect;
+        function onEnter() { rect = card.getBoundingClientRect(); }
+        function onMove(e) {
+          if (!rect) rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const rx = ((y / rect.height) - 0.5) * -7; // rotateX
+          const ry = ((x / rect.width) - 0.5) * 9; // rotateY
+
+          const rxx = clamp(rx, -8, 8);
+          const ryy = clamp(ry, -10, 10);
+
+          card.style.transform = `perspective(900px) rotateX(${rxx}deg) rotateY(${ryy}deg) translateY(-1px)`;
+          card.style.setProperty("--mx", (x / rect.width * 100).toFixed(2) + "%");
+          card.style.setProperty("--my", (y / rect.height * 100).toFixed(2) + "%");
+        }
+        function onLeave() {
+          card.style.transform = "";
+          card.style.setProperty("--mx", "50%");
+          card.style.setProperty("--my", "50%");
+        }
+
+        card.addEventListener("mouseenter", onEnter);
+        card.addEventListener("mousemove", onMove);
+        card.addEventListener("mouseleave", onLeave);
+      });
+    })();
+  </script>
+</body>
+
+</html>
