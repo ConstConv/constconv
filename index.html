@@ -616,7 +616,7 @@
                                 <li>Diagnóstico claro e sem termos técnicos</li>
                             </ul>
                             <a href="https://api.whatsapp.com/send/?phone=5511955203133&text=Quero+a+AUDITORIA+de+Perda+de+Leads+%28R%2497%29.+Meu+site%3A+%5BCOLE_AQUI%5D&type=phone_number&app_absent=0"
-                                class="btn btn-secondary">Contratar</a>
+                                class="btn btn-secondary" id="btn-wpp-auditoria">Contratar</a>
                         </div>
                     </div>
 
@@ -637,7 +637,7 @@
                                 <li>Suporte e manutenção</li>
                             </ul>
                             <a href="https://api.whatsapp.com/send/?phone=5511955203133&text=Quero+implantar+o+Sistema+Anti-Perda+de+Leads.+Meu+site%3A+%5BCOLE_AQUI%5D+%7C+Anuncio+em%3A+Meta%2FGoogle%2FTikTok&type=phone_number&app_absent=0"
-                                class="btn btn-primary">Contratar</a>
+                                class="btn btn-primary" id="btn-wpp-anti-perda-de-leads">Contratar</a>
                         </div>
                     </div>
 
@@ -679,9 +679,10 @@
                     <h2>Mensagem Direta</h2>
                     <p>Preencha os dados abaixo.</p>
                 </div>
-                <form id="contactForm" class="fade-up">
+                <form id="form-rodape" class="fade-up">
                     <input type="text" name="nome" class="form-input" placeholder="Seu Nome" required>
                     <input type="email" name="email" class="form-input" placeholder="Seu E-mail Corporativo" required>
+                    <input type="tel" name="tel" class="form-input" placeholder="Telefone (11) 9999-9999" required>
                     <textarea name="mensagem" class="form-input" placeholder="Como posso ajudar seu negócio?"
                         style="min-height:150px" required></textarea>
                     <button type="submit" class="btn btn-primary">Enviar Mensagem 🚀</button>
@@ -698,8 +699,7 @@
 
     </div>
 
-    <a href="https://wa.me/5511955203133" target="_blank"
-        onclick="if(window.dataLayer) window.dataLayer.push({'event': 'constconv-wpp'});"
+    <a href="https://wa.me/5511955203133" target="_blank" id="btn-wpp-flutuante"
         style="position:fixed; bottom:30px; right:30px; width:60px; height:60px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 20px rgba(0,0,0,0.5); z-index:999; transition: transform 0.3s;"
         onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
         <svg fill="white" width="32" height="32" viewBox="0 0 24 24">
@@ -783,27 +783,8 @@
             document.getElementById('navMenu').classList.toggle('active');
         }
 
-        // 8. FORMULÁRIO (MANTIDO)
-        const form = document.getElementById('contactForm');
         const modal = document.getElementById('modalSucesso');
         function fecharModal() { modal.classList.remove('active'); }
-
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const btn = form.querySelector('button');
-            const originalText = btn.textContent;
-
-            btn.textContent = "Processando...";
-            btn.style.opacity = "0.7";
-
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-            data.origem = "Site Form Oficial";
-
-            // Tracker
-            try {
-                if (window.ConstConv) ConstConv.send('constconv-contactform-submit', data);
-            } catch (e) { console.error(e); }
 
             // Simulação UX
             setTimeout(() => {
@@ -817,6 +798,46 @@
 
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        function rastrearForm(idFormulario, nomeOrigem) {
+            const form = document.getElementById(idFormulario);
+            if (!form) return;
+
+            form.addEventListener('submit', (e) => {
+                // e.preventDefault();
+                const formData = new FormData(form);
+                const dados = {};
+                formData.forEach((v, k) => dados[k] = v);
+
+                dados.origem = nomeOrigem;
+
+                if (window.ConstConv) {
+                    ConstConv.send('constconv-contactform-submit', dados);
+                }
+            });
+        }
+
+        function rastrearWpp(idBotao, nomeOrigem) {
+            const btn = document.getElementById(idBotao);
+            if (!btn) return;
+
+            btn.addEventListener('click', () => {
+                if (window.ConstConv) {
+                    ConstConv.send('constconv-wpp', { origem: nomeOrigem });
+                }
+            });
+        }
+
+        rastrearForm('form-rodape', 'Formulário do Rodapé');
+
+        rastrearWpp('btn-wpp-flutuante', 'PopUp lado inferior direito');
+        rastrearWpp('btn-wpp-anti-perda-de-leads', 'Card Anti-Perda de Leads');
+        rastrearWpp('btn-wpp-auditoria', 'Card Auditoria');
+
+    });
+</script>
 
     <style>
         @keyframes bounce {
