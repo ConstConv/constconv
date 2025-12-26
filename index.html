@@ -682,7 +682,7 @@
                 <form id="form-rodape" class="fade-up">
                     <input type="text" name="nome" class="form-input" placeholder="Seu Nome" required>
                     <input type="email" name="email" class="form-input" placeholder="Seu E-mail Corporativo" required>
-                    <input type="tel" name="tel" class="form-input" placeholder="Telefone (11) 9999-9999" required>
+                    <input type="tel" name="tel" class="form-input" placeholder="Telefone (11) 99999-9999" required>
                     <textarea name="mensagem" class="form-input" placeholder="Como posso ajudar seu negócio?"
                         style="min-height:150px" required></textarea>
                     <button type="submit" class="btn btn-primary">Enviar Mensagem 🚀</button>
@@ -783,61 +783,63 @@
             document.getElementById('navMenu').classList.toggle('active');
         }
 
-        const modal = document.getElementById('modalSucesso');
-        function fecharModal() { modal.classList.remove('active'); }
-
-            // Simulação UX
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.opacity = "1";
-                form.reset();
-                modal.classList.add('active');
-                setTimeout(fecharModal, 4000);
-            }, 1000);
-        });
-
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 
+    <!-- --- TRACKER --- -->
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        function rastrearForm(idFormulario, nomeOrigem) {
-            const form = document.getElementById(idFormulario);
-            if (!form) return;
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contactForm');
+            const modal = document.getElementById('modalSucesso');
+            function fecharModal() { modal.classList.remove('active'); }
+            // --- FUNÇÃO PARA FORMULÁRIOS NÃO MEXER---
+            function rastrearForm(idFormulario, nomeOrigem) {
+                const form = document.getElementById(idFormulario);
+                if (!form) return;
 
-            form.addEventListener('submit', (e) => {
-                // e.preventDefault();
-                const formData = new FormData(form);
-                const dados = {};
-                formData.forEach((v, k) => dados[k] = v);
+                form.addEventListener('submit', (e) => {
+                    // e.preventDefault();
 
-                dados.origem = nomeOrigem;
+                    const formData = new FormData(form);
+                    const dados = {};
+                    formData.forEach((v, k) => dados[k] = v);
 
-                if (window.ConstConv) {
-                    ConstConv.send('constconv-contactform-submit', dados);
-                }
-            });
-        }
+                    dados.origem = nomeOrigem;
 
-        function rastrearWpp(idBotao, nomeOrigem) {
-            const btn = document.getElementById(idBotao);
-            if (!btn) return;
+                    if (window.ConstConv) {
+                        ConstConv.send('constconv-contactform-submit', dados);
+                    }
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.opacity = "1";
+                        form.reset();
+                        modal.classList.add('active');
+                        setTimeout(fecharModal, 4000);
+                    }, 1000);
+                });
+            }
 
-            btn.addEventListener('click', () => {
-                if (window.ConstConv) {
-                    ConstConv.send('constconv-wpp', { origem: nomeOrigem });
-                }
-            });
-        }
+            // --- FUNÇÃO PARA WHATSAPP NÃO MEXER---
+            function rastrearWpp(idBotao, nomeOrigem) {
+                const btn = document.getElementById(idBotao);
+                if (!btn) return;
 
-        rastrearForm('form-rodape', 'Formulário do Rodapé');
+                btn.addEventListener('click', () => {
+                    if (window.ConstConv) {
+                        ConstConv.send('constconv-wpp', { origem: nomeOrigem });
+                    }
+                });
+            }
 
-        rastrearWpp('btn-wpp-flutuante', 'PopUp lado inferior direito');
-        rastrearWpp('btn-wpp-anti-perda-de-leads', 'Card Anti-Perda de Leads');
-        rastrearWpp('btn-wpp-auditoria', 'Card Auditoria');
+            // === CONFIGURAÇÃO DO CLIENTE ===
+            rastrearForm('form-rodape', 'Formulário do Rodapé');
 
-    });
-</script>
+            rastrearWpp('btn-wpp-anti-perda-de-leads', 'WhatsApp Card Anti-Perda de Leads');
+            rastrearWpp('btn-wpp-auditoria', 'WhatsApp Card Auditoria');
+            rastrearWpp('btn-wpp-flutuante', 'WhatsApp Flutuante');
+
+        });
+    </script>
 
     <style>
         @keyframes bounce {
