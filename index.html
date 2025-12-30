@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
         rel="stylesheet">
+
     <style>
         /* =========================================
            1. VARIÁVEIS & RESET GLOBAL
@@ -53,7 +54,10 @@
 
         svg {
             max-width: 100%;
+            height: auto;
         }
+
+        /* Fix CLS */
 
         .container {
             max-width: 1200px;
@@ -67,11 +71,12 @@
             gap: 2rem;
         }
 
-        /* Animação Fade Up Global */
+        /* Animação Fade Up - Otimizada */
         .fade-up {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
         }
 
         .fade-up.visible {
@@ -117,8 +122,9 @@
             justify-content: center;
             align-items: center;
             z-index: -1;
+            /* Otimização: Gradiente simples no mobile */
             background: radial-gradient(circle at center, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
-            will-change: transform, opacity;
+            will-change: transform;
         }
 
         .bg-grid {
@@ -157,8 +163,8 @@
         }
 
         .navbar.scrolled {
-            background: rgba(5, 5, 5, 0.9);
-            backdrop-filter: blur(12px);
+            background: rgba(5, 5, 5, 0.95);
+            /* Menos transparência = Mais performance */
             border-bottom: 1px solid var(--borda);
             padding: 1rem 0;
         }
@@ -207,7 +213,7 @@
             cursor: pointer;
         }
 
-        /* Wrapper do Conteúdo Principal */
+        /* Wrapper */
         .main-wrapper {
             position: relative;
             z-index: 20;
@@ -220,7 +226,7 @@
         }
 
         /* =========================================
-           3. FLUXOGRAMA PREMIUM (STRIPE STYLE)
+           3. FLUXOGRAMA PREMIUM
            ========================================= */
         .stripe-flow {
             display: flex;
@@ -240,7 +246,7 @@
             border-radius: 16px;
             padding: 2rem;
             position: relative;
-            transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: 0.3s;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -249,14 +255,12 @@
         }
 
         .flow-step:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+            transform: translateY(-5px);
             border-color: rgba(255, 255, 255, 0.2);
         }
 
         .flow-step.error-step:hover {
             border-color: rgba(239, 68, 68, 0.5);
-            box-shadow: 0 10px 40px -10px rgba(239, 68, 68, 0.15);
         }
 
         .flow-step.tech-step {
@@ -265,7 +269,6 @@
 
         .flow-step.tech-step:hover {
             border-color: rgba(139, 92, 246, 0.5);
-            box-shadow: 0 10px 40px -10px rgba(139, 92, 246, 0.15);
         }
 
         .icon-circle {
@@ -296,12 +299,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.3s;
-        }
-
-        .partner-icon:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
         }
 
         .partner-icon svg {
@@ -330,7 +327,6 @@
             height: 6px;
             border-radius: 50%;
             background: var(--amarelo);
-            box-shadow: 0 0 10px var(--amarelo);
             animation: dataFlow 2s infinite linear;
         }
 
@@ -408,6 +404,7 @@
             background: rgba(20, 20, 20, 0.6);
             border: 1px solid var(--borda);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 16px;
             padding: 2rem;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
@@ -415,6 +412,7 @@
             overflow: hidden;
         }
 
+        /* Gradient leve no topo apenas */
         .speed-card::before {
             content: '';
             position: absolute;
@@ -535,7 +533,7 @@
         }
 
         /* =========================================
-           5. CARDS & PRICING
+           5. CARDS & GERAL
            ========================================= */
         .card {
             background: var(--bg-card);
@@ -563,7 +561,6 @@
             flex-direction: column;
         }
 
-        /* Toggles */
         .toggle-container {
             display: flex;
             justify-content: center;
@@ -642,7 +639,6 @@
             font-weight: bold;
         }
 
-        /* Buttons & Forms */
         .btn {
             display: inline-flex;
             justify-content: center;
@@ -705,7 +701,6 @@
             background: rgba(255, 255, 255, 0.06);
         }
 
-        /* Modal */
         .modal {
             position: fixed;
             inset: 0;
@@ -717,7 +712,7 @@
             opacity: 0;
             pointer-events: none;
             transition: 0.3s;
-            backdrop-filter: blur(5px);
+            /* backdrop-filter: blur(5px); --> Desativado para Mobile Performance */
         }
 
         .modal.active {
@@ -742,7 +737,7 @@
         }
 
         /* =========================================
-           6. RESPONSIVIDADE
+           6. RESPONSIVIDADE & OTIMIZAÇÕES MOBILE
            ========================================= */
         @media (max-width: 768px) {
             .menu-btn {
@@ -777,7 +772,7 @@
                 font-size: 2.8rem;
             }
 
-            /* Fluxograma Mobile */
+            /* Fluxograma Mobile - Simplificado */
             .stripe-flow {
                 flex-direction: column;
                 gap: 2rem;
@@ -789,6 +784,10 @@
                 align-items: flex-start;
                 text-align: left;
                 padding: 1.5rem;
+                /* OTIMIZAÇÃO CRÍTICA: SEM BLUR NO MOBILE */
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: #111 !important;
             }
 
             .flow-connector {
@@ -814,7 +813,7 @@
                 margin-top: 1rem;
             }
 
-            /* Performance Mobile */
+            /* Performance Mobile - Simplificado */
             .perf-grid {
                 grid-template-columns: 1fr;
                 gap: 3rem;
@@ -827,6 +826,14 @@
             .list-check {
                 text-align: left;
                 display: inline-block;
+            }
+
+            /* REMOVE EFEITOS PESADOS NO MOBILE */
+            .speed-card,
+            .card {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: #111 !important;
             }
         }
 
@@ -872,6 +879,9 @@
 </head>
 
 <body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXNFJLZZ" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+
     <div id="modalSucesso" class="modal">
         <div class="modal-box">
             <div
@@ -892,6 +902,7 @@
             <a href="#" class="logo">Const<span>Conv</span></a>
             <button class="menu-btn" onclick="toggleMenu()" aria-label="Abrir Menu">☰</button>
             <ul class="nav-links" id="navMenu">
+                <li><a href="#home" onclick="toggleMenu()">Home</a></li>
                 <li><a href="#fluxo" onclick="toggleMenu()">Como Funciona</a></li>
                 <li><a href="#portfolio" onclick="toggleMenu()">Laboratório</a></li>
                 <li><a href="#servicos" onclick="toggleMenu()">Planos</a></li>
@@ -1007,10 +1018,6 @@
         </section>
 
         <section id="performance" style="padding: 100px 0; position: relative; overflow: hidden;">
-            <div
-                style="position: absolute; top: 20%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, transparent 70%); filter: blur(60px); z-index: -1;">
-            </div>
-
             <div class="container">
                 <div class="perf-grid">
                     <div class="perf-content fade-up">
@@ -1147,8 +1154,7 @@
                                 <li>Diagnóstico claro e sem termos técnicos</li>
                             </ul>
                             <a href="https://api.whatsapp.com/send/?phone=5511955203133&text=Quero+a+AUDITORIA+de+Perda+de+Leads+%28R%2497%29.+Meu+site%3A+%5BCOLE_AQUI%5D&type=phone_number&app_absent=0"
-                                class="btn btn-secondary" id="btn-wpp-auditoria"
-                                aria-label="Falar no WhatsApp">Contratar</a>
+                                class="btn btn-secondary" id="btn-wpp-auditoria">Contratar</a>
                         </div>
                     </div>
                     <div class="card"
@@ -1230,7 +1236,7 @@
 
     </div>
 
-    <a href="https://wa.me/5511955203133" target="_blank" id="btn-wpp-flutuante"
+    <a href="https://wa.me/5511955203133" target="_blank" id="btn-wpp-flutuante" aria-label="Falar no WhatsApp"
         style="position:fixed; bottom:30px; right:30px; width:60px; height:60px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 20px rgba(0,0,0,0.5); z-index:999; transition: transform 0.3s;"
         onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
         <svg fill="white" width="32" height="32" viewBox="0 0 24 24">
@@ -1261,6 +1267,7 @@
             });
 
             // MOUSE FOLLOW EFFECT (Cards)
+            // Seleciona APENAS os cards genéricos, não o fluxo novo que já tem hover
             const cards = document.querySelectorAll('.card');
             document.addEventListener('mousemove', (e) => {
                 requestAnimationFrame(() => {
@@ -1306,7 +1313,7 @@
 
         // 5. TRACKER DE FORM E WHATSAPP
         document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('form-rodape'); // Corrigido ID
+            const form = document.getElementById('form-rodape');
             const modal = document.getElementById('modalSucesso');
             function fecharModal() { modal.classList.remove('active'); }
 
@@ -1351,7 +1358,7 @@
             rastrearWpp('btn-wpp-flutuante', 'WhatsApp Flutuante');
         });
 
-        // 6. ANIMAÇÃO DE PERFORMANCE (O "VOCÊ" NO CÓDIGO)
+        // 6. ANIMAÇÃO DE PERFORMANCE
         document.addEventListener("DOMContentLoaded", function () {
             const perfSection = document.getElementById('performance');
             let animated = false;
@@ -1360,15 +1367,11 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !animated) {
                         animated = true;
-
-                        // Animar Stroke do SVG
                         const circles = document.querySelectorAll('.circle');
                         if (circles.length >= 2) {
                             circles[0].style.strokeDasharray = "96, 100"; // Mobile
                             circles[1].style.strokeDasharray = "100, 100"; // Desktop
                         }
-
-                        // Animar Números
                         animateValue("score-mobile", 0, 96, 2000);
                         animateValue("score-desktop", 0, 100, 2000);
                     }
