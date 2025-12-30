@@ -1369,10 +1369,10 @@
                         animated = true;
                         const circles = document.querySelectorAll('.circle');
                         if (circles.length >= 2) {
-                            circles[0].style.strokeDasharray = "96, 100"; // Mobile
+                            circles[0].style.strokeDasharray = "93, 100"; // Mobile
                             circles[1].style.strokeDasharray = "100, 100"; // Desktop
                         }
-                        animateValue("score-mobile", 0, 96, 2000);
+                        animateValue("score-mobile", 0, 93, 2000);
                         animateValue("score-desktop", 0, 100, 2000);
                     }
                 });
