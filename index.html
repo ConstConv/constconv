@@ -23,7 +23,9 @@
         })(window, document, 'script', 'dataLayer', 'GTM-TXNFJLZZ');</script>
 
     <style>
-        /* --- 1. VARIÁVEIS & RESET --- */
+        /* =========================================
+           1. VARIÁVEIS & RESET GLOBAL
+           ========================================= */
         :root {
             --bg-body: #050505;
             --bg-card: rgba(20, 20, 20, 0.6);
@@ -34,7 +36,10 @@
             --amarelo: #FFC700;
             --roxo: #8B5CF6;
             --sucesso: #22c55e;
+            --erro: #ef4444;
             --fonte: 'Inter', sans-serif;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -54,10 +59,8 @@
             color: var(--branco);
             line-height: 1.6;
             overflow-x: hidden;
-            /* Essencial para não quebrar no mobile */
         }
 
-        /* Previne ícones gigantes se o SVG falhar */
         svg {
             max-width: 100%;
         }
@@ -74,7 +77,7 @@
             gap: 2rem;
         }
 
-        /* Utilitários de Animação */
+        /* Animação Fade Up Global */
         .fade-up {
             opacity: 0;
             transform: translateY(40px);
@@ -96,7 +99,6 @@
             display: block;
         }
 
-        /* Tipografia */
         h1,
         h2,
         h3 {
@@ -110,13 +112,14 @@
             font-weight: 300;
         }
 
-        /* --- 2. HERO FIXO (AJUSTADO MOBILE) --- */
+        /* =========================================
+           2. HERO SECTION & NAVBAR
+           ========================================= */
         .hero-fixed {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            /* DVH garante que a barra do navegador não corte o conteúdo */
             height: 100vh;
             height: 100dvh;
             display: flex;
@@ -153,21 +156,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- 3. MAIN CONTENT (WRAPPER) --- */
-        .main-wrapper {
-            position: relative;
-            z-index: 20;
-            /* Mesma lógica do DVH para empurrar o conteúdo corretamente */
-            margin-top: 100vh;
-            margin-top: 100dvh;
-            background-color: var(--bg-body);
-            box-shadow: 0 -60px 100px rgba(0, 0, 0, 1);
-            border-top: 1px solid var(--borda);
-            padding-bottom: 50px;
-            /* Segurança extra para o rodapé */
-        }
-
-        /* --- NAVBAR --- */
+        /* Navbar */
         .navbar {
             position: fixed;
             top: 0;
@@ -228,7 +217,336 @@
             cursor: pointer;
         }
 
-        /* --- CARDS --- */
+        /* Wrapper do Conteúdo Principal */
+        .main-wrapper {
+            position: relative;
+            z-index: 20;
+            margin-top: 100vh;
+            margin-top: 100dvh;
+            background-color: var(--bg-body);
+            box-shadow: 0 -60px 100px rgba(0, 0, 0, 1);
+            border-top: 1px solid var(--borda);
+            padding-bottom: 50px;
+        }
+
+        /* =========================================
+           3. FLUXOGRAMA PREMIUM (STRIPE STYLE)
+           ========================================= */
+        .stripe-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .flow-step {
+            flex: 1;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 280px;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .flow-step.error-step:hover {
+            border-color: rgba(239, 68, 68, 0.5);
+            box-shadow: 0 10px 40px -10px rgba(239, 68, 68, 0.15);
+        }
+
+        .flow-step.tech-step {
+            background: linear-gradient(145deg, rgba(139, 92, 246, 0.05), transparent);
+        }
+
+        .flow-step.tech-step:hover {
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 10px 40px -10px rgba(139, 92, 246, 0.15);
+        }
+
+        .icon-circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .partners-grid {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .partner-icon {
+            width: 42px;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .partner-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .partner-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .flow-connector {
+            position: absolute;
+            top: 50%;
+            right: -24px;
+            width: 30px;
+            height: 2px;
+            background: var(--borda);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .flow-connector::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--amarelo);
+            box-shadow: 0 0 10px var(--amarelo);
+            animation: dataFlow 2s infinite linear;
+        }
+
+        @keyframes dataFlow {
+            0% {
+                left: 0;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                left: 100%;
+                opacity: 0;
+            }
+        }
+
+        .flow-step:last-child .flow-connector {
+            display: none;
+        }
+
+        .flow-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .flow-desc {
+            font-size: 0.9rem;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: auto;
+            border: 1px solid transparent;
+        }
+
+        .badge-red {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .badge-green {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border-color: rgba(34, 197, 94, 0.2);
+        }
+
+        /* =========================================
+           4. PERFORMANCE WIDGET
+           ========================================= */
+        .perf-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .speed-card {
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid var(--borda);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .speed-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.5), transparent);
+        }
+
+        .speed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--borda);
+        }
+
+        .dots span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #333;
+            margin-right: 5px;
+        }
+
+        .dots span:nth-child(1) {
+            background: #ff5f56;
+        }
+
+        .dots span:nth-child(2) {
+            background: #ffbd2e;
+        }
+
+        .dots span:nth-child(3) {
+            background: #27c93f;
+        }
+
+        .gauges-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2rem;
+        }
+
+        .gauge-wrapper {
+            text-align: center;
+        }
+
+        .gauge-circle {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 10px;
+        }
+
+        .gauge-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--cinza);
+        }
+
+        .circular-chart {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            max-height: 250px;
+        }
+
+        .circle-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.05);
+            stroke-width: 2.5;
+        }
+
+        .circle {
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            transition: stroke-dasharray 2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .circular-chart.green .circle {
+            stroke: #22c55e;
+        }
+
+        .percentage {
+            fill: #fff;
+            font-family: var(--fonte);
+            font-weight: bold;
+            font-size: 0.6em;
+            text-anchor: middle;
+        }
+
+        .metrics-row {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-val {
+            display: block;
+            font-weight: 700;
+            color: var(--sucesso);
+            font-size: 1.1rem;
+        }
+
+        .metric-name {
+            font-size: 0.75rem;
+            color: var(--cinza);
+            text-transform: uppercase;
+        }
+
+        /* =========================================
+           5. CARDS & PRICING
+           ========================================= */
         .card {
             background: var(--bg-card);
             border: 1px solid var(--borda);
@@ -247,25 +565,6 @@
             border-color: var(--borda-hover);
         }
 
-        /* Efeito Mouse apenas Desktop via CSS media query se preferir, ou JS */
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.05), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.5s;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .card:hover::before {
-            opacity: 1;
-        }
-
         .card-content-inner {
             position: relative;
             z-index: 2;
@@ -274,7 +573,7 @@
             flex-direction: column;
         }
 
-        /* --- PRICING --- */
+        /* Toggles */
         .toggle-container {
             display: flex;
             justify-content: center;
@@ -353,7 +652,7 @@
             font-weight: bold;
         }
 
-        /* --- BUTTONS & FORM --- */
+        /* Buttons & Forms */
         .btn {
             display: inline-flex;
             justify-content: center;
@@ -416,7 +715,7 @@
             background: rgba(255, 255, 255, 0.06);
         }
 
-        /* --- MODAL --- */
+        /* Modal */
         .modal {
             position: fixed;
             inset: 0;
@@ -452,7 +751,9 @@
             transform: scale(1);
         }
 
-        /* --- MOBILE --- */
+        /* =========================================
+           6. RESPONSIVIDADE
+           ========================================= */
         @media (max-width: 768px) {
             .menu-btn {
                 display: block;
@@ -478,14 +779,103 @@
                 right: 0;
             }
 
-            /* Ajuste crítico para não cortar o fundo */
             .main-wrapper {
                 margin-top: 100dvh;
             }
 
-            /* Hero ajustado para mobile */
             .hero-title {
                 font-size: 2.8rem;
+            }
+
+            /* Fluxograma Mobile */
+            .stripe-flow {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .flow-step {
+                width: 100%;
+                min-height: auto;
+                align-items: flex-start;
+                text-align: left;
+                padding: 1.5rem;
+            }
+
+            .flow-connector {
+                top: 100%;
+                right: 50%;
+                width: 2px;
+                height: 30px;
+                transform: translateX(50%);
+                margin-top: 2px;
+            }
+
+            .flow-connector::after {
+                animation: dataFlowVertical 2s infinite linear;
+            }
+
+            .icon-circle {
+                margin-bottom: 1rem;
+                width: 48px;
+                height: 48px;
+            }
+
+            .badge-pill {
+                margin-top: 1rem;
+            }
+
+            /* Performance Mobile */
+            .perf-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .perf-content {
+                text-align: center;
+            }
+
+            .list-check {
+                text-align: left;
+                display: inline-block;
+            }
+        }
+
+        @keyframes dataFlowVertical {
+            0% {
+                top: 0;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
             }
         }
     </style>
@@ -515,7 +905,7 @@
             <a href="#" class="logo">Const<span>Conv</span></a>
             <button class="menu-btn" onclick="toggleMenu()">☰</button>
             <ul class="nav-links" id="navMenu">
-                <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+                <li><a href="#fluxo" onclick="toggleMenu()">Como Funciona</a></li>
                 <li><a href="#portfolio" onclick="toggleMenu()">Laboratório</a></li>
                 <li><a href="#servicos" onclick="toggleMenu()">Planos</a></li>
                 <li><a href="#agenda" onclick="toggleMenu()" style="color:var(--amarelo)">Agenda</a></li>
@@ -546,6 +936,162 @@
     </header>
 
     <div class="main-wrapper">
+
+        <section id="fluxo"
+            style="padding: 120px 0; background: linear-gradient(to bottom, transparent, rgba(20,20,20,0.8));">
+            <div class="container">
+                <div style="text-align:center; margin-bottom:4rem;" class="fade-up">
+                    <span class="tag-highlight" style="color:var(--amarelo);">A Jornada do Dado</span>
+                    <h2 style="font-size:2.5rem; margin-bottom:10px;">Onde seu lucro <span
+                            style="color:#ef4444">desaparece</span>?</h2>
+                    <p>Veja como recuperamos dados que o iOS e AdBlock bloqueiam.</p>
+                </div>
+
+                <div class="stripe-flow fade-up">
+                    <div class="flow-step">
+                        <div class="icon-circle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </div>
+                        <h3 class="flow-title">1. O Lead</h3>
+                        <p class="flow-desc">Seu cliente acessa o site via iPhone (iOS 17), Brave ou com bloqueadores.
+                        </p>
+                        <div class="flow-connector"></div>
+                    </div>
+
+                    <div class="flow-step error-step">
+                        <div class="icon-circle" style="border-color: rgba(239, 68, 68, 0.3);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444"
+                                stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                <line x1="4" y1="4" x2="20" y2="20" />
+                            </svg>
+                        </div>
+                        <h3 class="flow-title">2. O Bloqueio</h3>
+                        <p class="flow-desc">O navegador <strong>mata</strong> qualquer Pixel Web. As plataformas não
+                            recebem nada. Você perde a venda.</p>
+                        <span class="badge-pill badge-red">Dados Perdidos</span>
+                        <div class="flow-connector"></div>
+                    </div>
+
+                    <div class="flow-step tech-step">
+                        <div class="icon-circle"
+                            style="border-color: var(--roxo); background: rgba(139, 92, 246, 0.2);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A78BFA"
+                                stroke-width="2">
+                                <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                                <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                                <line x1="6" y1="6" x2="6.01" y2="6" />
+                                <line x1="6" y1="18" x2="6.01" y2="18" />
+                            </svg>
+                        </div>
+                        <h3 class="flow-title">3. ConstConv Server</h3>
+                        <p class="flow-desc">Nossa infraestrutura resgata o dado <strong>no servidor</strong> antes do
+                            bloqueio acontecer.</p>
+                        <span class="badge-pill"
+                            style="color:#A78BFA; background:rgba(139,92,246,0.1); border-color:rgba(139,92,246,0.3)">Blindagem
+                            Ativa</span>
+                        <div class="flow-connector"></div>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="partners-grid">
+                            <div class="partner-icon" title="Meta Ads"><svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg></div>
+                            <div class="partner-icon" title="Google Ads"><svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
+                                </svg></div>
+                            <div class="partner-icon" title="TikTok Ads"><svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                                </svg></div>
+                        </div>
+                        <h3 class="flow-title">4. Inteligência</h3>
+                        <p class="flow-desc">O dado chega limpo no Google, Meta e TikTok. O custo por lead cai.</p>
+                        <span class="badge-pill badge-green">Conversão Salva</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="performance" style="padding: 100px 0; position: relative; overflow: hidden;">
+            <div
+                style="position: absolute; top: 20%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, transparent 70%); filter: blur(60px); z-index: -1;">
+            </div>
+
+            <div class="container">
+                <div class="perf-grid">
+                    <div class="perf-content fade-up">
+                        <span class="tag-highlight" style="color:var(--sucesso);">Google Core Vitals</span>
+                        <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; line-height: 1.1;">
+                            Seu site carregando em <br>
+                            <span style="color:var(--sucesso);">menos de 1 segundo.</span>
+                        </h2>
+                        <p style="margin-bottom: 2rem;">
+                            Velocidade não é luxo, é ranqueamento. Sites lentos pagam mais caro no clique.
+                            Minha estrutura é otimizada para pontuar <strong>90+ no Google PageSpeed</strong>.
+                        </p>
+                        <ul class="list-check" style="margin-bottom: 2rem;">
+                            <li>Otimização de Imagens (WebP Next-Gen)</li>
+                            <li>Código limpo (Sem plugins inúteis)</li>
+                            <li>Cache em Servidor Edge (CDN Global)</li>
+                            <li>SEO Técnico pronto para ranquear</li>
+                        </ul>
+                        <a href="#agenda" class="btn btn-secondary" style="width: auto; padding: 0.8rem 2rem;">
+                            Quero um site rápido ⚡
+                        </a>
+                    </div>
+
+                    <div class="perf-visual fade-up">
+                        <div class="speed-card">
+                            <div class="speed-header">
+                                <div class="dots"><span></span><span></span><span></span></div>
+                                <span style="font-size: 0.8rem; color: #666;">Relatório de Performance</span>
+                            </div>
+                            <div class="gauges-container">
+                                <div class="gauge-wrapper">
+                                    <div class="gauge-circle">
+                                        <svg viewBox="0 0 36 36" class="circular-chart green">
+                                            <path class="circle-bg"
+                                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                            <path class="circle" stroke-dasharray="0, 100"
+                                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                            <text x="18" y="20.35" class="percentage" id="score-mobile">0</text>
+                                        </svg>
+                                    </div>
+                                    <span class="gauge-label">Mobile</span>
+                                </div>
+                                <div class="gauge-wrapper">
+                                    <div class="gauge-circle">
+                                        <svg viewBox="0 0 36 36" class="circular-chart green">
+                                            <path class="circle-bg"
+                                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                            <path class="circle" stroke-dasharray="0, 100"
+                                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                            <text x="18" y="20.35" class="percentage" id="score-desktop">0</text>
+                                        </svg>
+                                    </div>
+                                    <span class="gauge-label">Desktop</span>
+                                </div>
+                            </div>
+                            <div class="metrics-row">
+                                <div class="metric"><span class="metric-val">0.8s</span><span class="metric-name">LCP
+                                        (Load)</span></div>
+                                <div class="metric"><span class="metric-val">0ms</span><span
+                                        class="metric-name">Blocking</span></div>
+                                <div class="metric"><span class="metric-val">0.01</span><span class="metric-name">CLS
+                                        (Shift)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <section id="portfolio" style="padding: 100px 0;">
             <div class="container">
@@ -597,13 +1143,11 @@
                     <h2>Investimento & Serviços</h2>
                     <p>Transparência total. Selecione a modalidade:</p>
                 </div>
-
                 <div class="toggle-container fade-up">
                     <div class="toggle-pill">
                         <button class="toggle-btn active" onclick="switchPlan('unico')">Planos</button>
                     </div>
                 </div>
-
                 <div id="plan-unico" class="price-grid grid-3 active fade-up">
                     <div class="card" style="border-color:var(--roxo); box-shadow:0 0 20px rgba(139,92,246,0.1);">
                         <div class="card-content-inner">
@@ -619,7 +1163,6 @@
                                 class="btn btn-secondary" id="btn-wpp-auditoria">Contratar</a>
                         </div>
                     </div>
-
                     <div class="card"
                         style="border-color:var(--amarelo); background: linear-gradient(180deg, rgba(255,199,0,0.05), rgba(20,20,20,0.6));">
                         <div class="card-content-inner">
@@ -640,7 +1183,6 @@
                                 class="btn btn-primary" id="btn-wpp-anti-perda-de-leads">Contratar</a>
                         </div>
                     </div>
-
                     <div class="card" style="border-color:var(--roxo); box-shadow:0 0 20px rgba(139,92,246,0.1);">
                         <div class="card-content-inner">
                             <span class="tag-highlight" style="color:var(--roxo)">UPSELL</span>
@@ -682,7 +1224,8 @@
                 <form id="form-rodape" class="fade-up">
                     <input type="text" name="nome" class="form-input" placeholder="Seu Nome" required>
                     <input type="email" name="email" class="form-input" placeholder="Seu E-mail Corporativo" required>
-                    <input type="tel" name="telefone" class="form-input" placeholder="Telefone (11) 99999-9999" required>
+                    <input type="tel" name="telefone" class="form-input" placeholder="Telefone (11) 99999-9999"
+                        required>
                     <textarea name="mensagem" class="form-input" placeholder="Como posso ajudar seu negócio?"
                         style="min-height:150px" required></textarea>
                     <button type="submit" class="btn btn-primary">Enviar Mensagem 🚀</button>
@@ -712,30 +1255,24 @@
     <script>
         window.dataLayer = window.dataLayer || [];
 
-        // 1. DETECÇÃO MOBILE (A chave para parar de travar)
+        // 1. DETECÇÃO MOBILE & SCROLL LOGIC
         const isMobile = window.innerWidth <= 768;
-
-        // 2. LÓGICA HERO 3D (DESATIVADA NO MOBILE)
         const heroContent = document.getElementById('heroContent');
 
         if (!isMobile) {
-            // Só executa o listener de scroll no Desktop
             window.addEventListener('scroll', () => {
-                requestAnimationFrame(() => { // Performance Booster
+                requestAnimationFrame(() => {
                     const scroll = window.scrollY;
                     if (scroll < window.innerHeight) {
                         const scale = 1 + (scroll * 0.0003);
                         const opacity = 1 - (scroll * 0.0015);
-
                         heroContent.style.transform = `scale(${scale}) translateY(${scroll * 0.3}px)`;
                         heroContent.style.opacity = opacity > 0 ? opacity : 0;
                     }
                 });
             });
-        }
 
-        // 3. EFEITO DE LUZ (MOUSE FOLLOW) - Otimizado para Desktop
-        if (!isMobile) {
+            // MOUSE FOLLOW EFFECT (Cards)
             const cards = document.querySelectorAll('.card');
             document.addEventListener('mousemove', (e) => {
                 requestAnimationFrame(() => {
@@ -748,14 +1285,14 @@
             });
         }
 
-        // 4. NAVBAR GLASS
+        // 2. NAVBAR SCROLL
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 50) nav.classList.add('scrolled');
             else nav.classList.remove('scrolled');
         });
 
-        // 5. ANIMAÇÃO DE ENTRADA (FADE UP)
+        // 3. ANIMAÇÃO DE ENTRADA (FADE UP)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -766,106 +1303,108 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-        // 6. TOGGLE DE PREÇOS
+        // 4. TOGGLE MENU & PRICES
         function switchPlan(plan) {
             document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.price-grid').forEach(grid => grid.classList.remove('active'));
-
             const btns = document.querySelectorAll('.toggle-btn');
             if (plan === 'unico') btns[0].classList.add('active');
             else btns[1].classList.add('active');
-
             document.getElementById(`plan-${plan}`).classList.add('active');
         }
 
-        // 7. MENU MOBILE
-        function toggleMenu() {
-            document.getElementById('navMenu').classList.toggle('active');
-        }
-
+        function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
         document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
 
-    <!-- --- TRACKER --- -->
-    <script>
+        // 5. TRACKER DE FORM E WHATSAPP
         document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('contactForm');
+            const form = document.getElementById('form-rodape'); // Corrigido ID
             const modal = document.getElementById('modalSucesso');
             function fecharModal() { modal.classList.remove('active'); }
-            // --- FUNÇÃO PARA FORMULÁRIOS NÃO MEXER---
+
             function rastrearForm(idFormulario, nomeOrigem) {
-                const form = document.getElementById(idFormulario);
-                if (!form) return;
-
-                form.addEventListener('submit', (e) => {
+                const formEl = document.getElementById(idFormulario);
+                if (!formEl) return;
+                formEl.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    const btn = form.querySelector('button');
+                    const btn = formEl.querySelector('button');
                     const originalText = btn.textContent;
-
                     btn.textContent = "Processando...";
                     btn.style.opacity = "0.7";
 
-                    const formData = new FormData(form);
+                    const formData = new FormData(formEl);
                     const dados = {};
                     formData.forEach((v, k) => dados[k] = v);
-
                     dados.origem = nomeOrigem;
 
-                    if (window.ConstConv) {
-                        ConstConv.send('constconv-contactform-submit', dados);
-                    }
+                    if (window.ConstConv) ConstConv.send('constconv-contactform-submit', dados);
+
                     setTimeout(() => {
                         btn.textContent = originalText;
                         btn.style.opacity = "1";
-                        form.reset();
+                        formEl.reset();
                         modal.classList.add('active');
                         setTimeout(fecharModal, 4000);
                     }, 1000);
                 });
             }
 
-            // --- FUNÇÃO PARA WHATSAPP NÃO MEXER---
             function rastrearWpp(idBotao, nomeOrigem) {
                 const btn = document.getElementById(idBotao);
                 if (!btn) return;
-
                 btn.addEventListener('click', () => {
-                    if (window.ConstConv) {
-                        ConstConv.send('constconv-wpp', { origem: nomeOrigem });
-                    }
+                    if (window.ConstConv) ConstConv.send('constconv-wpp', { origem: nomeOrigem });
                 });
             }
 
-            // === CONFIGURAÇÃO DO CLIENTE ===
             rastrearForm('form-rodape', 'Formulário do Rodapé');
-
             rastrearWpp('btn-wpp-anti-perda-de-leads', 'WhatsApp Card Anti-Perda de Leads');
             rastrearWpp('btn-wpp-auditoria', 'WhatsApp Card Auditoria');
             rastrearWpp('btn-wpp-flutuante', 'WhatsApp Flutuante');
+        });
 
+        // 6. ANIMAÇÃO DE PERFORMANCE (O "VOCÊ" NO CÓDIGO)
+        document.addEventListener("DOMContentLoaded", function () {
+            const perfSection = document.getElementById('performance');
+            let animated = false;
+
+            const observerPerf = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !animated) {
+                        animated = true;
+
+                        // Animar Stroke do SVG
+                        const circles = document.querySelectorAll('.circle');
+                        if (circles.length >= 2) {
+                            circles[0].style.strokeDasharray = "96, 100"; // Mobile
+                            circles[1].style.strokeDasharray = "100, 100"; // Desktop
+                        }
+
+                        // Animar Números
+                        animateValue("score-mobile", 0, 96, 2000);
+                        animateValue("score-desktop", 0, 100, 2000);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            if (perfSection) observerPerf.observe(perfSection);
+
+            function animateValue(id, start, end, duration) {
+                const obj = document.getElementById(id);
+                if (!obj) return;
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
         });
     </script>
-
-    <style>
-        @keyframes bounce {
-
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateY(0);
-            }
-
-            40% {
-                transform: translateY(-10px);
-            }
-
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-    </style>
 </body>
 
 </html>
