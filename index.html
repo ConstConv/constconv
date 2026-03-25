@@ -1149,71 +1149,6 @@
             </div>
         </section>
 
-        <section id="servicos"
-            style="padding: 100px 0; background: linear-gradient(to bottom, transparent, rgba(20,20,20,0.8));">
-            <div class="container">
-                <div style="text-align:center; margin-bottom:3rem;" class="fade-up">
-                    <h2>Investimento & Serviços</h2>
-                    <p>Transparência total. Selecione a modalidade:</p>
-                </div>
-                <div class="toggle-container fade-up">
-                    <div class="toggle-pill">
-                        <button class="toggle-btn active" onclick="switchPlan('unico')">Planos</button>
-                    </div>
-                </div>
-                <div id="plan-unico" class="price-grid grid-3 active fade-up">
-                    <div class="card" style="border-color:var(--roxo); box-shadow:0 0 20px rgba(139,92,246,0.1);">
-                        <div class="card-content-inner">
-                            <h3>Auditoria de Perda de Leads</h3>
-                            <div class="price-val">R$ 97<span>/único</span></div>
-                            <ul class="list-check">
-                                <li>Análise técnica do site ou landing atual</li>
-                                <li>Verificação de bloqueios (iOS, AdBlock, navegador)</li>
-                                <li>Relatório explicativo em PDF + call de 15 min pra explicar o resultado</li>
-                                <li>Diagnóstico claro e sem termos técnicos</li>
-                            </ul>
-                            <a href="https://api.whatsapp.com/send/?phone=5511955203133&text=Quero+a+AUDITORIA+de+Perda+de+Leads+%28R%2497%29.+Meu+site%3A+%5BCOLE_AQUI%5D&type=phone_number&app_absent=0"
-                                class="btn btn-secondary" id="btn-wpp-auditoria">Contratar</a>
-                        </div>
-                    </div>
-                    <div class="card"
-                        style="border-color:var(--amarelo); background: linear-gradient(180deg, rgba(255,199,0,0.05), rgba(20,20,20,0.6));">
-                        <div class="card-content-inner">
-                            <span class="tag-highlight">Produto Principal</span>
-                            <h3>Sistema Anti-Perda de Leads™</h3>
-                            <div class="price-val">R$ 997<span>/projeto</span></div>
-                            <ul class="list-check">
-                                <li>Mensalidade: R$ 397</li>
-                                <li>Landing Page Otimizada para Conversão</li>
-                                <li>Formulário blindado (server-side)</li>
-                                <li>Captura de Leads, reduz perdas por iOS/AdBlock</li>
-                                <li>Painel de Leads em tempo real</li>
-                                <li>Integração com anúncios (Google Ads, Meta Ads e TikTok Ads)</li>
-                                <li>Infra completa (domínio, SSL e hospedagem)</li>
-                                <li>Suporte e manutenção</li>
-                            </ul>
-                            <a href="https://api.whatsapp.com/send/?phone=5511955203133&text=Quero+implantar+o+Sistema+Anti-Perda+de+Leads.+Meu+site%3A+%5BCOLE_AQUI%5D+%7C+Anuncio+em%3A+Meta%2FGoogle%2FTikTok&type=phone_number&app_absent=0"
-                                class="btn btn-primary" id="btn-wpp-anti-perda-de-leads">Contratar</a>
-                        </div>
-                    </div>
-                    <div class="card" style="border-color:var(--roxo); box-shadow:0 0 20px rgba(139,92,246,0.1);">
-                        <div class="card-content-inner">
-                            <span class="tag-highlight" style="color:var(--roxo)">UPSELL</span>
-                            <h3>Gestão de Tráfego</h3>
-                            <div class="price-val">R$ 620<span>/mensal (a partir)</span></div>
-                            <ul class="list-check">
-                                <li>Somente para clientes com o sistema Anti-Perda de Leads™</li>
-                                <li><strong>Google Ads</strong></li>
-                                <li><strong>Meta Ads</strong></li>
-                                <li><strong>TikTok Ads</strong></li>
-                            </ul>
-                            <a href="#contato" class="btn btn-purple">Contratar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section id="agenda" style="padding: 100px 0; background:#0a0a0a;">
             <div class="container">
                 <div style="text-align:center; margin-bottom:3rem;" class="fade-up">
@@ -1225,24 +1160,6 @@
                     <iframe src="https://cal.com/const-conv?theme=dark" style="width: 100%; height: 100%; border: none;"
                         title="Agende sua call"></iframe>
                 </div>
-            </div>
-        </section>
-
-        <section id="contato" style="padding: 100px 0;">
-            <div class="container" style="max-width: 600px;">
-                <div style="text-align:center; margin-bottom:3rem;" class="fade-up">
-                    <h2>Mensagem Direta</h2>
-                    <p>Preencha os dados abaixo.</p>
-                </div>
-                <form id="form-rodape" class="fade-up">
-                    <input type="text" name="nome" class="form-input" placeholder="Seu Nome" required>
-                    <input type="email" name="email" class="form-input" placeholder="Seu E-mail Corporativo" required>
-                    <input type="tel" name="telefone" class="form-input" placeholder="Telefone (11) 99999-9999"
-                        required>
-                    <textarea name="mensagem" class="form-input" placeholder="Como posso ajudar seu negócio?"
-                        style="min-height:150px" required></textarea>
-                    <button type="submit" class="btn btn-primary">Enviar Mensagem 🚀</button>
-                </form>
             </div>
         </section>
 
@@ -1264,7 +1181,6 @@
         </svg>
     </a>
 
-    <script src="https://app.constconv.agency/tracker.js?id=constconv" async></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -1330,52 +1246,6 @@
         function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // 5. TRACKER DE FORM E WHATSAPP
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('form-rodape');
-            const modal = document.getElementById('modalSucesso');
-            function fecharModal() { modal.classList.remove('active'); }
-
-            function rastrearForm(idFormulario, nomeOrigem) {
-                const formEl = document.getElementById(idFormulario);
-                if (!formEl) return;
-                formEl.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const btn = formEl.querySelector('button');
-                    const originalText = btn.textContent;
-                    btn.textContent = "Processando...";
-                    btn.style.opacity = "0.7";
-
-                    const formData = new FormData(formEl);
-                    const dados = {};
-                    formData.forEach((v, k) => dados[k] = v);
-                    dados.origem = nomeOrigem;
-
-                    if (window.ConstConv) ConstConv.send('constconv-contactform-submit', dados);
-
-                    setTimeout(() => {
-                        btn.textContent = originalText;
-                        btn.style.opacity = "1";
-                        formEl.reset();
-                        modal.classList.add('active');
-                        setTimeout(fecharModal, 4000);
-                    }, 1000);
-                });
-            }
-
-            function rastrearWpp(idBotao, nomeOrigem) {
-                const btn = document.getElementById(idBotao);
-                if (!btn) return;
-                btn.addEventListener('click', () => {
-                    if (window.ConstConv) ConstConv.send('constconv-wpp', { origem: nomeOrigem });
-                });
-            }
-
-            rastrearForm('form-rodape', 'Formulário do Rodapé');
-            rastrearWpp('btn-wpp-anti-perda-de-leads', 'WhatsApp Card Anti-Perda de Leads');
-            rastrearWpp('btn-wpp-auditoria', 'WhatsApp Card Auditoria');
-            rastrearWpp('btn-wpp-flutuante', 'WhatsApp Flutuante');
-        });
 
         // 6. ANIMAÇÃO DE PERFORMANCE
         document.addEventListener("DOMContentLoaded", function () {
